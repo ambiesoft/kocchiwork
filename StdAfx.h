@@ -8,8 +8,12 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <windows.h>
+#include <tchar.h>
 
+#include <string>
+using namespace std;
 
+#define APP_NAME _T("kocchiwork")
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++
