@@ -31,6 +31,7 @@ using namespace std;
 enum {
 	WM_APP_TRAY_NOTIFY = (WM_APP+1),
 	WM_APP_LACHANGED,
+	WM_APP_APPKANHIDONE,
 };
 
 //{{AFX_INSERT_LOCATION}}

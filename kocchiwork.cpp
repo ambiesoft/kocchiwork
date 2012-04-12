@@ -6,6 +6,10 @@
 
 #include "thread.h"
 #include "err.h"
+
+#include "../MyUtility/StdStringReplace.h"
+#include "../MyUtility/IsFileExists.h"
+
 void ReturnFileAndQuit(HWND hWnd);
 
 HICON g_hTrayIcon;
@@ -50,6 +54,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	case WM_APP_LACHANGED:
 		{
 			ReturnFileAndQuit(hWnd);
+		}
+		break;
+	case WM_APP_APPKANHIDONE:
+		{
+			PostQuitMessage(0);
 		}
 		break;
 	case WM_COMMAND:
@@ -111,101 +120,26 @@ int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, WIN32_FIND_DATA* p2)
 	return ret;
 }
 
-BOOL gBusy;
-void ReturnFileAndQuit(HWND hWnd)
-{
-	if(gBusy)
-		return;
 
-	HANDLE hFile = CreateFile (g_workfile.c_str(), 
-		GENERIC_READ, 
-		0, 
-		NULL, 
-		OPEN_EXISTING, 
-		FILE_ATTRIBUTE_NORMAL, 
-		NULL);
-	if(hFile==INVALID_HANDLE_VALUE)
-		return;
-
-	CloseHandle(hFile);
-
-	struct BUSYBACKER {
-		BOOL* pb_;
-		BUSYBACKER(BOOL* pb) {
-			*pb = TRUE;
-			pb_ = pb;
-		}
-		~BUSYBACKER() {
-			*pb_ = FALSE;
-		}
-	} busybacker(&gBusy);
-
-	tstring message;
-	message += NS("The File was changed. Do you want to move the changed file back to the original location?");
-	message += _T("\r\n\r\n");
-
-
-	message += NS("copy source :") + g_workfile;
-	message += _T("\r\n");
-	message += NS("copy destination :") + g_remotefile;
-
-	if(IDYES != MessageBox(
-		NULL, 
-		message.c_str(), 
-		APP_NAME, 
-		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_DEFBUTTON2|MB_YESNO))
-	{
-		return;
-	}
-
-	if(PathFileExists(g_remotefile.c_str()))
-	{
-		WIN32_FIND_DATA wfdRemoteNow;
-		if(!GetFileData(g_remotefile.c_str(), &wfdRemoteNow))
-		{
-			errExit(NS("could not obtain remote file time"), GetLastError(), TRUE);
-			return;
-		}
-
-		BOOL bChanged = CompareSizeAndLastWrite(&g_wfdRemote, &wfdRemoteNow) != 0;
-
-		if(bChanged)
-		{
-			tstring message;
-			message = NS("Operation canceled.");
-			message += _T("\r\n");
-			message += NS("The source file information and preserved one is different.");
-			message += _T("\r\n");
-			message += _T("\r\n");
-			message += NS("If you want to continue, delete or rename source file first and try again.");
-
-			MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONWARNING);
-			return;
-		}
-	}
-
-	if(!MoveFileEx( g_workfile.c_str(), g_remotefile.c_str(), 
-		MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH ) )
-	{
-		errExit(NS("could not move file"), GetLastError());
-	}
-	
-	PostQuitMessage(0);
-}
-int APIENTRY WinMain(HINSTANCE hInstance,
+int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
-                     LPSTR     lpCmdLine,
+                     LPTSTR     lpCmdLine,
                      int       nCmdShow )
 {
+	const BOOL bAppKanshi = TRUE;
 	if(__argc==1)
 	{
 		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
+		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
+		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
+		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
 		// g_remotefile = _T("C:\\Documents and Settings\\dualin\\SendTo\\kocchiwork.lnk");
 	}
 	else
 	{
 		g_remotefile = __targv[1];
 	}
+
 
 	const tstring thisdir = GetModuleDirectory(NULL);
 	if(thisdir.empty() || !IsDirectory(thisdir.c_str()))
@@ -237,6 +171,28 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		g_workfile = workdir + _T("\\") + pFile;
 	}
 	
+	if(!IsFileExists(g_remotefile.c_str()))
+		errExit(NS("not a file"));
+
+	// https://docs.google.com/drawings/d/171nPifJEXYmXnLLvF5a0jnlqW7wIj0yOd2Yw7XUQhu4/edit
+	{
+		if(g_remotefile.length() >= MAX_PATH)
+			errExit(NS("file name too long"));
+
+		LPTSTR pDup = _tcsdup(g_remotefile.c_str());
+		_tcslwr(pDup);
+		tstring mutexname = pDup;
+		free(pDup);pDup=NULL;
+		StdStringReplace(mutexname, _T("\\"), _T("_"));
+		if(!CreateMutex(NULL, TRUE, mutexname.c_str()))
+			errExit(NS("CreateMutex failed"), GetLastError());
+
+		if(GetLastError()==ERROR_ALREADY_EXISTS)
+		{
+			errExit(NS("This file is currently opened"));
+		}
+	}
+
 	if(g_remotefile[0]==_T('\\') && g_remotefile[1]==_T('\\') )
 	{
 	}
@@ -263,7 +219,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	if(PathFileExists(g_workfile.c_str()))
 	{
 		tstring message = g_workfile;
-		message += " ";
+		message += _T(" ");
 		message += NS("already exists.");
 		message += _T("\r\n\r\n");
 		message += NS("Do you want to trash it and copy remote file?");
@@ -300,7 +256,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	sei.lpFile = g_workfile.c_str();
 	sei.nShow = SW_SHOW;
 //	sei.hInstApp = GetModuleHandle(NULL);
-//	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
+	if(bAppKanshi)
+		sei.fMask = SEE_MASK_NOCLOSEPROCESS;
 	{
 		tstring dir = GetDirFromPath(g_workfile.c_str());
 		sei.lpDirectory = dir.c_str();
@@ -319,35 +276,58 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		}
 	}
 
+	BOOL bNoKanshi = FALSE;
+	if(bAppKanshi)
+	{
+		DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
+		DWORD dwPI = WaitForSingleObject(sei.hProcess,5*1000);
+		if(dwIW != 0 || dwPI==0 )
+		{
+			bNoKanshi = TRUE;
+		}
+	}
 	g_hWnd = CreateSimpleWindow(GetModuleHandle(NULL), _T("kocchiwork class"), _T(""), WndProc);
 	if(!g_hWnd)
-		errExit("could not create a winoow");
+		errExit(NS("could not create a winoow"));
 
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
 	SetTrayIcon(g_hWnd, NIM_ADD, WM_APP_TRAY_NOTIFY, g_hTrayIcon, _T("TIP"));
 
 
-	threadData td;
-	td.hDie_ = CreateEvent(NULL, FALSE, FALSE, NULL);
-	if(!td.hDie_)
-		errExit(NS("could not create event"), GetLastError());
-	td.hWnd_ = g_hWnd;
-	td.ftWork_ = g_wfdWork.ftLastAccessTime;
-	td.pWorkingFile_ = g_workfile.c_str();
+	HANDLE hThreadDie = NULL;
+	HANDLE hThread = NULL;
+	if(bNoKanshi)
+	{
+		errExit(NS("App might be quitted. Watching is disabled. After editing the local document, quit this manually."), -1, TRUE);
+	}
+	else
+	{
+		hThreadDie = CreateEvent(NULL, FALSE, FALSE, NULL);
+		threadData td;
+		td.hDie_ = hThreadDie;
+		if(!td.hDie_)
+			errExit(NS("could not create event"), GetLastError());
+		td.hWnd_ = g_hWnd;
+		td.ftWork_ = g_wfdWork.ftLastAccessTime;
+		td.pWorkingFile_ = g_workfile.c_str();
+		td.bAppKanshi_ = bAppKanshi;
+		td.hApp_ = sei.hProcess;
+		hThread = (HANDLE)_beginthreadex(
+			NULL,
+			0, 
+			kanshi,
+			(void*)&td,
+			CREATE_SUSPENDED, 
+			NULL);
 
-	HANDLE hThread = (HANDLE)_beginthreadex(
-		NULL,
-		0, 
-		kanshi,
-		(void*)&td,
-		CREATE_SUSPENDED, 
-		NULL);
+		if ( hThread == 0 )
+			errExit(NS("could not create a thread"));
 
-	if ( hThread == 0 )
-		errExit(NS("could not create a thread"));
 
-	if(1!=ResumeThread(hThread))
-		errExit(NS("could not resume thread"));
+
+		if(1!=ResumeThread(hThread))
+			errExit(NS("could not resume thread"));
+	}
 	
 	MSG msg;
 	while( GetMessage(&msg, NULL, 0, 0) ) 
@@ -359,10 +339,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		}
 	}
 
-	if(!SetEvent(td.hDie_))
+	if(sei.hProcess)
+		CloseHandle(sei.hProcess);
+
+	if(hThreadDie && !SetEvent(hThreadDie))
 		errExit(NS("could not SetEvent"), GetLastError());
 
-	WaitForSingleObject(hThread, INFINITE);
+	if(hThread)
+		WaitForSingleObject(hThread, INFINITE);
 
 	if(PathFileExists(g_workfile.c_str()))
 	{
@@ -377,7 +361,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			tstring message;
 			message = NS("File not changed. Do you want to delete the copied file?");
 			if(IDYES==MessageBox(NULL, message.c_str(), APP_NAME, 
-				MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
+				MB_SYSTEMMODAL| MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
 			{
 				if(!SHDeleteFile(g_workfile.c_str()))
 					errExit(NS("could not trash file. exiting."));
