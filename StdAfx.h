@@ -33,6 +33,8 @@ enum {
 	WM_APP_LACHANGED,
 	WM_APP_APPKANHIDONE,
 };
+#define CRLF _T("\r\n")
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++

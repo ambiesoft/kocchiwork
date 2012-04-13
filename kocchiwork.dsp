@@ -1,26 +1,26 @@
 # Microsoft Developer Studio Project File - Name="kocchiwork" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** 編集しないでください **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
 CFG=kocchiwork - Win32 UnicodeDebug
-!MESSAGE これは有効なﾒｲｸﾌｧｲﾙではありません。 このﾌﾟﾛｼﾞｪｸﾄをﾋﾞﾙﾄﾞするためには NMAKE を使用してください。
-!MESSAGE [ﾒｲｸﾌｧｲﾙのｴｸｽﾎﾟｰﾄ] ｺﾏﾝﾄﾞを使用して実行してください
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "kocchiwork.mak".
 !MESSAGE 
-!MESSAGE NMAKE の実行時に構成を指定できます
-!MESSAGE ｺﾏﾝﾄﾞ ﾗｲﾝ上でﾏｸﾛの設定を定義します。例:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "kocchiwork.mak" CFG="kocchiwork - Win32 UnicodeDebug"
 !MESSAGE 
-!MESSAGE 選択可能なﾋﾞﾙﾄﾞ ﾓｰﾄﾞ:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "kocchiwork - Win32 Release" ("Win32 (x86) Application" 用)
-!MESSAGE "kocchiwork - Win32 Debug" ("Win32 (x86) Application" 用)
-!MESSAGE "kocchiwork - Win32 UnicodeDebug" ("Win32 (x86) Application" 用)
-!MESSAGE "kocchiwork - Win32 UnicodeRelease" ("Win32 (x86) Application" 用)
+!MESSAGE "kocchiwork - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "kocchiwork - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "kocchiwork - Win32 UnicodeDebug" (based on "Win32 (x86) Application")
+!MESSAGE "kocchiwork - Win32 UnicodeRelease" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project

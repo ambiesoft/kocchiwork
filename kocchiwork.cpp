@@ -83,22 +83,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 }
 
 
-
-BOOL SetTrayIcon(HWND hWnd, DWORD dwMessage, UINT uID, HICON hIcon, LPCTSTR pszTip)
+void Untray()
 {
-
-	NOTIFYICONDATA tnd = {0};
-	tnd.cbSize = sizeof(tnd);
-	tnd.hWnd = hWnd;
-	tnd.uID	= uID;
-	tnd.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
-	tnd.uCallbackMessage = WM_APP_TRAY_NOTIFY;
-	tnd.hIcon = hIcon;
-	if( pszTip )
-		lstrcpy(tnd.szTip, pszTip);
-
-
-	return Shell_NotifyIcon(dwMessage, &tnd);
+	RemoveTrayIcon(g_hWnd, WM_APP_TRAY_NOTIFY);
 }
 
 int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, WIN32_FIND_DATA* p2)
@@ -131,8 +118,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
 		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
-		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
-		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
+//		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
+//		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
 		// g_remotefile = _T("C:\\Documents and Settings\\dualin\\SendTo\\kocchiwork.lnk");
 	}
 	else
@@ -172,7 +159,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 	
 	if(!IsFileExists(g_remotefile.c_str()))
-		errExit(NS("not a file"));
+	{
+		tstring message = g_remotefile.c_str();
+		message += _T(" ");
+		message += NS("is not a file.");
+		errExit(message.c_str());
+	}
 
 	// https://docs.google.com/drawings/d/171nPifJEXYmXnLLvF5a0jnlqW7wIj0yOd2Yw7XUQhu4/edit
 	{
@@ -189,7 +181,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if(GetLastError()==ERROR_ALREADY_EXISTS)
 		{
-			errExit(NS("This file is currently opened"));
+			tstring message = NS("This file is currently opened");
+			message += CRLF;
+			message += g_remotefile.c_str();
+			errExit(message.c_str());
 		}
 	}
 
@@ -264,10 +259,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 	if(!ShellExecuteEx(&sei)) 
 	{
+		tstring message = NS("Execute failed. Do you want to remove the copied file?");
+		message += CRLF;
+		message += g_workfile.c_str();
 		if(IDYES == MessageBox(NULL,
-			NS("Execute failed. Do you want to remove the copied file?"),
+			message.c_str(),
 			APP_NAME,
-			MB_ICONQUESTION|MB_YESNO))
+			MB_ICONWARNING|MB_YESNO))
 		{
 			if(!SHDeleteFile(g_workfile.c_str()))
 				errExit(NS("could not trash file"));
@@ -291,7 +289,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		errExit(NS("could not create a winoow"));
 
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-	SetTrayIcon(g_hWnd, NIM_ADD, WM_APP_TRAY_NOTIFY, g_hTrayIcon, _T("TIP"));
+	tstring traytip = NS("watching");
+	traytip += _T(" ");
+	traytip += g_workfile.c_str();
+	if(!AddTrayIcon(
+		g_hWnd, 
+		WM_APP_TRAY_NOTIFY, 
+		g_hTrayIcon, 
+		traytip.c_str()))
+	{
+		errExit(NS("could not register tray icon."),GetLastError());
+	}
+	if(0!=atexit(Untray))
+		errExit(NS("atexit failed."), errno);
 
 
 	HANDLE hThreadDie = NULL;
@@ -360,6 +370,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		{
 			tstring message;
 			message = NS("File not changed. Do you want to delete the copied file?");
+			message += CRLF;
+			message += g_workfile.c_str();
 			if(IDYES==MessageBox(NULL, message.c_str(), APP_NAME, 
 				MB_SYSTEMMODAL| MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
 			{
@@ -373,7 +385,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 	RemoveDirectory(workdir.c_str());
-	SetTrayIcon(g_hWnd, NIM_DELETE, WM_APP_TRAY_NOTIFY, g_hTrayIcon, _T("TIP"));
 	DestroyIcon(g_hTrayIcon);
 	return msg.wParam;
 }
