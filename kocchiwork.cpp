@@ -24,8 +24,31 @@ DWORD g_dwRemoteSize;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
+	static UINT sTaskBarCreated;
+	if(nMsg >= 0xC000 && nMsg == sTaskBarCreated)
+	{
+		tstring traytip = NS("watching");
+		traytip += _T(" ");
+		traytip += g_workfile.c_str();
+		if(!AddTrayIcon(
+			g_hWnd, 
+			WM_APP_TRAY_NOTIFY, 
+			g_hTrayIcon, 
+			traytip.c_str()))
+		{
+			errExit(NS("could not register tray icon."),GetLastError());
+		}
+		return 0;
+	}
+
 	switch(nMsg)
 	{
+	case WM_CREATE:
+		{
+			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
+		}
+		break;
+
 	case WM_APP_TRAY_NOTIFY:
 		switch(lParam)
 		{
