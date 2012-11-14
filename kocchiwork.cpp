@@ -270,7 +270,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	SHELLEXECUTEINFO sei = {0};
 	sei.cbSize = sizeof(sei);
-	sei.lpVerb = _T("open");
+	sei.lpVerb = NULL; // _T("open");
 	sei.lpFile = g_workfile.c_str();
 	sei.nShow = SW_SHOW;
 //	sei.hInstApp = GetModuleHandle(NULL);
