@@ -6,6 +6,8 @@
 #define IDC_START                       40001
 #define IDC_ABOUT                       40002
 #define IDC_QUIT                        40003
+#define IDC_REOPENFILE					40004
+#define IDC_OPENWITHEXPLORER			40005
 #define IDC_LAST                        40500
 
 // Next default values for new objects

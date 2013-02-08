@@ -58,6 +58,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				HMENU hSubMenu = CreatePopupMenu();
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_START, NS("TEST"));
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_REOPENFILE, NS("&Reopen"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENWITHEXPLORER, NS("&Open with Explorer"));
+				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_ABOUT, NS("&About"));
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_QUIT, NS("&Exit"));
 
@@ -94,6 +97,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		case IDC_QUIT:
 			DestroyWindow(hWnd);
 			PostQuitMessage(0);
+			break;
+
+		case IDC_REOPENFILE:
+			{
+				SHELLEXECUTEINFO sei = {0};
+				sei.cbSize = sizeof(sei);
+				sei.lpVerb = NULL;
+				sei.lpFile = g_workfile.c_str();
+				sei.nShow = SW_SHOW;
+				tstring dir = GetDirFromPath(g_workfile.c_str());
+				sei.lpDirectory = dir.c_str();
+				if(!ShellExecuteEx(&sei)) 
+				{
+				}
+			}
+			break;
+
+		case IDC_OPENWITHEXPLORER:
+			{
+				tstring param = _T("/select,");
+				param += g_workfile;
+				ShellExecute(NULL, _T("open"), _T("Explorer"), param.c_str(), NULL, SW_SHOW);
+			}
 			break;
 		}
 		break;
@@ -398,8 +424,22 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			if(IDYES==MessageBox(NULL, message.c_str(), APP_NAME, 
 				MB_SYSTEMMODAL| MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
 			{
-				if(!SHDeleteFile(g_workfile.c_str()))
-					errExit(NS("could not trash file. exiting."));
+				BOOL done = FALSE;
+				while(!done)
+				{
+					done=TRUE;
+					if(!SHDeleteFile(g_workfile.c_str(), TRUE))
+					{
+						done=FALSE;
+						if(IDCANCEL==MessageBox(NULL,
+							NS("Failed to delete file"),
+							APP_NAME,
+							MB_SYSTEMMODAL|MB_DEFBUTTON1|MB_ICONEXCLAMATION|MB_RETRYCANCEL))
+						{
+							errExit(NS("could not trash file. exiting."));
+						}
+					}
+				} 
 			}
 		}
 		else if(nCmp > 0)
