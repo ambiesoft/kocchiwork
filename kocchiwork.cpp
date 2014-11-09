@@ -165,11 +165,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	const BOOL bAppKanshi = TRUE;
 	if(__argc==1)
 	{
-		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
-		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
+//		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
+//		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
-		// g_remotefile = _T("C:\\Documents and Settings\\dualin\\SendTo\\kocchiwork.lnk");
+		errExit(NS("Fatal : No File Specified"));
 	}
 	else
 	{
@@ -326,9 +326,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	BOOL bNoKanshi = FALSE;
 	if(bAppKanshi)
 	{
-		DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
+		// DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
 		DWORD dwPI = WaitForSingleObject(sei.hProcess,5*1000);
-		if(dwIW != 0 || dwPI==0 )
+		//if(dwIW != 0 || dwPI==0 )
+		if(dwPI==0 )
 		{
 			bNoKanshi = TRUE;
 		}
