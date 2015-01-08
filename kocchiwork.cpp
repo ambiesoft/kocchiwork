@@ -326,10 +326,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	BOOL bNoKanshi = FALSE;
 	if(bAppKanshi)
 	{
-		// DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
+		DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
 		DWORD dwPI = WaitForSingleObject(sei.hProcess,5*1000);
-		//if(dwIW != 0 || dwPI==0 )
-		if(dwPI==0 )
+		if(dwIW != 0 || dwPI==0 )
+		//if(dwPI==0 )
 		{
 			bNoKanshi = TRUE;
 		}
