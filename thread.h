@@ -4,8 +4,8 @@ struct threadData {
 
 	FILETIME ftWork_;
 	LPCTSTR pWorkingFile_;
-	BOOL bAppKanshi_;
-	HANDLE hApp_;
+	// BOOL bAppKanshi_;
+	// HANDLE hApp_;
 };
 
 unsigned  __stdcall kanshi(void * p);

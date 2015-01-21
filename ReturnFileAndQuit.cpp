@@ -4,10 +4,10 @@
 
 BOOL gBusy;
 
-void ReturnFileAndQuit(HWND hWnd)
+bool  ReturnFileAndQuit(HWND hWnd)
 {
 	if(gBusy)
-		return;
+		return false;
 
 	HANDLE hFile = CreateFile (g_workfile.c_str(), 
 		GENERIC_READ, 
@@ -17,7 +17,7 @@ void ReturnFileAndQuit(HWND hWnd)
 		FILE_ATTRIBUTE_NORMAL, 
 		NULL);
 	if(hFile==INVALID_HANDLE_VALUE)
-		return;
+		return false;
 
 	CloseHandle(hFile);
 
@@ -32,7 +32,7 @@ void ReturnFileAndQuit(HWND hWnd)
 		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
 		if(nCmp==0)
 		{
-			return;
+			return false;
 		}
 	}
 
@@ -62,7 +62,7 @@ void ReturnFileAndQuit(HWND hWnd)
 		APP_NAME, 
 		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_DEFBUTTON2|MB_YESNO))
 	{
-		return;
+		return false;
 	}
 
 	if(PathFileExists(g_remotefile.c_str()))
@@ -71,7 +71,7 @@ void ReturnFileAndQuit(HWND hWnd)
 		if(!GetFileData(g_remotefile.c_str(), &wfdRemoteNow))
 		{
 			errExit(NS("could not obtain remote file time"), GetLastError(), TRUE);
-			return;
+			return false;
 		}
 
 		BOOL bChanged = CompareSizeAndLastWrite(&g_wfdRemote, &wfdRemoteNow) != 0;
@@ -87,7 +87,7 @@ void ReturnFileAndQuit(HWND hWnd)
 			message += NS("If you want to continue, delete or rename source file first and try again.");
 
 			MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONWARNING);
-			return;
+			return false;
 		}
 	}
 
@@ -99,4 +99,5 @@ void ReturnFileAndQuit(HWND hWnd)
 	
 
 	PostQuitMessage(0);
+	return true;
 }

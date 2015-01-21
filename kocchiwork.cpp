@@ -1,19 +1,19 @@
 #include "stdafx.h"
 
 #include "resource.h"
-
-
-
 #include "thread.h"
 #include "err.h"
+
+#include "systeminfo.h"
 
 #include "../MyUtility/StdStringReplace.h"
 #include "../MyUtility/IsFileExists.h"
 
-void ReturnFileAndQuit(HWND hWnd);
+bool ReturnFileAndQuit(HWND hWnd);
 
 HICON g_hTrayIcon;
 HWND g_hWnd;
+HANDLE g_hKanshiApp;
 WIN32_FIND_DATA g_wfdRemote;
 WIN32_FIND_DATA g_wfdWork;
 
@@ -21,6 +21,114 @@ tstring g_workfile;
 tstring g_remotefile;
 
 DWORD g_dwRemoteSize;
+
+
+void EnableDebugPriv( void )
+{
+	HANDLE hToken;
+	LUID sedebugnameValue;
+	TOKEN_PRIVILEGES tkp;
+
+	// enable the SeDebugPrivilege
+	if ( ! OpenProcessToken( GetCurrentProcess(),
+		TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken ) )
+	{
+		_tprintf( _T("OpenProcessToken() failed, Error = %d SeDebugPrivilege is not available.\n") , GetLastError() );
+		return;
+	}
+
+	if ( ! LookupPrivilegeValue( NULL, SE_DEBUG_NAME, &sedebugnameValue ) )
+	{
+		_tprintf( _T("LookupPrivilegeValue() failed, Error = %d SeDebugPrivilege is not available.\n"), GetLastError() );
+		CloseHandle( hToken );
+		return;
+	}
+
+	tkp.PrivilegeCount = 1;
+	tkp.Privileges[0].Luid = sedebugnameValue;
+	tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+	if ( ! AdjustTokenPrivileges( hToken, FALSE, &tkp, sizeof tkp, NULL, NULL ) )
+		_tprintf( _T("AdjustTokenPrivileges() failed, Error = %d SeDebugPrivilege is not available.\n"), GetLastError() );
+		
+	CloseHandle( hToken );
+}
+
+LPCTSTR GetFileNamePosition( LPCTSTR lpPath )
+{
+	LPCTSTR lpAct = lpPath + _tcslen( lpPath );
+
+	while ( lpAct > lpPath && *lpAct != _T('\\') && *lpAct != _T('/') )
+		lpAct--;
+
+	if ( lpAct > lpPath )
+		lpAct++;
+
+	return lpAct;
+}
+
+BOOL IsFileOpened(LPCTSTR pFile)
+{
+	BOOL bFullPathCheck = TRUE;
+	BOOL bShow = FALSE;
+	CString name;
+	CString processName;
+	CString fsFilePath;
+	CString deviceFileName;
+
+	if ( bFullPathCheck )
+	{
+		if ( !SystemInfoUtils::GetDeviceFileName( pFile, deviceFileName ) )
+		{
+			// _tprintf( _T("GetDeviceFileName() failed.\n") );
+			return FALSE;
+		}
+	}
+	SystemProcessInformation::SYSTEM_PROCESS_INFORMATION* p;
+	SystemProcessInformation pi;
+	SystemHandleInformation hi( -1 );
+	hi.SetFilter( _T("File"), TRUE ); // Refresh
+
+	for ( POSITION pos = hi.m_HandleInfos.GetHeadPosition(); pos != NULL; )
+	{
+		SystemHandleInformation::SYSTEM_HANDLE& h = hi.m_HandleInfos.GetNext(pos);
+
+		if ( pi.m_ProcessInfos.Lookup( h.ProcessID, p ) )
+		{
+			SystemInfoUtils::Unicode2CString( &p->usName, processName );
+		}
+		else
+			processName = "";
+
+		//NT4 Stupid thing if it is the services.exe and I call GetName :((
+		if ( INtDll::dwNTMajorVersion == 4 && _tcsicmp( processName, _T("services.exe" ) ) == 0 )
+			continue;
+		
+		hi.GetName( (HANDLE)h.HandleNumber, name, h.ProcessID );
+
+		if ( bFullPathCheck )
+			bShow =	_tcsicmp( name, deviceFileName ) == 0;
+		else
+			bShow =	_tcsicmp( GetFileNamePosition(name), pFile ) == 0;
+
+		if ( bShow )
+		{
+			return TRUE;
+
+//			if ( !bFullPathCheck )
+//			{
+//				fsFilePath = "";
+//				SystemInfoUtils::GetFsFileName( name, fsFilePath );
+//			}
+//			
+//			_tprintf( _T("0x%04X  %-20s  %s\n"), 
+//				h.ProcessID, 
+//				processName,
+//				!false ? fsFilePath : g_workfile.c_str() );
+		}
+	}
+	return FALSE;
+}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -41,14 +149,65 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		return 0;
 	}
 
+	static bool btimerprocessing;
 	switch(nMsg)
 	{
 	case WM_CREATE:
 		{
 			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
+
+//			EnableDebugPriv();
+			SetTimer(hWnd, 1, 5000,NULL);
 		}
 		break;
+	case WM_TIMER:
+		{
+			if(btimerprocessing)
+				break;
+			btimerprocessing = true;
+			if(g_hKanshiApp)
+			{
+				DWORD dw =WaitForSingleObject(g_hKanshiApp, 1);
+				if(dw == WAIT_OBJECT_0)
+				{// app is gone
+					g_hKanshiApp = NULL;
+					if(ReturnFileAndQuit(hWnd))
+					{ // ok file changed and over
 
+					}
+					else
+					{
+						int mret = MessageBox(hWnd,
+							NS("App might be quitted. Do you want continue monitor file?."),
+							L"kocchiwork",
+							MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2);
+						if(mret==IDYES)
+						{//use file monitor
+							KillTimer(hWnd,1);
+						}
+						else
+						{
+							//quit
+							KillTimer(hWnd,1);
+							PostQuitMessage(0);
+						}
+					}
+				}
+			}
+			else
+			{// no kanshiapp
+				if(IsFileOpened(g_workfile.c_str()))
+				{
+				}
+				else
+				{// nobodyisopened
+					ReturnFileAndQuit(hWnd);
+					PostQuitMessage(0);
+				}
+			}
+			btimerprocessing = false;
+		}
+		break;
 	case WM_APP_TRAY_NOTIFY:
 		switch(lParam)
 		{
@@ -79,7 +238,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_APP_LACHANGED:
 		{
-			ReturnFileAndQuit(hWnd);
+			if(!g_hKanshiApp)
+				ReturnFileAndQuit(hWnd);
 		}
 		break;
 	case WM_APP_APPKANHIDONE:
@@ -162,7 +322,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR     lpCmdLine,
                      int       nCmdShow )
 {
-	const BOOL bAppKanshi = TRUE;
+	
 	if(__argc==1)
 	{
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
@@ -224,7 +384,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		_tcslwr(pDup);
 		tstring mutexname = pDup;
 		free(pDup);pDup=NULL;
-		StdStringReplace(mutexname, _T("\\"), _T("_"));
+		mutexname=StdStringReplace(mutexname, _T("\\"), _T("_"));
 		if(!CreateMutex(NULL, TRUE, mutexname.c_str()))
 			errExit(NS("CreateMutex failed"), GetLastError());
 
@@ -300,8 +460,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	sei.lpFile = g_workfile.c_str();
 	sei.nShow = SW_SHOW;
 //	sei.hInstApp = GetModuleHandle(NULL);
-	if(bAppKanshi)
-		sei.fMask = SEE_MASK_NOCLOSEPROCESS;
+	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
 	{
 		tstring dir = GetDirFromPath(g_workfile.c_str());
 		sei.lpDirectory = dir.c_str();
@@ -323,17 +482,18 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
-	BOOL bNoKanshi = FALSE;
-	if(bAppKanshi)
-	{
-		DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
-		DWORD dwPI = WaitForSingleObject(sei.hProcess,5*1000);
-		if(dwIW != 0 || dwPI==0 )
-		//if(dwPI==0 )
-		{
-			bNoKanshi = TRUE;
-		}
-	}
+
+
+	g_hKanshiApp = sei.hProcess;
+
+
+	// DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
+	//DWORD dwPI = WaitForSingleObject(sei.hProcess,5*1000);
+	//if(dwPI==0 )
+	//{
+	//bNoKanshi = TRUE;
+	//}
+
 	g_hWnd = CreateSimpleWindow(GetModuleHandle(NULL), _T("kocchiwork class"), _T(""), WndProc);
 	if(!g_hWnd)
 		errExit(NS("could not create a winoow"));
@@ -356,11 +516,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	HANDLE hThreadDie = NULL;
 	HANDLE hThread = NULL;
-	if(bNoKanshi)
-	{
-		errExit(NS("App might be quitted. Watching is disabled. After editing the local document, quit this manually."), -1, TRUE);
-	}
-	else
+//	if(bNoKanshi)
+//	{
+//		errExit(NS("App might be quitted. Watching is disabled. After editing the local document, quit this manually."), -1, TRUE);
+//	}
+//	else
+
+	
 	{
 		hThreadDie = CreateEvent(NULL, FALSE, FALSE, NULL);
 		threadData td;
@@ -370,8 +532,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		td.hWnd_ = g_hWnd;
 		td.ftWork_ = g_wfdWork.ftLastAccessTime;
 		td.pWorkingFile_ = g_workfile.c_str();
-		td.bAppKanshi_ = bAppKanshi;
-		td.hApp_ = sei.hProcess;
+		// td.bAppKanshi_ = bAppKanshi;
+		//td.hApp_ = sei.hProcess;
 		hThread = (HANDLE)_beginthreadex(
 			NULL,
 			0, 

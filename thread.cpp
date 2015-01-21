@@ -6,14 +6,16 @@
 unsigned  __stdcall kanshi(void * p)
 {
 	threadData* pTD = (threadData*)p;
-	if(pTD->bAppKanshi_	)
-	{
-		HANDLE waits[] = {pTD->hDie_, pTD->hApp_};
-		DWORD dwWaited = WaitForMultipleObjects(_countof(waits), waits, FALSE, INFINITE);
+//	if(pTD->bAppKanshi_	)
+//	{
+//		HANDLE waits[] = {pTD->hDie_, pTD->hApp_};
+//		DWORD dwWaited = WaitForMultipleObjects(_countof(waits), waits, FALSE, INFINITE);
+//
+//		PostMessage(pTD->hWnd_, WM_APP_APPKANHIDONE, 0, 0);
+//	}
+//	else
 
-		PostMessage(pTD->hWnd_, WM_APP_APPKANHIDONE, 0, 0);
-	}
-	else
+
 	{
 		tstring dir = GetDirFromPath(pTD->pWorkingFile_);
 		HANDLE hn = FindFirstChangeNotification(dir.c_str(),
@@ -24,6 +26,7 @@ unsigned  __stdcall kanshi(void * p)
 
 		HANDLE waits[] = {pTD->hDie_, hn};
 		BOOL done = FALSE;
+		FILETIME lastChecked = pTD->ftWork_;
 		for(;!done;)
 		{
 			DWORD dwWaited = WaitForMultipleObjects(_countof(waits), waits, FALSE, INFINITE);
@@ -35,11 +38,12 @@ unsigned  __stdcall kanshi(void * p)
 			case WAIT_OBJECT_0+1:
 				{
 					FILETIME ft;
-					if(!GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
+					if(0==GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
 						continue;
 
-					if(0 != CompareFileTime (&ft, &pTD->ftWork_))
+					if(0 != CompareFileTime (&ft, &lastChecked))
 					{
+						lastChecked = ft;
 						PostMessage(pTD->hWnd_, WM_APP_LACHANGED, 0, 0);
 					}
 				}
