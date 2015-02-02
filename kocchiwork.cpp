@@ -21,7 +21,7 @@ tstring g_workfile;
 tstring g_remotefile;
 
 DWORD g_dwRemoteSize;
-
+time_t g_starttime;
 
 void EnableDebugPriv( void )
 {
@@ -171,16 +171,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				if(dw == WAIT_OBJECT_0)
 				{// app is gone
 					g_hKanshiApp = NULL;
-					if(ReturnFileAndQuit(hWnd))
-					{ // ok file changed and over
-
+					if(IsFileOpened(g_workfile.c_str()))
+					{ 
+						MessageBoxA(hWnd,"sss","sss",0);
+						KillTimer(hWnd,1);
 					}
 					else
 					{
-						int mret = MessageBox(hWnd,
-							NS("App might be quitted. Do you want continue monitor file?."),
-							L"kocchiwork",
-							MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2);
+						int mret;
+						if( true ) //(time(NULL)-g_starttime) < 10)
+						{
+							mret = MessageBox(hWnd,
+								NS("App closed. Do you want to continue monitor file?."),
+								L"kocchiwork",
+								MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2);
+						}
+
 						if(mret==IDYES)
 						{//use file monitor
 							KillTimer(hWnd,1);
@@ -211,7 +217,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	case WM_APP_TRAY_NOTIFY:
 		switch(lParam)
 		{
-		case WM_RBUTTONUP:
+			case WM_LBUTTONUP:
+			{
+				SetForegroundWindow(hWnd);
+			}
+			break;
+
+			case WM_RBUTTONUP:
 			{
 				POINT apos;
 				HMENU hSubMenu = CreatePopupMenu();
@@ -482,6 +494,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
+	g_starttime =time(NULL);
 
 
 	g_hKanshiApp = sei.hProcess;
@@ -530,7 +543,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if(!td.hDie_)
 			errExit(NS("could not create event"), GetLastError());
 		td.hWnd_ = g_hWnd;
-		td.ftWork_ = g_wfdWork.ftLastAccessTime;
+		td.ftWork_ = g_wfdWork.ftLastWriteTime;
 		td.pWorkingFile_ = g_workfile.c_str();
 		// td.bAppKanshi_ = bAppKanshi;
 		//td.hApp_ = sei.hProcess;

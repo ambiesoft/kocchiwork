@@ -37,9 +37,12 @@ unsigned  __stdcall kanshi(void * p)
 				break;
 			case WAIT_OBJECT_0+1:
 				{
+					if(!FindNextChangeNotification(hn))
+						errExit(NS("could not find next notification"));
+
 					FILETIME ft;
-					if(0==GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
-						continue;
+					if(!GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
+						errExit(NS("could not get last write time"));
 
 					if(0 != CompareFileTime (&ft, &lastChecked))
 					{
@@ -54,8 +57,7 @@ unsigned  __stdcall kanshi(void * p)
 			if(done)
 				break;
 
-			if(!FindNextChangeNotification(hn))
-				errExit(NS("could not find next notification"));
+
 		}
 		FindCloseChangeNotification(hn);
 	}
