@@ -8,6 +8,8 @@
 
 #include "../MyUtility/StdStringReplace.h"
 #include "../MyUtility/IsFileExists.h"
+#include "../MyUtility/UrlEncode.h"
+#include "../MyUtility/UTF16toUTF8.h"
 
 bool ReturnFileAndQuit(HWND hWnd);
 
@@ -130,6 +132,21 @@ BOOL IsFileOpened(LPCTSTR pFile)
 	return FALSE;
 }
 
+wstring myUrlEncode(wstring strIN)
+{
+	BYTE* pUtf8 = UTF16toUTF8(strIN.c_str());
+	stlsoft::scoped_handle<void*> mapUtf8(pUtf8, free);
+
+	char* pUtf8Encoded=NULL;
+	// UrlEncode(pUtf8, strlen((char*)pUtf8), &pUtf8Encoded, TRUE);
+	pUtf8Encoded= urlencodenew((char*)pUtf8);
+	stlsoft::scoped_handle<void*> mapUtf8Encoded(pUtf8Encoded, free);
+
+	wchar_t* pLast = UTF8toUTF16((LPBYTE)pUtf8Encoded);
+	stlsoft::scoped_handle<void*> mapLast(pLast, free);
+	return pLast;
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
 	static UINT sTaskBarCreated;
@@ -173,30 +190,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 					g_hKanshiApp = NULL;
 					if(IsFileOpened(g_workfile.c_str()))
 					{
-						wstring strMessage=L"aaa";
+						wstring title=L"kocchiwork";
+						wstring message = NS("App was closed but file still opens, changed mode to monitor file");
 
+						wstring dir;
 						wchar_t file[MAX_PATH];
 						GetModuleFileName(NULL, file, MAX_PATH);
 						*wcsrchr(file, L'\\') = 0;
+						dir=file;
 						lstrcat(file, L"\\showballoon.exe");
 
-						wstring param = L"\"" + strMessage + L"\"";
-						copycbr
+						// wstring param = L"\"" + strMessage + L"\"";
+						wstring param;
+						param += L"/title:";
+						param += myUrlEncode(title);
+						param += L" /icon:kocchiwork.exe";
+						param += _T(" \"") + myUrlEncode(message) + _T("\"");						
+
 						ShellExecute(NULL,
 							NULL,
 							file,
 							param.c_str(),
 							NULL,
 							SW_SHOW);
-						// SetForegroundWindow(hWnd);
-						// MessageBoxA(hWnd,
-						// 	"sss",
-						//	"sss",
-						//	c0);
+						
+						//SetForegroundWindow(hWnd);
+						//MessageBoxA(hWnd,
+						 	//"sss",
+							//"sss",
+							//0);
 						// KillTimer(hWnd,1);
 					}
 					else
-					{
+					{ // no one opens file
 						int mret;
 						if( true ) //(time(NULL)-g_starttime) < 10)
 						{

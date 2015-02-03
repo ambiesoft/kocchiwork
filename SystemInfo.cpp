@@ -844,9 +844,13 @@ BOOL SystemHandleInformation::GetFileName( HANDLE h, CString& str, DWORD process
 		goto cleanup;
 	}
 
-//	ResumeThread(hThread);
+
 	// Wait for finishing the thread
+#ifdef _DEBUG
+	if ( WaitForSingleObject( hThread, INFINITE ) == WAIT_TIMEOUT )
+#else
 	if ( WaitForSingleObject( hThread, 100 ) == WAIT_TIMEOUT )
+#endif
 	{	
 		// Access denied
 		// Terminate the thread

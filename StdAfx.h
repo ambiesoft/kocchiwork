@@ -6,7 +6,7 @@
 #endif // _MSC_VER > 1000
 
 #define WIN32_LEAN_AND_MEAN
-
+#include <checkaccess.h>
 #include <afx.h>
 // #include <windows.h>
 #include <tchar.h>
@@ -14,6 +14,8 @@
 #include <shlwapi.h>
 #include <Shellapi.h>
 #include <string>
+
+#include <stlsoft/smartptr/scoped_handle.hpp>
 
 using namespace std;
 
