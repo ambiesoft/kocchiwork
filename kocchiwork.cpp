@@ -172,15 +172,35 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				{// app is gone
 					g_hKanshiApp = NULL;
 					if(IsFileOpened(g_workfile.c_str()))
-					{ 
-						MessageBoxA(hWnd,"sss","sss",0);
-						KillTimer(hWnd,1);
+					{
+						wstring strMessage=L"aaa";
+
+						wchar_t file[MAX_PATH];
+						GetModuleFileName(NULL, file, MAX_PATH);
+						*wcsrchr(file, L'\\') = 0;
+						lstrcat(file, L"\\showballoon.exe");
+
+						wstring param = L"\"" + strMessage + L"\"";
+						copycbr
+						ShellExecute(NULL,
+							NULL,
+							file,
+							param.c_str(),
+							NULL,
+							SW_SHOW);
+						// SetForegroundWindow(hWnd);
+						// MessageBoxA(hWnd,
+						// 	"sss",
+						//	"sss",
+						//	c0);
+						// KillTimer(hWnd,1);
 					}
 					else
 					{
 						int mret;
 						if( true ) //(time(NULL)-g_starttime) < 10)
 						{
+							SetForegroundWindow(hWnd);
 							mret = MessageBox(hWnd,
 								NS("App closed. Do you want to continue monitor file?."),
 								L"kocchiwork",
