@@ -4,7 +4,7 @@
 #include "thread.h"
 #include "err.h"
 
-#include "systeminfo.h"
+// #include "systeminfo.h"
 
 #include "../MyUtility/StdStringReplace.h"
 #include "../MyUtility/IsFileExists.h"
@@ -71,6 +71,46 @@ LPCTSTR GetFileNamePosition( LPCTSTR lpPath )
 
 BOOL IsFileOpened(LPCTSTR pFile)
 {
+	static int count;
+	HANDLE f = CreateFile(
+		pFile,
+		GENERIC_READ,
+		0, // share
+		NULL, // sec
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+
+	if(f==INVALID_HANDLE_VALUE)
+	{
+		count=0;
+		if(GetLastError()==2)
+			return FALSE;
+		return TRUE;
+	}
+
+	CloseHandle(f);
+	count++;
+	if(count > 1)
+	{
+		count=0;
+		return FALSE;
+	}
+	return TRUE;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+BOOL IsFileOpenedt(LPCTSTR pFile)
+{
 	BOOL bFullPathCheck = TRUE;
 	BOOL bShow = FALSE;
 	CString name;
@@ -131,6 +171,8 @@ BOOL IsFileOpened(LPCTSTR pFile)
 	}
 	return FALSE;
 }
+*/
+
 
 wstring myUrlEncode(wstring strIN)
 {
@@ -254,6 +296,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				else
 				{// nobodyisopened
 					ReturnFileAndQuit(hWnd);
+					KillTimer(hWnd,1);
 					PostQuitMessage(0);
 				}
 			}

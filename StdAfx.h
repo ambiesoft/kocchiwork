@@ -7,10 +7,12 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <checkaccess.h>
-#include <afx.h>
-// #include <windows.h>
+// #include <afx.h>
+#include <windows.h>
 #include <tchar.h>
 #include <process.h>
+#include <time.h>
+
 #include <shlwapi.h>
 #include <Shellapi.h>
 #include <string>
