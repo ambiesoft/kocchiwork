@@ -19,7 +19,6 @@ CFG=kocchiwork - Win32 UnicodeDebug
 !MESSAGE 
 !MESSAGE "kocchiwork - Win32 UnicodeDebug" (based on "Win32 (x86) Application")
 !MESSAGE "kocchiwork - Win32 UnicodeRelease" (based on "Win32 (x86) Application")
-!MESSAGE "kocchiwork - Win32 UnicodeReleaseDebug" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -58,7 +57,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /debug /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiworkD.exe" /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy    C:\Linkout\CommonExe\showballoon.exe    C:\Linkout\CBRevamper\ 
+PostBuild_Cmds=copy     C:\Linkout\CommonExe\showballoon.exe     C:\Linkout\CBRevamper\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "kocchiwork - Win32 UnicodeRelease"
@@ -69,18 +68,18 @@ PostBuild_Cmds=copy    C:\Linkout\CommonExe\showballoon.exe    C:\Linkout\CBReva
 # PROP BASE Intermediate_Dir "kocchiwork___Win32_UnicodeRelease"
 # PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
-# PROP Use_MFC 2
+# PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "UnicodeRelease"
 # PROP Intermediate_Dir "UnicodeRelease"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /FR /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "L:\check" /I "L:\stlsoft-1.9.118\include" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "_UNICODE" /D "WINNT" /D "_AFXDLL" /FR /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "L:\check" /I "L:\stlsoft-1.9.118\include" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "_UNICODE" /D "WINNT" /FR /Yu"stdafx.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x411 /d "NDEBUG"
-# ADD RSC /l 0x411 /d "NDEBUG" /d "_AFXDLL"
+# ADD RSC /l 0x411 /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -89,38 +88,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiwork.exe"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy    C:\Linkout\CommonExe\showballoon.exe    C:\Linkout\kocchiwork\ 
-# End Special Build Tool
-
-!ELSEIF  "$(CFG)" == "kocchiwork - Win32 UnicodeReleaseDebug"
-
-# PROP BASE Use_MFC 2
-# PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "kocchiwork___Win32_UnicodeReleaseDebug"
-# PROP BASE Intermediate_Dir "kocchiwork___Win32_UnicodeReleaseDebug"
-# PROP BASE Ignore_Export_Lib 0
-# PROP BASE Target_Dir ""
-# PROP Use_MFC 2
-# PROP Use_Debug_Libraries 0
-# PROP Output_Dir "UnicodeReleaseDebug"
-# PROP Intermediate_Dir "UnicodeReleaseDebug"
-# PROP Ignore_Export_Lib 0
-# PROP Target_Dir ""
-# ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "L:\check" /I "L:\stlsoft-1.9.118\include" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "_UNICODE" /D "WINNT" /D "_AFXDLL" /FR /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MD /W3 /GX /Zi /O2 /I "L:\check" /I "L:\stlsoft-1.9.118\include" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "_UNICODE" /D "WINNT" /D "_AFXDLL" /FR /Yu"stdafx.h" /FD /c
-# ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
-# ADD BASE RSC /l 0x411 /d "NDEBUG" /d "_AFXDLL"
-# ADD RSC /l 0x411 /d "NDEBUG" /d "_AFXDLL"
-BSC32=bscmake.exe
-# ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
-LINK32=link.exe
-# ADD BASE LINK32 /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiwork.exe"
-# ADD LINK32 /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /debug /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiworkRD.exe"
-# Begin Special Build Tool
-SOURCE="$(InputPath)"
-PostBuild_Cmds=copy    C:\Linkout\CommonExe\showballoon.exe    C:\Linkout\kocchiwork\ 
+PostBuild_Cmds=copy     C:\Linkout\CommonExe\showballoon.exe     C:\Linkout\kocchiwork\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -129,7 +97,6 @@ PostBuild_Cmds=copy    C:\Linkout\CommonExe\showballoon.exe    C:\Linkout\kocchi
 
 # Name "kocchiwork - Win32 UnicodeDebug"
 # Name "kocchiwork - Win32 UnicodeRelease"
-# Name "kocchiwork - Win32 UnicodeReleaseDebug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -155,6 +122,11 @@ SOURCE=..\MyUtility\GetModuleDirectory.cpp
 # Begin Source File
 
 SOURCE=..\MyUtility\IsFileExists.cpp
+# SUBTRACT CPP /YX /Yc /Yu
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyUtility\IsFileOpen.cpp
 # SUBTRACT CPP /YX /Yc /Yu
 # End Source File
 # Begin Source File
@@ -226,6 +198,10 @@ SOURCE=..\MyUtility\IsDirectory.h
 # Begin Source File
 
 SOURCE=..\MyUtility\IsFileExists.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyUtility\IsFileOpen.h
 # End Source File
 # Begin Source File
 

@@ -10,6 +10,7 @@
 #include "../MyUtility/IsFileExists.h"
 #include "../MyUtility/UrlEncode.h"
 #include "../MyUtility/UTF16toUTF8.h"
+#include "../MyUtility/IsFileOpen.h"
 
 bool ReturnFileAndQuit(HWND hWnd);
 
@@ -69,35 +70,6 @@ LPCTSTR GetFileNamePosition( LPCTSTR lpPath )
 	return lpAct;
 }
 
-BOOL IsFileOpened(LPCTSTR pFile)
-{
-	static int count;
-	HANDLE f = CreateFile(
-		pFile,
-		GENERIC_READ,
-		0, // share
-		NULL, // sec
-		OPEN_EXISTING,
-		FILE_ATTRIBUTE_NORMAL,
-		NULL);
-
-	if(f==INVALID_HANDLE_VALUE)
-	{
-		count=0;
-		if(GetLastError()==2)
-			return FALSE;
-		return TRUE;
-	}
-
-	CloseHandle(f);
-	count++;
-	if(count > 1)
-	{
-		count=0;
-		return FALSE;
-	}
-	return TRUE;
-}
 
 
 
@@ -230,7 +202,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				if(dw == WAIT_OBJECT_0)
 				{// app is gone
 					g_hKanshiApp = NULL;
-					if(IsFileOpened(g_workfile.c_str()))
+					if(IsFileOpen(g_workfile.c_str()))
 					{
 						wstring title=L"kocchiwork";
 						wstring message = NS("App was closed but file still opens, changed mode to monitor file");
@@ -290,14 +262,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{// no kanshiapp
-				if(IsFileOpened(g_workfile.c_str()))
+				static int count;				
+				if(!IsFileOpen(g_workfile.c_str()))
 				{
+					count++;
+					if(count > 1)
+					{
+						ReturnFileAndQuit(hWnd);
+						KillTimer(hWnd,1);
+						PostQuitMessage(0);
+					}
 				}
 				else
-				{// nobodyisopened
-					ReturnFileAndQuit(hWnd);
-					KillTimer(hWnd,1);
-					PostQuitMessage(0);
+				{
+					count=0;
 				}
 			}
 			btimerprocessing = false;
