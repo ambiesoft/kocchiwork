@@ -1,0 +1,8 @@
+"Fatal : No File Specified"="致命：ファイルが指定されていません"
+"%1% is not a file."="%1% はファイルではありません。"
+"App closed. Do you want to continue monitor file?"="アプリが終了しました。ファイル監視を続けますか？"
+"The File was changed. Do you want to move the changed file back to the original location?"="ファイルが変更されました。変更されたファイルを元の場所に戻しますか？"
+"copy destination :"="コピー先 :"
+"copy source :"="コピー元 :"
+"watching"="監視中"	
+"File not changed. Do you want to delete the copied file?"="ファイルは変更されていません。コピーされたファイルを削除しますか？"
