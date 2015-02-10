@@ -1,7 +1,8 @@
 #include "stdafx.h"
 
 #include <boost/format.hpp>
-
+#include <boost/program_options.hpp>
+namespace po = boost::program_options;
 
 #include "resource.h"
 #include "thread.h"
@@ -44,6 +45,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR     lpCmdLine,
                      int       nCmdShow )
 {
+	po::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("compression", po::value<int>(), "set compression level")
+		;
+
+	po::variables_map vm;
+	po::store(po::parse_command_line(__argc, __targv, desc), vm);
+	po::notify(vm);
+
+	if (vm.count("help")) {
+		// cout << desc << "\n";
+		stringstream wss;
+		desc.print(wss);
+		//errExit(getdtdws wss.str());
+		return 1;
+	}
+
 	if(__argc==1)
 	{
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");

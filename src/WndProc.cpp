@@ -104,8 +104,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 					}
 					else
 					{ // no one opens file
-						int mret;
-						if( true ) //(time(NULL)-g_starttime) < 10)
+						int mret = IDNO;
+						if( (time(NULL)-g_starttime) < 10)
 						{
 							SetForegroundWindow(hWnd);
 							mret = MessageBox(hWnd,
