@@ -4,10 +4,12 @@
 #pragma message("_DLL is defined")
 #endif
 
-#define BOOST_LIB_DIAGNOSTIC
 #include <boost/format.hpp>
+/**
+#define BOOST_LIB_DIAGNOSTIC
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
+**/
 
 #include "resource.h"
 #include "thread.h"
@@ -52,6 +54,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR     lpCmdLine,
                      int       nCmdShow )
 {
+/**
 	po::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
@@ -69,6 +72,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		//errExit(getdtdws wss.str());
 		return 1;
 	}
+**/
 
 	if(__argc==1)
 	{
