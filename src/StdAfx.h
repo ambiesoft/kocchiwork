@@ -23,14 +23,14 @@
 
 using namespace std;
 
-#include "../MyUtility/tstring.h"
-#include "../MyUtility/GetModuleDirectory.h"
-#include "../MyUtility/IsDirectory.h"
-#include "../MyUtility/HelpDefines.h"
-#include "../MyUtility/CreateSimpleWindow.h"
-#include "../MyUtility/GetDirFromPath.h"
-#include "../MyUtility/SHDeleteFile.h"
-#include "../MyUtility/I18N.h"
+#include "../../MyUtility/tstring.h"
+#include "../../MyUtility/GetModuleDirectory.h"
+#include "../../MyUtility/IsDirectory.h"
+#include "../../MyUtility/HelpDefines.h"
+#include "../../MyUtility/CreateSimpleWindow.h"
+#include "../../MyUtility/GetDirFromPath.h"
+#include "../../MyUtility/SHDeleteFile.h"
+#include "../../MyUtility/I18N.h"
 
 #include "tmphelp.h"
 

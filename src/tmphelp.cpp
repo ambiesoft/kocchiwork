@@ -1,6 +1,6 @@
 #include <windows.h>
 #include "tmphelp.h"
-#include "../MyUtility/HelpDefines.h"
+#include "../../MyUtility/HelpDefines.h"
 
 BOOL GetFileData(LPCTSTR pFile, WIN32_FIND_DATA* pData)
 {

@@ -6,11 +6,11 @@
 #include "common.h"
 // #include "systeminfo.h"
 
-#include "../MyUtility/StdStringReplace.h"
-#include "../MyUtility/IsFileExists.h"
-#include "../MyUtility/UrlEncode.h"
-#include "../MyUtility/UTF16toUTF8.h"
-#include "../MyUtility/IsFileOpen.h"
+#include "../../MyUtility/StdStringReplace.h"
+#include "../../MyUtility/IsFileExists.h"
+#include "../../MyUtility/UrlEncode.h"
+#include "../../MyUtility/UTF16toUTF8.h"
+#include "../../MyUtility/IsFileOpen.h"
 
 
 wstring myUrlEncode(wstring strIN)
