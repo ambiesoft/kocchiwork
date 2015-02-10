@@ -1,5 +1,10 @@
 #include "stdafx.h"
 
+#ifdef _DLL
+#pragma message("_DLL is defined")
+#endif
+
+#define BOOST_LIB_DIAGNOSTIC
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
@@ -15,6 +20,8 @@ namespace po = boost::program_options;
 #include "../../MyUtility/UrlEncode.h"
 #include "../../MyUtility/UTF16toUTF8.h"
 #include "../../MyUtility/IsFileOpen.h"
+
+
 
 void Untray()
 {
