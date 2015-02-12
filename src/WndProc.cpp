@@ -11,6 +11,7 @@
 #include "../../MyUtility/UrlEncode.h"
 #include "../../MyUtility/UTF16toUTF8.h"
 #include "../../MyUtility/IsFileOpen.h"
+#include "../../MyUtility/showballoon.h"
 
 
 wstring myUrlEncode(wstring strIN)
@@ -72,28 +73,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 					if(IsFileOpen(g_workfile.c_str()))
 					{
 						wstring title=L"kocchiwork";
-						wstring message = NS("App was closed but file still opens, changed mode to monitor file");
+						wstring text = NS("App was closed but file still opens, changed mode to monitor file");
 
-						wstring dir;
+						// wstring dir;
 						wchar_t file[MAX_PATH];
 						GetModuleFileName(NULL, file, MAX_PATH);
 						*wcsrchr(file, L'\\') = 0;
-						dir=file;
+						// dir=file;
 						lstrcat(file, L"\\showballoon.exe");
 
-						// wstring param = L"\"" + strMessage + L"\"";
-						wstring param;
-						param += L"/title:";
-						param += myUrlEncode(title);
-						param += L" /icon:kocchiwork.exe";
-						param += _T(" \"") + myUrlEncode(message) + _T("\"");						
+						HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
+						showballoon(hWnd,title ,text, hIcon,WM_APP_TRAY_NOTIFY,TRUE);
 
-						ShellExecute(NULL,
-							NULL,
-							file,
-							param.c_str(),
-							NULL,
-							SW_SHOW);
+						//wstring param;
+						//param += L"/title:";
+						//param += myUrlEncode(title);
+						//param += L" /icon:kocchiwork.exe";
+						//param += _T(" \"") + myUrlEncode(message) + _T("\"");						
+
+						//ShellExecute(NULL,
+						//	NULL,
+						//	file,
+						//	param.c_str(),
+						//	NULL,
+						//	SW_SHOW);
 						
 						//SetForegroundWindow(hWnd);
 						//MessageBoxA(hWnd,
