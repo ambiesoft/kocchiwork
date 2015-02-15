@@ -60,7 +60,7 @@
       <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>true</MinimalRebuild>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>L:\check;L:\stlsoft-1.9.118\include;J:\boost1.57.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>L:\check;L:\stlsoft-1.9.118\include;Y:\T\boost_1_57_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\UnicodeDebug\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
@@ -95,7 +95,7 @@ copy      lang\jpn.txt      C:\Linkout\kocchiwork\lang\</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>J:\boost1.57.0lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Y:\T\boost_1_57_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
     </Link>
@@ -109,7 +109,7 @@ copy      lang\jpn.txt      C:\Linkout\kocchiwork\lang\</Command>
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>L:\check;L:\stlsoft-1.9.118\include;J:\boost1.57.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>L:\check;L:\stlsoft-1.9.118\include;Y:\T\boost_1_57_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\UnicodeRelease\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
@@ -143,7 +143,7 @@ copy      lang\jpn.txt      C:\Linkout\kocchiwork\lang\</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Windows</SubSystem>
       <OutputFile>C:\LinkOut\kocchiwork\kocchiwork.exe</OutputFile>
-      <AdditionalLibraryDirectories>J:\boost1.57.0lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Y:\T\boost_1_57_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
     </Link>
@@ -191,6 +191,10 @@ copy      lang\jpn.txt      C:\Linkout\kocchiwork\lang\</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\MyUtility\showballoon.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnicodeDebug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\MyUtility\StdStringReplace.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnicodeDebug|Win32'">
       </PrecompiledHeader>
@@ -236,6 +240,7 @@ copy      lang\jpn.txt      C:\Linkout\kocchiwork\lang\</Command>
     <ClInclude Include="..\MyUtility\IsDirectory.h" />
     <ClInclude Include="..\MyUtility\IsFileExists.h" />
     <ClInclude Include="..\MyUtility\IsFileOpen.h" />
+    <ClInclude Include="..\MyUtility\showballoon.h" />
     <ClInclude Include="..\MyUtility\StdStringReplace.h" />
     <ClInclude Include="..\MyUtility\UrlEncode.h" />
     <ClInclude Include="..\MyUtility\UTF16toUTF8.h" />

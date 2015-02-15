@@ -74,19 +74,36 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 **/
 
-	if(__argc==1)
-	{
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
-		errExit(NS("Fatal : No File Specified"));
-	}
-	else
+	try
 	{
-		g_remotefile = __targv[1];
+		for (int i = 1; i < __argc; ++i)
+		{
+			wstring arg = __targv[i];
+			if (lstrcmpi(arg.c_str(), L"/P") == 0)
+			{
+				g_progfile = __targv[i + 1];
+				++i;
+			}
+			else
+			{
+				g_remotefile = __targv[i];
+			}
+		}
+	}
+	catch (...)
+	{
+		errExit(NS("Fatal : Illegal Option"));
 	}
 
+
+	if (g_remotefile.empty())
+	{
+		errExit(NS("Fatal : No File Specified"));
+	}
 
 	const tstring thisdir = GetModuleDirectory(NULL);
 	if(thisdir.empty() || !IsDirectory(thisdir.c_str()))
@@ -205,8 +222,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	SHELLEXECUTEINFO sei = {0};
 	sei.cbSize = sizeof(sei);
-	sei.lpVerb = NULL; // _T("open");
-	sei.lpFile = g_workfile.c_str();
+	sei.lpVerb = NULL;
+	if (g_progfile.empty())
+	{
+		sei.lpFile = g_workfile.c_str();
+	}
+	else
+	{
+		sei.lpFile = g_progfile.c_str();
+		sei.lpParameters = g_workfile.c_str();
+	}
 	sei.nShow = SW_SHOW;
 //	sei.hInstApp = GetModuleHandle(NULL);
 	sei.fMask = SEE_MASK_NOCLOSEPROCESS;

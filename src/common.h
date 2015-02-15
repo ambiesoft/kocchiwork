@@ -6,6 +6,7 @@ extern WIN32_FIND_DATA g_wfdWork;
 
 extern tstring g_workfile;
 extern tstring g_remotefile;
+extern tstring g_progfile;
 
 extern DWORD g_dwRemoteSize;
 extern time_t g_starttime;
