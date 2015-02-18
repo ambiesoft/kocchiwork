@@ -6,3 +6,9 @@
 "copy source :"="コピー元 :"
 "watching"="監視中"	
 "File not changed. Do you want to delete the copied file?"="ファイルは変更されていません。コピーされたファイルを削除しますか？"
+
+"&About..."="バージョン情報(&A)..."
+"&Exit"="終了(&E)"
+"&Open File Location"="ファイルの場所を開く(&O)"
+"&Reopen"="開きなおす(&R)"
+"Do you want to trash it and copy remote file?"="削除してリモートファイルをコピーしますか？"

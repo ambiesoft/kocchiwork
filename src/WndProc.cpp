@@ -12,6 +12,7 @@
 #include "../../MyUtility/UTF16toUTF8.h"
 #include "../../MyUtility/IsFileOpen.h"
 #include "../../MyUtility/showballoon.h"
+#include "../../MyUtility/I18N.h"
 
 
 wstring myUrlEncode(wstring strIN)
@@ -164,13 +165,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			{
 				POINT apos;
 				HMENU hSubMenu = CreatePopupMenu();
+#ifdef _DEBUG
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_START, NS("TEST"));
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_REOPENFILE, NS("&Reopen"));
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENWITHEXPLORER, NS("&Open with Explorer"));
+#endif
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_ABOUT, NS("&About..."));
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_ABOUT, NS("&About"));
+
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_REOPENFILE, NS("&Reopen"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENWITHEXPLORER, NS("&Open File Location"));
+				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
+				
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_QUIT, NS("&Exit"));
+
+				Ambiesoft::i18nChangeMenuText(hSubMenu);
 
 				SetForegroundWindow(hWnd);
 				GetCursorPos((LPPOINT)&apos);
@@ -200,7 +208,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		switch(LOWORD(wParam))
 		{
 		case IDC_ABOUT:
-			MessageBox(hWnd, _T("aa"), APP_NAME, MB_ICONINFORMATION);
+			MessageBox(hWnd, 
+				APP_NAME L" " APP_VERSION,
+				APP_NAME, 
+				MB_ICONINFORMATION);
 			break;
 
 		case IDC_QUIT:
@@ -219,6 +230,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				sei.lpDirectory = dir.c_str();
 				if(!ShellExecuteEx(&sei)) 
 				{
+					MessageBox(hWnd,
+						NS("Failed to ShellExecuteEx"),
+						APP_NAME,
+						MB_ICONERROR);
 				}
 			}
 			break;

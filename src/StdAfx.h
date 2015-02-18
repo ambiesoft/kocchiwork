@@ -35,6 +35,8 @@ using namespace std;
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
+#define APP_VERSION L"1.00"
+
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {
 	WM_APP_TRAY_NOTIFY = (WM_APP+1),
