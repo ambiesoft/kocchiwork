@@ -49,6 +49,18 @@ int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, WIN32_FIND_DATA* p2)
 	return ret;
 }
 
+BOOL IsFiletimeFuture(FILETIME* pFT)
+{
+	SYSTEMTIME systime;
+	GetSystemTime(&systime);
+	FILETIME ftSystime;
+	if(!SystemTimeToFileTime(&systime, &ftSystime))
+		return FALSE;
+
+	long ret = CompareFileTime(pFT, &ftSystime);
+	return ret > 0;
+}
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR     lpCmdLine,
@@ -185,6 +197,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(!GetFileData(g_remotefile.c_str(), &g_wfdRemote))
 		errExit(NS("could not obtain remote file info"));
 
+	if(IsFiletimeFuture(&g_wfdRemote.ftLastWriteTime))
+		errExit(NS("file time is future"));
 
 	if(PathFileExists(g_workfile.c_str()))
 	{
@@ -194,7 +208,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		message += _T("\r\n\r\n");
 		message += NS("Do you want to trash it and copy remote file?");
 
-		if(IDYES != MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO))
+		if(IDYES != MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
 			return 0;
 
 		FILETIME ftCurrent;
