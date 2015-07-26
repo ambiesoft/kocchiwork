@@ -181,7 +181,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	else
 	{
 		TCHAR szT[8];
-		lstrcpyn(szT, g_workfile.c_str(), 4);
+		lstrcpyn(szT, g_remotefile.c_str(), 4);
 		UINT driveType = GetDriveType(szT);
 		if(driveType==DRIVE_UNKNOWN||
 			driveType==DRIVE_FIXED)
