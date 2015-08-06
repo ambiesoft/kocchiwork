@@ -23,6 +23,8 @@ namespace po = boost::program_options;
 #include "../../MyUtility/UTF16toUTF8.h"
 #include "../../MyUtility/IsFileOpen.h"
 
+#include "../../MyUtility/stdwin32/stdwin32.h"
+
 
 
 void Untray()
@@ -97,7 +99,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			wstring arg = __targv[i];
 			if (lstrcmpi(arg.c_str(), L"/P") == 0)
 			{
-				g_progfile = __targv[i + 1];
+				g_progfile = stdwin32::trim( __targv[i + 1]);
 				++i;
 			}
 			else
