@@ -88,10 +88,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 **/
 
+#ifdef _DEBUG
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
+//		g_remotefile = _T("\\\\inpsrv\\Share\\pass\\text.txt");
+#endif
+
 	try
 	{
 		for (int i = 1; i < __argc; ++i)
@@ -290,9 +294,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		errExit(NS("could not create a winoow"));
 
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-	tstring traytip = NS("watching");
-	traytip += _T(" ");
-	traytip += g_workfile.c_str();
+	tstring traytip = NS("watching as ");
+	traytip += g_workfile;
+
+	// traytip += _T("original ");
+	// tstring tremotefile = g_remotefile;
+	// traytip += _T("fffffffffffffffffffffffffff");
 	if(!AddTrayIcon(
 		g_hWnd, 
 		WM_APP_TRAY_NOTIFY, 

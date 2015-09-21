@@ -38,6 +38,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		tstring traytip = NS("watching");
 		traytip += _T(" ");
 		traytip += g_workfile.c_str();
+
+		
+
 		if(!AddTrayIcon(
 			g_hWnd, 
 			WM_APP_TRAY_NOTIFY, 
@@ -208,12 +211,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		switch(LOWORD(wParam))
 		{
 		case IDC_ABOUT:
-			MessageBox(hWnd, 
-				APP_NAME L" " APP_VERSION,
-				APP_NAME, 
-				MB_ICONINFORMATION);
+			{
+				tstring message;
+				message += APP_NAME L" " APP_VERSION;
+				message += _T("\r\n\r\n");
+				message += _T("Watching\t");
+				message += g_workfile;
+				message += _T("\r\n");
+				message += _T("Remote\t");
+				message += g_remotefile;
+				MessageBox(hWnd, 
+					message.c_str(),
+					APP_NAME, 
+					MB_ICONINFORMATION);
+			}
 			break;
-
+	
 		case IDC_QUIT:
 			DestroyWindow(hWnd);
 			PostQuitMessage(0);
