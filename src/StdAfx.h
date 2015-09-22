@@ -6,7 +6,10 @@
 #endif // _MSC_VER > 1000
 #pragma warning(disable:4786)
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #define WIN32_LEAN_AND_MEAN
+
 #include <checkaccess.h>
 // #include <afx.h>
 #include <windows.h>
