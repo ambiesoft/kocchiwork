@@ -81,10 +81,10 @@ bool  ReturnFileAndQuit(HWND hWnd)
 			tstring message;
 			message = NS("Operation canceled.");
 			message += _T("\r\n");
-			message += NS("The source file information and preserved one is different.");
+			message += NS("The remote file may be updated after this application starts.");
 			message += _T("\r\n");
 			message += _T("\r\n");
-			message += NS("If you want to continue, delete or rename source file first and try again.");
+			message += NS("Fix the conflict.");
 
 			MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONWARNING);
 			return false;

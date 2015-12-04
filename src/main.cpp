@@ -219,18 +219,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		FILETIME ftCurrent;
 		if(!GetFileLastWriteTime(g_workfile.c_str(), &ftCurrent))
-			errExit(NS("could not get filetime"), GetLastError());
+			errExit(NS("Could not get filetime"), GetLastError());
 
 		if(CompareFileTime(&ftCurrent, &g_wfdRemote.ftLastWriteTime) > 0)
-			errExit(NS("Existing file is newer than the remove file. exiting."));
+			errExit(NS("Existing file is newer than the remote file. exiting."));
 
 		if(!SHDeleteFile(g_workfile.c_str()))
-			errExit(NS("could not gomibako file"));
+			errExit(NS("Could not move file to Recycle Bin"));
 	}
 
 	
-
-
 	if(!CopyFile(g_remotefile.c_str(), g_workfile.c_str(), TRUE))
 		errExit(NS("Copy failed"));
 
