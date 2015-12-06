@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kocchiwork", "kocchiwork2008.vcproj", "{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		UnicodeDebug|Win32 = UnicodeDebug|Win32
+		UnicodeRelease|Win32 = UnicodeRelease|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.UnicodeDebug|Win32.ActiveCfg = UnicodeDebug|Win32
+		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.UnicodeDebug|Win32.Build.0 = UnicodeDebug|Win32
+		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.UnicodeRelease|Win32.ActiveCfg = UnicodeRelease|Win32
+		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.UnicodeRelease|Win32.Build.0 = UnicodeRelease|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

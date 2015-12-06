@@ -89,7 +89,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 **/
 
 #ifdef _DEBUG
-//		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
+		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
 //		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
