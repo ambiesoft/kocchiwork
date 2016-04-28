@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 #include "tmphelp.h"
 #include "../../MyUtility/HelpDefines.h"
 
@@ -49,4 +49,33 @@ BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage)
 	tnd.uCallbackMessage = dwIDandCallbackMessage;
 
 	return Shell_NotifyIcon(NIM_DELETE, &tnd);
+}
+
+//tstring GetRecent()
+//{
+//	HMENU hM = CreateMenu();
+//	HMENU hPop = CreatePopupMenu();
+//	if(!hPop)
+//		return L"";
+//
+//	if(!InsertMenu(hPop, 0, MF_STRING, 1000, L"AAA"))
+//		return L"";
+//
+//	if(!InsertMenu(hM, 0, MF_POPUP, (UINT_PTR)hPop, NULL))
+//		return L"";
+//
+//	TrackPopupMenu(hPop,
+//		TPM_RETURNCMD,
+//		100,100,
+//		0,
+//		NULL,
+//		NULL);
+//
+//	return L"";
+//}
+
+
+void OpenRecent()
+{
+	// launch openrecent
 }
