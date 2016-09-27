@@ -24,7 +24,7 @@ namespace po = boost::program_options;
 #include "../../MyUtility/IsFileOpen.h"
 
 #include "../../MyUtility/stdwin32/stdwin32.h"
-
+using namespace stdwin32;
 
 
 void Untray()
@@ -63,6 +63,13 @@ BOOL IsFiletimeFuture(FILETIME* pFT)
 	return ret > 0;
 }
 
+BOOL InitApp()
+{
+	tstring exefile = stdGetModuleFileName();
+	fff
+	return TRUE;
+}
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR     lpCmdLine,
@@ -88,6 +95,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 **/
 
+	if(!InitApp())
+	{
+		errExit(NS("Fatal : InitApp"));
+	}
 #ifdef _DEBUG
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
