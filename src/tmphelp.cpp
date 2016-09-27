@@ -206,6 +206,8 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				
 			// Set input focus to the list box.
 			SetFocus(hwndList); 
+
+			CenterWindow(hDlg, NULL);
 			return TRUE;
 		}
 		break;

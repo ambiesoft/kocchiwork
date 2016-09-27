@@ -218,7 +218,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="2 Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
@@ -264,6 +264,10 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\heavyboost.cpp"
+				>
 			</File>
 			<File
 				RelativePath="src\kocchiwork.cpp"
@@ -328,30 +332,6 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\MyUtility\showballoon.cpp"
-				>
-				<FileConfiguration
-					Name="UnicodeRelease|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="UnicodeDebug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 			</File>
@@ -450,6 +430,10 @@
 			<Filter
 				Name="MyU"
 				>
+				<File
+					RelativePath="..\MyUtility\CenterWindow.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\MyUtility\CreateSimpleWindow.cpp"
 					>
@@ -607,6 +591,28 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\MyUtility\showballoon.cpp"
+					>
+					<FileConfiguration
+						Name="UnicodeRelease|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="UnicodeDebug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath="..\MyUtility\StdStringReplace.cpp"
 					>
 					<FileConfiguration
@@ -694,10 +700,14 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\MyUtility\WritePrivateProfileInt.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Header Files"
+			Name="1 Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
@@ -710,6 +720,10 @@
 			</File>
 			<File
 				RelativePath="src\err.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\heavyboost.h"
 				>
 			</File>
 			<File
@@ -748,6 +762,10 @@
 				Name="MyUH"
 				>
 				<File
+					RelativePath="..\MyUtility\CenterWindow.h"
+					>
+				</File>
+				<File
 					RelativePath="..\MyUtility\CreateSimpleWindow.h"
 					>
 				</File>
@@ -783,10 +801,14 @@
 					RelativePath="..\MyUtility\UTF16toUTF8.h"
 					>
 				</File>
+				<File
+					RelativePath="..\MyUtility\WritePrivateProfileInt.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Resource Files"
+			Name="3 Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 			>
 			<File

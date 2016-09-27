@@ -41,6 +41,7 @@ using namespace std;
 #include "../../MyUtility/UTF16toUTF8.h"
 #include "../../MyUtility/IsFileOpen.h"
 #include "../../MyUtility/WritePrivateProfileInt.h"
+#include "../../MyUtility/CenterWindow.h"
 
 
 #include "../../MyUtility/stdwin32/stdwin32.h"
