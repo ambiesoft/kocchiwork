@@ -20,7 +20,7 @@
 #include <shlwapi.h>
 #include <Shellapi.h>
 #include <string>
-
+#include <list>
 
 #include <stlsoft/smartptr/scoped_handle.hpp>
 
@@ -34,6 +34,17 @@ using namespace std;
 #include "../../MyUtility/GetDirFromPath.h"
 #include "../../MyUtility/SHDeleteFile.h"
 #include "../../MyUtility/I18N.h"
+
+#include "../../MyUtility/StdStringReplace.h"
+#include "../../MyUtility/IsFileExists.h"
+#include "../../MyUtility/UrlEncode.h"
+#include "../../MyUtility/UTF16toUTF8.h"
+#include "../../MyUtility/IsFileOpen.h"
+#include "../../MyUtility/WritePrivateProfileInt.h"
+
+
+#include "../../MyUtility/stdwin32/stdwin32.h"
+using namespace stdwin32;
 
 #include "tmphelp.h"
 

@@ -4,7 +4,9 @@
 #pragma message("_DLL is defined")
 #endif
 
-#include <boost/format.hpp>
+// #include <boost/format.hpp>
+#include "heavyboost.h"
+
 /**
 #define BOOST_LIB_DIAGNOSTIC
 #include <boost/program_options.hpp>
@@ -16,15 +18,6 @@ namespace po = boost::program_options;
 #include "err.h"
 #include "common.h"
 // #include "systeminfo.h"
-
-#include "../../MyUtility/StdStringReplace.h"
-#include "../../MyUtility/IsFileExists.h"
-#include "../../MyUtility/UrlEncode.h"
-#include "../../MyUtility/UTF16toUTF8.h"
-#include "../../MyUtility/IsFileOpen.h"
-
-#include "../../MyUtility/stdwin32/stdwin32.h"
-using namespace stdwin32;
 
 
 void Untray()
@@ -63,10 +56,9 @@ BOOL IsFiletimeFuture(FILETIME* pFT)
 	return ret > 0;
 }
 
+
 BOOL InitApp()
 {
-	tstring exefile = stdGetModuleFileName();
-	fff
 	return TRUE;
 }
 
@@ -99,6 +91,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		errExit(NS("Fatal : InitApp"));
 	}
+
 #ifdef _DEBUG
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
 //		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
@@ -107,6 +100,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //		g_remotefile = _T("\\\\inpsrv\\Share\\pass\\text.txt");
 #endif
 
+	bool f_noSaveRecent = false;
 	try
 	{
 		for (int i = 1; i < __argc; ++i)
@@ -116,6 +110,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			{
 				g_progfile = stdwin32::trim( __targv[i + 1]);
 				++i;
+			}
+			else if (lstrcmpi(arg.c_str(), L"/N") == 0)
+			{
+				f_noSaveRecent = true;
 			}
 			else
 			{
@@ -172,7 +170,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	
 	if(!IsFileExists(g_remotefile.c_str()))
 	{
-		tstring message = ( boost::wformat(NS("%1% is not a file.")) % g_remotefile.c_str() ).str();
+		// tstring message = ( boost::wformat(NS("%1% is not a file.")) % g_remotefile.c_str() ).str();
+		tstring message = doformat(g_remotefile);
 		errExit(message.c_str());
 	}
 
@@ -423,6 +422,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			ReturnFileAndQuit(NULL);
 		}
 	}
+
+	if(!f_noSaveRecent)
+	{
+		if(!SaveRecent(g_progfile.c_str(), g_remotefile.c_str()))
+		{
+			errExit(NS("SaveRecent failed."));
+		}
+	}
+
 	RemoveDirectory(workdir.c_str());
 	DestroyIcon(g_hTrayIcon);
 	return msg.wParam;
