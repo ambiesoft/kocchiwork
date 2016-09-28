@@ -180,6 +180,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_INITDIALOG:
 		{
+			SetWindowText(hDlg, APP_NAME);
 
 			RECENTSTYPE recents;
 			GetRecents(recents);
