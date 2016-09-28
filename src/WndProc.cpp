@@ -87,7 +87,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 						lstrcat(file, L"\\showballoon.exe");
 
 						HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-						showballoon(hWnd,title ,text, hIcon,WM_APP_TRAY_NOTIFY,TRUE);
+						showballoon(g_hWnd,title ,text, hIcon,WM_APP_TRAY_NOTIFY,TRUE);
 
 						//wstring param;
 						//param += L"/title:";

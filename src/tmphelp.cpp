@@ -110,31 +110,52 @@ void OpenRecent()
 }
 
 
+class ProcessMutex {
+	HANDLE h_;
+public:
+	ProcessMutex() {
+		HANDLE h = CreateMutex(NULL, FALSE, _T("kocciwork_recent_mutex"));
+		if(!h)
+			errExit(_T("CreateMutex"), GetLastError());
+
+		h_=h;
+		WaitForSingleObject(h, INFINITE);
+	}
+	~ProcessMutex() {
+		ReleaseMutex(h_);
+	}
+};
+
 void GetRecents(RECENTSTYPE& recents)
 {
 	tstring inifile = GetIniFile();
 
-	int count = GetPrivateProfileInt(_T("recents"),
-		_T("count"),
-		0,
-		inifile.c_str());
-//	TCHAR szT[1024];
-	for(int i=0 ; i < count ; ++i)
 	{
-//		szT[0]=0;
-		tstring sec(_T("recent_"));
-		sec += dolex(i);
+		ProcessMutex mut;
+		// MessageBox(NULL, L"Mutex Aquired", APP_NAME, MB_OK);
 
-		tstring tout;
-		if(GetPrivateProfileWString(_T("recents"),
-			sec.c_str(),
-			_T(""),
-			tout,
-			inifile.c_str()))
+		int count = GetPrivateProfileInt(_T("recents"),
+			_T("count"),
+			0,
+			inifile.c_str());
+	//	TCHAR szT[1024];
+		for(int i=0 ; i < count ; ++i)
 		{
-			if(!tout.empty())
+	//		szT[0]=0;
+			tstring sec(_T("recent_"));
+			sec += dolex(i);
+		
+			tstring tout;
+			if(GetPrivateProfileWString(_T("recents"),
+				sec.c_str(),
+				_T(""),
+				tout,
+				inifile.c_str()))
 			{
-				recents.push_back(tout);
+				if(!tout.empty())
+				{
+					recents.push_back(tout);
+				}
 			}
 		}
 	}
@@ -155,27 +176,29 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 	int count = min(recents.size(), MAX_RECENT_SIZE);
 	RECENTSTYPE::iterator it;
 	int i=0;
-	for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
 	{
-		tstring sec(_T("recent_"));
-		sec += dolex(i);
+		ProcessMutex mut;
+		for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
+		{
+			tstring sec(_T("recent_"));
+			sec += dolex(i);
 
-		if(!WritePrivateProfileWString(_T("recents"),
-			sec.c_str(),
-			it->c_str(),
+			if(!WritePrivateProfileWString(_T("recents"),
+				sec.c_str(),
+				it->c_str(),
+				inifile.c_str()))
+			{
+				return FALSE;
+			}
+		}
+		if(!WritePrivateProfileInt(_T("recents"),
+			_T("count"),
+			i,
 			inifile.c_str()))
 		{
 			return FALSE;
 		}
 	}
-	if(!WritePrivateProfileInt(_T("recents"),
-		_T("count"),
-		i,
-		inifile.c_str()))
-	{
-		return FALSE;
-	}
-
 	return TRUE;
 }
 
