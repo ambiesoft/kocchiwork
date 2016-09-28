@@ -79,15 +79,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 						wstring title=L"kocchiwork";
 						wstring text = NS("App was closed but file still opens, changed mode to monitor file");
 
-						// wstring dir;
+/**
 						wchar_t file[MAX_PATH];
 						GetModuleFileName(NULL, file, MAX_PATH);
 						*wcsrchr(file, L'\\') = 0;
-						// dir=file;
 						lstrcat(file, L"\\showballoon.exe");
 
 						HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-						showballoon(g_hWnd,title ,text, hIcon,WM_APP_TRAY_NOTIFY,TRUE);
+						showballoon(g_hWnd,title ,text, g_hTrayIcon,WM_APP_TRAY_NOTIFY,TRUE);
+**/
+
+
+						if(!PopupTrayIcon(
+							g_hWnd, 
+							WM_APP_TRAY_NOTIFY, 
+							g_hTrayIcon, 
+							text.c_str()))
+						{
+							errExit(NS("could not register tray icon."),GetLastError());
+						}
+
+
+
 
 						//wstring param;
 						//param += L"/title:";

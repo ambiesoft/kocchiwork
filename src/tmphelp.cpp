@@ -43,6 +43,23 @@ BOOL AddTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR ps
 	return Shell_NotifyIcon(NIM_ADD, &tnd);
 }
 
+BOOL PopupTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR pszTip)
+{
+	NOTIFYICONDATA tnd = {0};
+	tnd.cbSize = sizeof(tnd);
+	tnd.hWnd = hWnd;
+	tnd.uID	= dwIDandCallbackMessage;
+	tnd.uFlags = NIF_ICON | NIF_INFO;
+//	tnd.uCallbackMessage = dwIDandCallbackMessage;
+	tnd.hIcon = hIcon;
+	if( pszTip )
+	{
+		lstrcpyn(tnd.szInfo, pszTip, _countof(tnd.szTip)-1);
+	}
+
+	return Shell_NotifyIcon(NIM_MODIFY, &tnd);
+}
+
 BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage)
 {
 
@@ -204,6 +221,33 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 
 
 
+BOOL OpenSelected(HWND hwndList)
+{
+	int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
+	if(cur != LB_ERR)
+	{
+		int len = SendMessage(hwndList, LB_GETTEXTLEN, cur, 0);
+		LPTSTR p = new TCHAR[len+1];
+		p[0]=0;
+		SendMessage(hwndList, LB_GETTEXT, cur, (LPARAM)p);
+		tstring file = _T("\"");
+		file += p;
+		file += _T("\"");
+		delete[] p;
+		
+		tstring thisexe = stdGetModuleFileName();
+		if(ShellExecute(hwndList,
+			NULL,
+			thisexe.c_str(),
+			file.c_str(),
+			NULL,
+			SW_SHOW) <= (HINSTANCE)32)
+		{
+			errExit(NS("Fatal : ShellExecute"));
+		}
+	}
+	return TRUE;
+}
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -248,32 +292,23 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			switch(LOWORD(wParam))
 			{
+				case IDC_LIST_RECENT:
+				{
+					if(HIWORD(wParam)==LBN_DBLCLK)
+					{
+						HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
+						OpenSelected(hwndList);
+
+						EndDialog(hDlg, IDOK);
+						return 1;
+					}
+				}
+				break;
+
 				case IDOK:
 				{
 					HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
-					int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
-					if(cur != LB_ERR)
-					{
-						int len = SendMessage(hwndList, LB_GETTEXTLEN, cur, 0);
-						LPTSTR p = new TCHAR[len+1];
-						p[0]=0;
-						SendMessage(hwndList, LB_GETTEXT, cur, (LPARAM)p);
-						tstring file = _T("\"");
-						file += p;
-						file += _T("\"");
-						delete[] p;
-						
-						tstring thisexe = stdGetModuleFileName();
-						if(ShellExecute(hDlg,
-							NULL,
-							thisexe.c_str(),
-							file.c_str(),
-							NULL,
-							SW_SHOW) <= (HINSTANCE)32)
-						{
-							errExit(NS("Fatal : ShellExecute"));
-						}
-					}
+					OpenSelected(hwndList);
 
 					EndDialog(hDlg, IDOK);
 					return 1;
