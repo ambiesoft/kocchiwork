@@ -704,6 +704,10 @@
 					RelativePath="..\MyUtility\WritePrivateProfileInt.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\MyUtility\WritePrivateProfileWString.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -803,6 +807,10 @@
 				</File>
 				<File
 					RelativePath="..\MyUtility\WritePrivateProfileInt.h"
+					>
+				</File>
+				<File
+					RelativePath="..\MyUtility\WritePrivateProfileWString.h"
 					>
 				</File>
 			</Filter>

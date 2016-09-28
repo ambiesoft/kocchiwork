@@ -5,6 +5,7 @@
 #include "err.h"
 
 #include "../../MyUtility/HelpDefines.h"
+#include "../../MyUtility/WritePrivateProfileWString.h"
 
 BOOL GetFileData(LPCTSTR pFile, WIN32_FIND_DATA* pData)
 {
@@ -78,6 +79,15 @@ BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage)
 //	return L"";
 //}
 
+
+tstring GetIniFile()
+{
+	tstring inifile = stdGetModuleFileName();
+	inifile += _T(".ini");
+
+	return inifile;
+}
+
 #define MAX_RECENT_SIZE 16
 typedef list<tstring> RECENTSTYPE;
 
@@ -102,31 +112,30 @@ void OpenRecent()
 
 void GetRecents(RECENTSTYPE& recents)
 {
-	tstring inifile = stdGetModuleFileName();
-	inifile += _T(".ini");
-
+	tstring inifile = GetIniFile();
 
 	int count = GetPrivateProfileInt(_T("recents"),
 		_T("count"),
 		0,
 		inifile.c_str());
-	TCHAR szT[1024];
+//	TCHAR szT[1024];
 	for(int i=0 ; i < count ; ++i)
 	{
-		szT[0]=0;
+//		szT[0]=0;
 		tstring sec(_T("recent_"));
 		sec += dolex(i);
 
-		GetPrivateProfileString(_T("recents"),
+		tstring tout;
+		if(GetPrivateProfileWString(_T("recents"),
 			sec.c_str(),
 			_T(""),
-			szT,
-			_countof(szT),
-			inifile.c_str());
-
-		if(szT[0] != 0)
+			tout,
+			inifile.c_str()))
 		{
-			recents.push_back(szT);
+			if(!tout.empty())
+			{
+				recents.push_back(tout);
+			}
 		}
 	}
 }
@@ -135,8 +144,7 @@ void GetRecents(RECENTSTYPE& recents)
 
 BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 {
-	tstring inifile = stdGetModuleFileName();
-	inifile += _T(".ini");
+	tstring inifile = GetIniFile();
 
 	RECENTSTYPE recents;
 	GetRecents(recents);
@@ -152,7 +160,7 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 		tstring sec(_T("recent_"));
 		sec += dolex(i);
 
-		if(!WritePrivateProfileString(_T("recents"),
+		if(!WritePrivateProfileWString(_T("recents"),
 			sec.c_str(),
 			it->c_str(),
 			inifile.c_str()))

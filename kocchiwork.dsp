@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="kocchiwork" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** 編集しないでください **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
 CFG=kocchiwork - Win32 UnicodeDebug
-!MESSAGE これは有効なﾒｲｸﾌｧｲﾙではありません。 このﾌﾟﾛｼﾞｪｸﾄをﾋﾞﾙﾄﾞするためには NMAKE を使用してください。
-!MESSAGE [ﾒｲｸﾌｧｲﾙのｴｸｽﾎﾟｰﾄ] ｺﾏﾝﾄﾞを使用して実行してください
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "kocchiwork.mak".
 !MESSAGE 
-!MESSAGE NMAKE の実行時に構成を指定できます
-!MESSAGE ｺﾏﾝﾄﾞ ﾗｲﾝ上でﾏｸﾛの設定を定義します。例:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "kocchiwork.mak" CFG="kocchiwork - Win32 UnicodeDebug"
 !MESSAGE 
-!MESSAGE 選択可能なﾋﾞﾙﾄﾞ ﾓｰﾄﾞ:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "kocchiwork - Win32 UnicodeDebug" ("Win32 (x86) Application" 用)
-!MESSAGE "kocchiwork - Win32 UnicodeRelease" ("Win32 (x86) Application" 用)
+!MESSAGE "kocchiwork - Win32 UnicodeDebug" (based on "Win32 (x86) Application")
+!MESSAGE "kocchiwork - Win32 UnicodeRelease" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -57,7 +57,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /debug /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiworkD.exe" /pdbtype:sept /libpath:"L:\MSSDK\2003\Lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir                  C:\Linkout\kocchiwork\lang                 	copy                  lang\jpn.txt                  C:\Linkout\kocchiwork\lang\ 
+PostBuild_Cmds=mkdir                   C:\Linkout\kocchiwork\lang                  	copy                   lang\jpn.txt                   C:\Linkout\kocchiwork\lang\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "kocchiwork - Win32 UnicodeRelease"
@@ -88,7 +88,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiwork.exe" /libpath:"L:\MSSDK\2003\Lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir                  C:\Linkout\kocchiwork\lang                 	copy                  lang\jpn.txt                  C:\Linkout\kocchiwork\lang\ 
+PostBuild_Cmds=mkdir                   C:\Linkout\kocchiwork\lang                  	copy                   lang\jpn.txt                   C:\Linkout\kocchiwork\lang\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -140,6 +140,21 @@ SOURCE=..\MyUtility\SHDeleteFile.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\MyUtility\showballoon.cpp
+
+!IF  "$(CFG)" == "kocchiwork - Win32 UnicodeDebug"
+
+# ADD CPP /Yu
+
+!ELSEIF  "$(CFG)" == "kocchiwork - Win32 UnicodeRelease"
+
+# ADD CPP /Yu
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\MyUtility\StdStringReplace.cpp
 # ADD CPP /Yu
 # End Source File
@@ -157,6 +172,14 @@ SOURCE=..\MyUtility\UrlEncode.cpp
 
 SOURCE=..\MyUtility\UTF16toUTF8.cpp
 # ADD CPP /Yu
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyUtility\WritePrivateProfileInt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyUtility\WritePrivateProfileWString.cpp
 # End Source File
 # End Group
 # Begin Source File
@@ -189,21 +212,6 @@ SOURCE=.\src\ReturnFileAndQuit.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\MyUtility\showballoon.cpp
-
-!IF  "$(CFG)" == "kocchiwork - Win32 UnicodeDebug"
-
-# ADD CPP /Yu
-
-!ELSEIF  "$(CFG)" == "kocchiwork - Win32 UnicodeRelease"
-
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\StdAfx.cpp
 # ADD CPP /Yc
 # End Source File
@@ -219,10 +227,6 @@ SOURCE=.\src\tmphelp.cpp
 # Begin Source File
 
 SOURCE=.\src\WndProc.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\MyUtility\WritePrivateProfileInt.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -266,6 +270,14 @@ SOURCE=..\MyUtility\UrlEncode.h
 # Begin Source File
 
 SOURCE=..\MyUtility\UTF16toUTF8.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyUtility\WritePrivateProfileInt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyUtility\WritePrivateProfileWString.h
 # End Source File
 # End Group
 # Begin Source File
@@ -315,10 +327,6 @@ SOURCE=.\src\thread.h
 # Begin Source File
 
 SOURCE=.\src\tmphelp.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\MyUtility\WritePrivateProfileInt.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
