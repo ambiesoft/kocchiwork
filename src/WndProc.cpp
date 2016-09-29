@@ -14,6 +14,7 @@
 #include "../../MyUtility/showballoon.h"
 #include "../../MyUtility/I18N.h"
 
+#include "C:\\Linkout\\CommonDLL\\TimedMessageBox.h"
 
 wstring myUrlEncode(wstring strIN)
 {
@@ -30,6 +31,21 @@ wstring myUrlEncode(wstring strIN)
 	return pLast;
 }
 
+BOOL doQueryEndSession()
+{
+	HMODULE hModule = LoadLibrary(_T("TimedMessageBox.dll"));
+	if(!hModule)
+		return TRUE;
+
+	FNTimedMessageBox func=NULL;
+	func = (FNTimedMessageBox)GetProcAddress(hModule, "fnTimedMessageBox");
+	if(!func)
+		return TRUE;
+
+	if(IDOK != func(30, APP_NAME, NS("message"), MB_SYSTEMMODAL))
+		return FALSE;
+	return TRUE; 
+}
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
 	static UINT sTaskBarCreated;
@@ -55,15 +71,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	static bool btimerprocessing;
 	switch(nMsg)
 	{
-	case WM_CREATE:
+		case WM_CREATE:
 		{
+			doQueryEndSession();
 			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
 
 //			EnableDebugPriv();
 			SetTimer(hWnd, 1, 5000,NULL);
 		}
 		break;
-	case WM_TIMER:
+		
+		case WM_TIMER:
 		{
 			if(btimerprocessing)
 				break;
@@ -168,7 +186,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			btimerprocessing = false;
 		}
 		break;
-	case WM_APP_TRAY_NOTIFY:
+		
+		case WM_APP_TRAY_NOTIFY:
 		switch(lParam)
 		{
 			case WM_LBUTTONUP:
@@ -209,21 +228,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 
 		}
 		break;
-	case WM_APP_LACHANGED:
+	
+		case WM_APP_LACHANGED:
 		{
 			if(!g_hKanshiApp)
 				ReturnFileAndQuit(hWnd);
 		}
 		break;
-	case WM_APP_APPKANHIDONE:
+	
+		case WM_APP_APPKANHIDONE:
 		{
 			PostQuitMessage(0);
 		}
 		break;
-	case WM_COMMAND:
+	
+		case WM_QUERYENDSESSION:
+		{
+			return doQueryEndSession();
+		}
+		break;
+
+		case WM_COMMAND:
 		switch(LOWORD(wParam))
 		{
-		case IDC_ABOUT:
+			case IDC_ABOUT:
 			{
 				tstring message;
 				message += APP_NAME L" " APP_VERSION;
@@ -240,12 +268,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 	
-		case IDC_QUIT:
-			DestroyWindow(hWnd);
-			PostQuitMessage(0);
+			case IDC_QUIT:
+			{
+				DestroyWindow(hWnd);
+				PostQuitMessage(0);
+			}
 			break;
 
-		case IDC_REOPENFILE:
+			case IDC_REOPENFILE:
 			{
 				SHELLEXECUTEINFO sei = {0};
 				sei.cbSize = sizeof(sei);
@@ -264,7 +294,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
-		case IDC_OPENWITHEXPLORER:
+			case IDC_OPENWITHEXPLORER:
 			{
 				tstring param = _T("/select,");
 				param += g_workfile;
