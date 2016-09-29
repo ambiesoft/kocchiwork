@@ -42,7 +42,7 @@ BOOL doQueryEndSession()
 	if(!func)
 		return TRUE;
 
-	if(IDOK != func(30, APP_NAME, NS("message"), MB_SYSTEMMODAL))
+	if(IDOK != func(300, APP_NAME, NS("message"), MB_SYSTEMMODAL))
 		return FALSE;
 	return TRUE; 
 }
