@@ -73,7 +73,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_CREATE:
 		{
-			doQueryEndSession();
 			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
 
 //			EnableDebugPriv();
