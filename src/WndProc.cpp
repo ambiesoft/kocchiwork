@@ -84,7 +84,7 @@ BOOL doQueryEndSession(HWND hWnd)
 	if(!func)
 		return TRUE;
 
-	if(IDOK != func(300, APP_NAME, NS("message"), MB_SYSTEMMODAL))
+	if(IDOK != func(hWnd, 300, APP_NAME, NS("message"), MB_SYSTEMMODAL))
 		return FALSE;
 	return TRUE; 
 }
@@ -115,7 +115,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_CREATE:
 		{
-			// doQueryEndSession(hWnd);
+			// user32_ShutdownBlockReasonCreate(hWnd,L"FJOD");
 			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
 
 //			EnableDebugPriv();
