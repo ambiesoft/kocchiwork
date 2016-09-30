@@ -12,3 +12,16 @@ tstring g_progfile;
 
 DWORD g_dwRemoteSize;
 time_t g_starttime;
+
+BOOL g_bQuerying;
+BOOL g_bQuittedWhileQuerying;
+
+void doPostQuitMessage(int nQM)
+{
+	if(g_bQuerying)
+	{
+		g_bQuittedWhileQuerying = TRUE;
+		return;
+	}
+	PostQuitMessage(nQM);
+}

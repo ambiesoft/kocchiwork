@@ -111,7 +111,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir            C:\Linkout\kocchiwork\lang&#x0D;&#x0A;copy            lang\jpn.txt            C:\Linkout\kocchiwork\lang\&#x0D;&#x0A;"
+				CommandLine="mkdir            C:\Linkout\kocchiwork\lang&#x0D;&#x0A;copy            lang\jpn.txt            C:\Linkout\kocchiwork\lang\&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\"
 			/>
 		</Configuration>
 		<Configuration
@@ -210,7 +210,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir            C:\Linkout\kocchiwork\lang&#x0D;&#x0A;copy            lang\jpn.txt            C:\Linkout\kocchiwork\lang\&#x0D;&#x0A;"
+				CommandLine="mkdir            C:\Linkout\kocchiwork\lang&#x0D;&#x0A;copy            lang\jpn.txt            C:\Linkout\kocchiwork\lang\&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\"
 			/>
 		</Configuration>
 	</Configurations>

@@ -11,6 +11,9 @@ extern tstring g_progfile;
 extern DWORD g_dwRemoteSize;
 extern time_t g_starttime;
 
+extern BOOL g_bQuerying;
+extern BOOL g_bQuittedWhileQuerying;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 bool  ReturnFileAndQuit(HWND hWnd);
+void doPostQuitMessage(int nQM);

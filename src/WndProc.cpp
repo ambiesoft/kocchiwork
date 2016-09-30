@@ -202,7 +202,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 						{
 							//quit
 							KillTimer(hWnd,1);
-							PostQuitMessage(0);
+							doPostQuitMessage(0);
 						}
 					}
 				}
@@ -217,7 +217,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 					{
 						ReturnFileAndQuit(hWnd);
 						KillTimer(hWnd,1);
-						PostQuitMessage(0);
+						doPostQuitMessage(0);
 					}
 				}
 				else
@@ -280,15 +280,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	
 		case WM_APP_APPKANHIDONE:
 		{
-			PostQuitMessage(0);
+			doPostQuitMessage(0);
 		}
 		break;
 	
 		case WM_QUERYENDSESSION:
 		{
+			g_bQuerying = TRUE;
 			user32_ShutdownBlockReasonCreate(hWnd, L"kocchiwork");
 			BOOL ret = doQueryEndSession(hWnd);
 			user32_ShutdownBlockReasonDestroy(hWnd);
+			g_bQuerying = FALSE;
+			if(g_bQuittedWhileQuerying)
+			{
+				PostQuitMessage(0);
+			}
 			return ret;
 		}
 		break;
@@ -316,7 +322,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			case IDC_QUIT:
 			{
 				DestroyWindow(hWnd);
-				PostQuitMessage(0);
+				doPostQuitMessage(0);
 			}
 			break;
 

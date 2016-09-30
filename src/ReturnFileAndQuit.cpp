@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "kocchiwork.h"
 #include "err.h"
+#include "common.h"
 
 BOOL gBusy;
 
@@ -98,6 +99,6 @@ bool  ReturnFileAndQuit(HWND hWnd)
 	}
 	
 
-	PostQuitMessage(0);
+	doPostQuitMessage(0);
 	return true;
 }
