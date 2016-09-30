@@ -31,7 +31,49 @@ wstring myUrlEncode(wstring strIN)
 	return pLast;
 }
 
-BOOL doQueryEndSession()
+BOOL user32_ShutdownBlockReasonCreate( HWND hwnd, LPCWSTR lpcwstr )
+{
+  HMODULE hMod = LoadLibrary(_T("user32.dll"));
+  if ( hMod == NULL ){
+    return FALSE;
+  }
+
+  typedef BOOL (WINAPI *myFunc)( HWND, LPCWSTR );
+  
+  myFunc pFunc = (myFunc)GetProcAddress( hMod, "ShutdownBlockReasonCreate" );
+  if ( pFunc == NULL ){
+    return FALSE;
+  }
+  
+  BOOL xxx = pFunc( hwnd, lpcwstr );
+
+  FreeLibrary( hMod );
+
+  return xxx; 
+}
+
+BOOL user32_ShutdownBlockReasonDestroy( HWND hwnd )
+{
+  HMODULE hMod = LoadLibrary(_T("user32.dll"));
+  if ( hMod == NULL ){
+    return FALSE;
+  }
+
+  typedef BOOL (WINAPI *myFunc)( HWND );
+  
+  myFunc pFunc = (myFunc)GetProcAddress( hMod, "ShutdownBlockReasonDestroy" );
+  if ( pFunc == NULL ){
+    return FALSE;
+  }
+  
+  BOOL xxx = pFunc( hwnd );
+
+  FreeLibrary( hMod );
+
+  return xxx; 
+}
+
+BOOL doQueryEndSession(HWND hWnd)
 {
 	HMODULE hModule = LoadLibrary(_T("TimedMessageBox.dll"));
 	if(!hModule)
@@ -73,6 +115,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_CREATE:
 		{
+			// doQueryEndSession(hWnd);
 			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
 
 //			EnableDebugPriv();
@@ -243,7 +286,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 	
 		case WM_QUERYENDSESSION:
 		{
-			return doQueryEndSession();
+			user32_ShutdownBlockReasonCreate(hWnd, L"kocchiwork");
+			BOOL ret = doQueryEndSession(hWnd);
+			user32_ShutdownBlockReasonDestroy(hWnd);
+			return ret;
 		}
 		break;
 
