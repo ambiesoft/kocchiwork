@@ -109,21 +109,18 @@ tstring GetIniFile()
 typedef list<tstring> RECENTSTYPE;
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-void OpenRecent()
+tstring OpenRecent()
 {
-
-
+	tstring ret;
 	if(IDOK != DialogBoxParam(GetModuleHandle(NULL),
 		MAKEINTRESOURCE(IDD_DIALOG_RECENT),
 		NULL,
 		NewCmdDlgProc,
-		NULL))
+		(LPARAM)&ret))
 	{
-		return;
+		return _T("");
 	}
-
-
-	// launch openrecent
+	return ret;
 }
 
 
@@ -221,8 +218,9 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 
 
 
-BOOL OpenSelected(HWND hwndList)
+tstring GetSelected(HWND hwndList)
 {
+	tstring fileret;
 	int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 	if(cur != LB_ERR)
 	{
@@ -230,11 +228,10 @@ BOOL OpenSelected(HWND hwndList)
 		LPTSTR p = new TCHAR[len+1];
 		p[0]=0;
 		SendMessage(hwndList, LB_GETTEXT, cur, (LPARAM)p);
-		tstring file = _T("\"");
-		file += p;
-		file += _T("\"");
+		fileret = p;
 		delete[] p;
-		
+
+/*		
 		tstring thisexe = stdGetModuleFileName();
 		if(ShellExecute(hwndList,
 			NULL,
@@ -245,16 +242,19 @@ BOOL OpenSelected(HWND hwndList)
 		{
 			errExit(NS("Fatal : ShellExecute"));
 		}
+*/
 	}
-	return TRUE;
+	return fileret;
 }
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	static tstring* spRet;
 	switch(uMsg)
 	{
 		case WM_INITDIALOG:
 		{
+			spRet = (tstring*)lParam;
 			SetWindowText(hDlg, APP_NAME);
 
 			RECENTSTYPE recents;
@@ -297,7 +297,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					if(HIWORD(wParam)==LBN_DBLCLK)
 					{
 						HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
-						OpenSelected(hwndList);
+						*spRet = GetSelected(hwndList);
 
 						EndDialog(hDlg, IDOK);
 						return 1;
@@ -308,7 +308,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				case IDOK:
 				{
 					HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
-					OpenSelected(hwndList);
+					*spRet = GetSelected(hwndList);
 
 					EndDialog(hDlg, IDOK);
 					return 1;

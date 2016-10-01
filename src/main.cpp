@@ -129,8 +129,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	if (g_remotefile.empty())
 	{
-		 OpenRecent();
-		 return 0;
+		 g_remotefile = OpenRecent();
+		 if(g_remotefile.empty())
+		 {
+			return 0;
+		 }
 	}
 
 	if (g_remotefile.empty())

@@ -4,6 +4,7 @@
 //
 #define IDI_ICON_MAIN                   101
 #define IDD_DIALOG_RECENT               102
+#define IDI_ICON_COPYBACK               103
 #define IDC_LIST_RECENT                 1000
 #define IDC_START                       40001
 #define IDC_ABOUT                       40002
@@ -16,7 +17,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        103
+#define _APS_NEXT_RESOURCE_VALUE        104
 #define _APS_NEXT_COMMAND_VALUE         40501
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

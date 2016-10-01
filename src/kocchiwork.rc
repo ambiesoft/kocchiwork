@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "windows.h"
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -67,6 +67,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON_MAIN           ICON    DISCARDABLE     "icon1.ico"
+IDI_ICON_COPYBACK       ICON    DISCARDABLE     "icon_cop.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //

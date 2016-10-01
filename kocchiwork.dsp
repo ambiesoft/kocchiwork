@@ -57,7 +57,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /debug /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiworkD.exe" /pdbtype:sept /libpath:"L:\MSSDK\2003\Lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir                     C:\Linkout\kocchiwork\lang                    	copy                     lang\jpn.txt                     C:\Linkout\kocchiwork\lang\ 	copy  C:\Linkout\CommonDLL\TimedMessageBox.dll  C:\Linkout\kocchiwork\ 
+PostBuild_Cmds=mkdir                      C:\Linkout\kocchiwork\lang                     	copy                      lang\jpn.txt                      C:\Linkout\kocchiwork\lang\  	copy   C:\Linkout\CommonDLL\TimedMessageBox.dll   C:\Linkout\kocchiwork\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "kocchiwork - Win32 UnicodeRelease"
@@ -88,7 +88,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /out:"C:\LinkOut\kocchiwork\kocchiwork.exe" /libpath:"L:\MSSDK\2003\Lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir                     C:\Linkout\kocchiwork\lang                    	copy                     lang\jpn.txt                     C:\Linkout\kocchiwork\lang\ 	copy  C:\Linkout\CommonDLL\TimedMessageBox.dll  C:\Linkout\kocchiwork\ 
+PostBuild_Cmds=mkdir                      C:\Linkout\kocchiwork\lang                     	copy                      lang\jpn.txt                      C:\Linkout\kocchiwork\lang\  	copy   C:\Linkout\CommonDLL\TimedMessageBox.dll   C:\Linkout\kocchiwork\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -325,6 +325,10 @@ SOURCE=.\src\tmphelp.h
 # Begin Source File
 
 SOURCE=.\src\icon1.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\icon_cop.ico
 # End Source File
 # Begin Source File
 
