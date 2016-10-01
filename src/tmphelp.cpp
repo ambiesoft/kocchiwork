@@ -56,6 +56,8 @@ BOOL PopupTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR 
 	{
 		lstrcpyn(tnd.szInfo, pszTip, _countof(tnd.szTip)-1);
 	}
+	lstrcpyn(tnd.szInfoTitle, APP_NAME, _countof(tnd.szInfoTitle)-1);
+	tnd.dwInfoFlags = NIIF_INFO;
 
 	return Shell_NotifyIcon(NIM_MODIFY, &tnd);
 }
