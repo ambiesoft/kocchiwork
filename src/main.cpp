@@ -1,5 +1,9 @@
 #include "stdafx.h"
 
+
+#include <Shobjidl.h>
+#include <Shlobj.h>
+
 #ifdef _DLL
 #pragma message("_DLL is defined")
 #endif
@@ -61,6 +65,28 @@ BOOL InitApp()
 {
 	return TRUE;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -126,6 +152,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		errExit(NS("Fatal : Illegal Option"));
 	}
 
+
+	if(hasEndingI(g_remotefile, _T(".lnk")))
+	{
+		fff
+	}
 
 	if (g_remotefile.empty())
 	{
