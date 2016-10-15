@@ -314,6 +314,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\MyUtility\ResolveLink.cpp"
+				>
+			</File>
+			<File
 				RelativePath="src\ReturnFileAndQuit.cpp"
 				>
 				<FileConfiguration
@@ -732,6 +736,10 @@
 			</File>
 			<File
 				RelativePath="src\kocchiwork.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyUtility\ResolveLink.h"
 				>
 			</File>
 			<File
