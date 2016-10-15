@@ -19,3 +19,4 @@
 "Operation canceled."="操作はキャンセルされました。"
 "The remote file may be updated after this application starts."="リモートファイルがこのアプリを起動した後で編集された可能性があります。"
 "Fix the conflict."="コンフリクトを修正してください。"
+"Fatal : Failed to resolve link"="致命：リンクを解決できません"

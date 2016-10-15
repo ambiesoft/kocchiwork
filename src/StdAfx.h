@@ -44,6 +44,7 @@ using namespace std;
 #include "../../MyUtility/IsFileOpen.h"
 #include "../../MyUtility/WritePrivateProfileInt.h"
 #include "../../MyUtility/CenterWindow.h"
+#include "../../MyUtility/ResolveLink.h"
 
 
 #include "../../MyUtility/stdwin32/stdwin32.h"

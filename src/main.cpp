@@ -1,8 +1,7 @@
 #include "stdafx.h"
 
 
-#include <Shobjidl.h>
-#include <Shlobj.h>
+
 
 #ifdef _DLL
 #pragma message("_DLL is defined")
@@ -155,7 +154,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	if(hasEndingI(g_remotefile, _T(".lnk")))
 	{
-		fff
+		TCHAR szT[MAX_PATH]={0};
+		if(!ResolveLink(g_remotefile.c_str(), NULL, szT))
+		{
+			errExit(NS("Fatal : Failed to resolve link"));
+		}
+		g_remotefile = szT;
 	}
 
 	if (g_remotefile.empty())
