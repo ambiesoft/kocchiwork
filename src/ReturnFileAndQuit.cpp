@@ -97,7 +97,15 @@ bool  ReturnFileAndQuit(HWND hWnd)
 	{
 		errExit(NS("could not move file"), GetLastError());
 	}
-	
+	//if(!CopyFile(
+	//	g_workfile.c_str(), 
+	//	g_remotefile.c_str(), 
+	//	FALSE // overwirte
+	//	))
+	//{
+	//	errExit(NS("could not copy-back file"), GetLastError());
+	//}
+	//SHDeleteFile(g_workfile.c_str());
 
 	doPostQuitMessage(0);
 	return true;

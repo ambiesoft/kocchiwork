@@ -112,6 +112,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 **/
 
+	Ambiesoft::i18nInitLangmap(hInstance, NULL, _T(""));
+
 	if(!InitApp())
 	{
 		errExit(NS("Fatal : InitApp"));
@@ -286,6 +288,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(!CopyFile(g_remotefile.c_str(), g_workfile.c_str(), TRUE))
 		errExit(NS("Copy failed"));
 
+	// save original file in trashcan
+	{
+		tstring savefile = g_workfile;
+		savefile += _T(".save");
+		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
+			errExit(NS("Copy failed"));
+
+		if(!SHDeleteFile(savefile.c_str(), TRUE))
+			errExit(NS("could not trash file"));
+	}
 
 	if(!GetFileData(g_workfile.c_str(), &g_wfdWork))
 		errExit(NS("could not obtain file info"));
@@ -346,8 +358,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		errExit(NS("could not create a winoow"));
 
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-	tstring traytip = NS("watching as ");
-	traytip += g_workfile;
+	
+	tstring traytip =string_format( NS("Monitoring \"%s\""), g_workfile.c_str());
+
 
 	// traytip += _T("original ");
 	// tstring tremotefile = g_remotefile;
