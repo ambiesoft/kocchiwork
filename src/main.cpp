@@ -291,7 +291,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// save original file in trashcan
 	{
 		tstring savefile = g_workfile;
-		savefile += _T(".save");
+		savefile += _T(".ks");
+		tstring savefilebase(savefile);
+		for(int i=0 ; IsFileExists(savefile.c_str()) ; ++i)
+		{
+			savefile = savefilebase + stdItoT(i);
+		}
 		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
 			errExit(NS("Copy failed"));
 
