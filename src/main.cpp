@@ -300,7 +300,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
 			errExit(NS("Copy failed"));
 
-		if(!SHDeleteFile(savefile.c_str(), TRUE))
+		if(!SHDeleteFile(savefile.c_str(), SHDELETE_NOUI))
 			errExit(NS("could not trash file"));
 	}
 
@@ -459,7 +459,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				while(!done)
 				{
 					done=TRUE;
-					if(!SHDeleteFile(g_workfile.c_str(), TRUE))
+					if(!SHDeleteFile(g_workfile.c_str(), SHDELETE_NOUI))
 					{
 						done=FALSE;
 						if(IDCANCEL==MessageBox(NULL,
