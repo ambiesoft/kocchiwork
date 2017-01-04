@@ -249,6 +249,9 @@ tstring GetSelected(HWND hwndList)
 	return fileret;
 }
 
+
+
+
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static tstring* spRet;
@@ -265,6 +268,9 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
 			RECENTSTYPE::iterator it;
 			int i=0;
+			HDC hdcList = GetWindowDC(hwndList);
+			LONG maxLength = SendMessage(hwndList, LB_GETHORIZONTALEXTENT, 0, 0);
+			LONG maxLengthOrig = maxLength;
 			for (it=recents.begin() ; it != recents.end() ; ++it, ++i)
 			{ 
 				int pos = (int)SendMessage(hwndList,
@@ -275,7 +281,30 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				// This enables us to retrieve the item from the array
 				// even after the items are sorted by the list box.
 				SendMessage(hwndList, LB_SETITEMDATA, pos, (LPARAM) i); 
-			} 
+
+				SIZE size;
+				if(GetTextExtentPoint32(hdcList,
+					it->c_str(),
+					it->size(), // *sizeof((*it)[0]),
+					&size))
+				{
+					maxLength = max(maxLength, size.cx);
+				}
+			}
+
+			if(maxLength != maxLengthOrig)
+			{
+				POINT point;
+				point.x = 0;
+				point.y = maxLength;
+				LPtoDP(hdcList, &point, 1);
+
+				//int x = GetDeviceCaps(hdcList,LOGPIXELSX);
+				//LONG y = GetDialogBaseUnits();
+				//SendMessage(hwndList, LB_SETHORIZONTALEXTENT, maxLength*x/y, 0);
+				SendMessage(hwndList, LB_SETHORIZONTALEXTENT, point.y, 0);
+			}
+			ReleaseDC(hwndList, hdcList);
 
 			if(SendMessage(hwndList, LB_GETCOUNT,0,0) > 0)
 			{
