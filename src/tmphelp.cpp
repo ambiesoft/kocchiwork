@@ -250,37 +250,90 @@ tstring GetSelected(HWND hwndList)
 }
 
 
+LONG getWidth(const RECT& r)
+{
+	return r.right - r.left;
+}
+LONG getHeight(const RECT& r)
+{
+	return r.bottom - r.top;
+}
+LONG getS2C(HWND h,LONG l)
+{
+	POINT pt;
+	pt.x = l;
+	pt.y = 0;
+	ScreenToClient(h, &pt);
+	return pt.x;
+}
+BOOL getS2C(HWND h, POINT& pt)
+{
+	return ScreenToClient(h, &pt);
+}
+BOOL getS2C(HWND h, RECT& r)
+{
+	POINT pt1,pt2;
+	pt1.x=r.left;
+	pt1.y=r.top;
+	pt2.x=r.right;
+	pt2.y=r.bottom;
+	ScreenToClient(h, &pt1);
+	ScreenToClient(h, &pt2);
 
+	r.left=pt1.x;
+	r.top=pt1.y;
+	r.right=pt2.x;
+	r.bottom=pt2.y;
+
+	return TRUE;
+}
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static tstring* spRet;
+
+
+	static RECT sdeltaL;
+	static POINT sdeltaO;
+	static POINT sdeltaC;
+
+
+	static HWND shwndList;
+	static HWND shwndBtnOK;
+	static HWND shwndBtnCancel;
+
 	switch(uMsg)
 	{
 		case WM_INITDIALOG:
 		{
 			spRet = (tstring*)lParam;
+			shwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
+			shwndBtnOK = GetDlgItem(hDlg, IDOK);
+			shwndBtnCancel = GetDlgItem(hDlg, IDCANCEL);
+
+
+
 			SetWindowText(hDlg, APP_NAME);
 
 			RECENTSTYPE recents;
 			GetRecents(recents);
 
-			HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
+			
 			RECENTSTYPE::iterator it;
 			int i=0;
-			HDC hdcList = GetWindowDC(hwndList);
-			LONG maxLength = SendMessage(hwndList, LB_GETHORIZONTALEXTENT, 0, 0);
+			HDC hdcList = GetWindowDC(shwndList);
+			LONG maxLength = SendMessage(shwndList, LB_GETHORIZONTALEXTENT, 0, 0);
 			LONG maxLengthOrig = maxLength;
 			for (it=recents.begin() ; it != recents.end() ; ++it, ++i)
 			{ 
-				int pos = (int)SendMessage(hwndList,
+				int pos = (int)SendMessage(shwndList,
 					LB_ADDSTRING,
 					0, 
 					(LPARAM)it->c_str());
 				// Set the array index of the player as item data.
 				// This enables us to retrieve the item from the array
 				// even after the items are sorted by the list box.
-				SendMessage(hwndList, LB_SETITEMDATA, pos, (LPARAM) i); 
+				SendMessage(shwndList, LB_SETITEMDATA, pos, (LPARAM) i); 
 
 				SIZE size;
 				if(GetTextExtentPoint32(hdcList,
@@ -302,20 +355,92 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				//int x = GetDeviceCaps(hdcList,LOGPIXELSX);
 				//LONG y = GetDialogBaseUnits();
 				//SendMessage(hwndList, LB_SETHORIZONTALEXTENT, maxLength*x/y, 0);
-				SendMessage(hwndList, LB_SETHORIZONTALEXTENT, point.y, 0);
+				SendMessage(shwndList, LB_SETHORIZONTALEXTENT, point.y, 0);
 			}
-			ReleaseDC(hwndList, hdcList);
+			ReleaseDC(shwndList, hdcList);
 
-			if(SendMessage(hwndList, LB_GETCOUNT,0,0) > 0)
+			if(SendMessage(shwndList, LB_GETCOUNT,0,0) > 0)
 			{
-				SendMessage(hwndList, LB_SETCURSEL,0,0);
+				SendMessage(shwndList, LB_SETCURSEL,0,0);
 			}
 				
 			// Set input focus to the list box.
-			SetFocus(hwndList); 
+			SetFocus(shwndList); 
 
 			CenterWindow(hDlg, NULL);
 			return TRUE;
+		}
+		break;
+
+		case WM_SIZE:
+		{
+			static bool bSet;
+			if(!bSet)
+			{
+				RECT rD,rL,rO,rC;
+				GetWindowRect(hDlg, &rD);
+				// AdjustWindowRect(&rD, GetWindowLong(hDlg, GWL_STYLE), FALSE);
+				GetWindowRect(shwndList, &rL);
+				GetWindowRect(shwndBtnOK, &rO);
+				GetWindowRect(shwndBtnCancel, &rC);
+		
+				sdeltaL.left = rD.left - rL.left;
+				sdeltaL.top = rD.top - rL.top;
+				sdeltaL.right = rD.right - rL.right;
+				sdeltaL.bottom = rD.bottom - rL.bottom;
+
+				sdeltaO.x = rD.right - rO.left;
+				sdeltaO.y = rD.bottom - rO.top;
+
+				sdeltaC.x = rD.right - rC.left;
+				sdeltaC.y = rD.bottom - rC.top;
+
+
+				bSet = true;
+			}
+			if(wParam==SIZE_RESTORED || wParam==SIZE_MAXIMIZED)
+			{
+
+				RECT rD;
+				GetWindowRect(hDlg, &rD);
+				// AdjustWindowRect(&rD, GetWindowLong(hDlg, GWL_STYLE), FALSE);
+				
+				RECT rT;
+				
+				rT.left = (rD.left - sdeltaL.left);
+				rT.top = rD.top - sdeltaL.top;
+				rT.right = rD.right - sdeltaL.right;
+				rT.bottom = rD.bottom-sdeltaL.bottom;
+				getS2C(hDlg,rT);
+				MoveWindow(shwndList,
+					rT.left, 
+					rT.top,
+					getWidth(rT),
+					getHeight(rT),
+					TRUE);
+
+
+				POINT pT;
+				pT.x = rD.right - sdeltaO.x;
+				pT.y = rD.bottom-sdeltaO.y;
+				getS2C(hDlg,pT);
+				SetWindowPos(shwndBtnOK, NULL,
+					pT.x,
+					pT.y,
+					0,
+					0,
+					SWP_NOZORDER|SWP_NOSIZE);
+
+				pT.x = rD.right - sdeltaC.x;
+				pT.y = rD.bottom-sdeltaC.y;
+				getS2C(hDlg,pT);
+				SetWindowPos(shwndBtnCancel, NULL,
+					pT.x,
+					pT.y,
+					0,
+					0,
+					SWP_NOZORDER|SWP_NOSIZE);
+			}
 		}
 		break;
 
