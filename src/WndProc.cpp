@@ -84,7 +84,7 @@ BOOL doQueryEndSession(HWND hWnd)
 	if(!func)
 		return TRUE;
 
-	if(IDOK != func(hWnd, 300, APP_NAME, NS("message"), MB_SYSTEMMODAL))
+	if(IDOK != func(hWnd, 300, APP_NAME, NS("message")))
 		return FALSE;
 	return TRUE; 
 }
