@@ -319,7 +319,8 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SendMessage(hDlg, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
 			SendMessage(hDlg, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 			
-			wstring title = (boost::wformat(L"%s | %s") % NS("Recent Files") % APP_NAME).str();
+			wstring title = boostformat2(L"%s | %s", NS("Recent Files"), APP_NAME);
+			// wstring title = (boost::wformat(L"%s | %s") % NS("Recent Files") % APP_NAME).str();
 			SetWindowText(hDlg, title.c_str());
 
 			RECENTSTYPE recents;

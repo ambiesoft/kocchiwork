@@ -27,8 +27,6 @@
 #include <string>
 #include <list>
 
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
 
 #include <stlsoft/smartptr/scoped_handle.hpp>
 
