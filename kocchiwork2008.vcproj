@@ -57,10 +57,6 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\UnicodeRelease/kocchiwork.pch"
-				AssemblerListingLocation=".\UnicodeRelease/"
-				ObjectFile=".\UnicodeRelease/"
-				ProgramDataBaseFileName=".\UnicodeRelease/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -82,7 +78,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
-				ProgramDatabaseFile=".\UnicodeRelease/kocchiwork.pdb"
 				SubSystem="2"
 				EntryPointSymbol="wWinMainCRTStartup"
 				RandomizedBaseAddress="1"
@@ -101,7 +96,6 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\UnicodeRelease/kocchiwork.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -111,7 +105,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir &quot;$(TargetDir)lang&quot;&#x0D;&#x0A;copy lang\jpn.txt &quot;$(TargetDir)lang\&quot;&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\History.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\License.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\Readme.txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="mkdir &quot;$(TargetDir)lang&quot;&#x0D;&#x0A;copy lang\jpn.txt &quot;$(TargetDir)lang\&quot;&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\History.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\License.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\Readme.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -155,10 +149,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\UnicodeDebug/kocchiwork.pch"
-				AssemblerListingLocation=".\UnicodeDebug/"
-				ObjectFile=".\UnicodeDebug/"
-				ProgramDataBaseFileName=".\UnicodeDebug/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -181,7 +171,6 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\UnicodeDebug/kocchiworkD.pdb"
 				SubSystem="2"
 				EntryPointSymbol="wWinMainCRTStartup"
 				RandomizedBaseAddress="1"
@@ -200,7 +189,6 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\UnicodeDebug/kocchiwork.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -210,7 +198,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir &quot;$(TargetDir)lang&quot;&#x0D;&#x0A;copy lang\jpn.txt &quot;$(TargetDir)lang\&quot;&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\History.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\License.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\Readme.txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="mkdir &quot;$(TargetDir)lang&quot;&#x0D;&#x0A;copy lang\jpn.txt &quot;$(TargetDir)lang\&quot;&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\History.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\License.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\Readme.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
