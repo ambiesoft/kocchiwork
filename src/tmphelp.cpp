@@ -4,6 +4,8 @@
 #include "heavyboost.h"
 #include "err.h"
 
+#include "common.h"
+
 #include "../../lsMisc/HelpDefines.h"
 #include "../../lsMisc/WritePrivateProfileWString.h"
 
@@ -314,8 +316,11 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			shwndBtnCancel = GetDlgItem(hDlg, IDCANCEL);
 
 
-
-			SetWindowText(hDlg, APP_NAME);
+			SendMessage(hDlg, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
+			SendMessage(hDlg, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
+			
+			wstring title = (boost::wformat(L"%s | %s") % NS("Recent Files") % APP_NAME).str();
+			SetWindowText(hDlg, title.c_str());
 
 			RECENTSTYPE recents;
 			GetRecents(recents);

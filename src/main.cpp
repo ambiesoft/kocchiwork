@@ -112,8 +112,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return 1;
 	}
 **/
+#ifdef _DEBUG
+	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF | _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG));
+#endif
 
 	Ambiesoft::i18nInitLangmap(hInstance, NULL, _T(""));
+	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
 
 	if(!InitApp())
 	{
@@ -301,7 +305,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
 			errExit(NS("Copy failed"));
 
-		if(!SHDeleteFile(savefile.c_str())) //, SHDELETE_NOUI))
+		if(!SHDeleteFile(savefile.c_str(), FOF_ALLOWUNDO|FOF_SILENT|FOF_FILESONLY))
 			errExit(NS("could not trash file"));
 	}
 
@@ -364,7 +368,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		errExit(NS("could not create a winoow"));
 
 
-	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
+	
 	SendMessage(g_hWnd, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
 	SendMessage(g_hWnd, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 
@@ -452,24 +456,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
 		if(nCmp==0)
 		{
-			HWND h = CreateSimpleWindow();
-			stlsoft::scoped_handle<HWND> dh(h, DestroyWindow);
+			//HWND h = CreateSimpleWindow();
+			//stlsoft::scoped_handle<HWND> dh(h, DestroyWindow);
 
-			SendMessage(h, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
-			SendMessage(h, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
+			//SendMessage(h, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
+			//SendMessage(h, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 
 			tstring message;
 			message = NS("File not changed. Do you want to delete the copied file?");
 			message += CRLF;
 			message += g_workfile.c_str();
-			if(IDYES==MessageBox(h, message.c_str(), APP_NAME, 
+			if(IDYES==MessageBox(NULL, message.c_str(), APP_NAME, 
 				MB_SYSTEMMODAL| MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
 			{
 				BOOL done = FALSE;
 				while(!done)
 				{
 					done=TRUE;
-					if(!SHDeleteFile(g_workfile.c_str())) //, SHDELETE_NOUI))
+					if(!SHDeleteFile(g_workfile.c_str(), FOF_ALLOWUNDO|FOF_SILENT|FOF_FILESONLY))
 					{
 						done=FALSE;
 						if(IDCANCEL==MessageBox(g_hWnd,

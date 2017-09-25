@@ -1,6 +1,8 @@
 Debug/
-UnicodeDebug/
+Release/
 *.ncb
 *.suo
 *.user
+
+src/kocchiwork.aps
 

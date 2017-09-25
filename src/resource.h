@@ -1,10 +1,9 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by kocchiwork.rc
 //
 #define IDI_ICON_MAIN                   101
 #define IDD_DIALOG_RECENT               102
-#define IDI_ICON_COPYBACK               103
 #define IDC_LIST_RECENT                 1000
 #define IDC_START                       40001
 #define IDC_ABOUT                       40002

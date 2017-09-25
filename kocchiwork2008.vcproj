@@ -111,7 +111,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir            C:\Linkout\kocchiwork\lang&#x0D;&#x0A;copy            lang\jpn.txt            C:\Linkout\kocchiwork\lang\&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;"
+				CommandLine="mkdir &quot;$(TargetDir)lang&quot;&#x0D;&#x0A;copy lang\jpn.txt &quot;$(TargetDir)lang\&quot;&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\History.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\License.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\Readme.txt&quot; &quot;$(TargetDir)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -210,7 +210,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir            C:\Linkout\kocchiwork\lang&#x0D;&#x0A;copy            lang\jpn.txt            C:\Linkout\kocchiwork\lang\&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;"
+				CommandLine="mkdir &quot;$(TargetDir)lang&quot;&#x0D;&#x0A;copy lang\jpn.txt &quot;$(TargetDir)lang\&quot;&#x0D;&#x0A;copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\History.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\License.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)Dist\Readme.txt&quot; &quot;$(TargetDir)&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -814,7 +814,7 @@
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 			>
 			<File
-				RelativePath="src\icon1.ico"
+				RelativePath=".\src\icon.ico"
 				>
 			</File>
 			<File
@@ -838,6 +838,30 @@
 						AdditionalIncludeDirectories="src"
 					/>
 				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="5 Dist"
+			>
+			<File
+				RelativePath=".\Dist\History.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\Dist\License.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\Dist\Readme.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="4 Lang"
+			>
+			<File
+				RelativePath=".\lang\jpn.txt"
+				>
 			</File>
 		</Filter>
 	</Files>
