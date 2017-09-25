@@ -12,7 +12,10 @@
 #define _WIN32_WINNT _WIN32_WINNT_WIN2K
 #define _WIN32_IE 0x0500
 
+#if _MSC_VER <= 1400 // below vc2005
 #include <checkaccess.h>
+#endif
+
 // #include <afx.h>
 #include <windows.h>
 #include <tchar.h>
@@ -28,26 +31,26 @@
 
 using namespace std;
 
-#include "../../MyUtility/tstring.h"
-#include "../../MyUtility/GetModuleDirectory.h"
-#include "../../MyUtility/IsDirectory.h"
-#include "../../MyUtility/HelpDefines.h"
-#include "../../MyUtility/CreateSimpleWindow.h"
-#include "../../MyUtility/GetDirFromPath.h"
-#include "../../MyUtility/SHDeleteFile.h"
-#include "../../MyUtility/I18N.h"
+#include "../../lsMisc/tstring.h"
+#include "../../lsMisc/GetModuleDirectory.h"
+#include "../../lsMisc/IsDirectory.h"
+#include "../../lsMisc/HelpDefines.h"
+#include "../../lsMisc/CreateSimpleWindow.h"
+#include "../../lsMisc/GetDirFromPath.h"
+#include "../../lsMisc/SHMoveFile.h"
+#include "../../lsMisc/I18N.h"
 
-#include "../../MyUtility/StdStringReplace.h"
-#include "../../MyUtility/IsFileExists.h"
-#include "../../MyUtility/UrlEncode.h"
-#include "../../MyUtility/UTF16toUTF8.h"
-#include "../../MyUtility/IsFileOpen.h"
-#include "../../MyUtility/WritePrivateProfileInt.h"
-#include "../../MyUtility/CenterWindow.h"
-#include "../../MyUtility/ResolveLink.h"
+#include "../../lsMisc/StdStringReplace.h"
+#include "../../lsMisc/IsFileExists.h"
+#include "../../lsMisc/UrlEncode.h"
+#include "../../lsMisc/UTF16toUTF8.h"
+#include "../../lsMisc/IsFileOpen.h"
+#include "../../lsMisc/WritePrivateProfileInt.h"
+#include "../../lsMisc/CenterWindow.h"
+#include "../../lsMisc/ResolveLink.h"
 
 
-#include "../../MyUtility/stdwin32/stdwin32.h"
+#include "../../lsMisc/stdwin32/stdwin32.h"
 using namespace stdwin32;
 
 #include "tmphelp.h"

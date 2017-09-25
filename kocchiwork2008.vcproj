@@ -16,7 +16,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="UnicodeRelease|Win32"
+			Name="Release|Win32"
 			OutputDirectory="..\..\..\..\..\Linkout\kocchiwork"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
@@ -50,7 +50,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=".\src,L:\check,L:\stlsoft-1.9.118\include,L:\MSSDK\2003\Include,L:\boost1.35"
+				AdditionalIncludeDirectories=".;../lsMisc/stlsoft/include;G:\boost_1_53_0"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -115,7 +115,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="UnicodeDebug|Win32"
+			Name="Debug|Win32"
 			OutputDirectory="..\..\..\..\..\Linkout\kocchiwork"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
@@ -148,7 +148,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;L:\check;&quot;L:\stlsoft-1.9.118\include&quot;;L:\boost1.47"
+				AdditionalIncludeDirectories=".;../lsMisc/stlsoft/include;G:\boost_1_53_0"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -225,7 +225,7 @@
 				RelativePath="src\common.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -234,7 +234,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -247,7 +247,7 @@
 				RelativePath="src\err.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -256,7 +256,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -273,7 +273,7 @@
 				RelativePath="src\kocchiwork.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -282,7 +282,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -295,7 +295,7 @@
 				RelativePath="src\main.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -304,7 +304,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -314,14 +314,14 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\MyUtility\ResolveLink.cpp"
+				RelativePath="..\lsMisc\ResolveLink.cpp"
 				>
 			</File>
 			<File
 				RelativePath="src\ReturnFileAndQuit.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -330,7 +330,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -340,10 +340,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\lsMisc\SHMoveFile.cpp"
+				>
+			</File>
+			<File
 				RelativePath="src\StdAfx.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -353,7 +357,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -367,7 +371,7 @@
 				RelativePath="src\thread.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -376,7 +380,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -389,7 +393,7 @@
 				RelativePath="src\tmphelp.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -399,7 +403,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -413,7 +417,7 @@
 				RelativePath="src\WndProc.cpp"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -422,7 +426,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -435,14 +439,14 @@
 				Name="MyU"
 				>
 				<File
-					RelativePath="..\MyUtility\CenterWindow.cpp"
+					RelativePath="..\lsMisc\CenterWindow.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\CreateSimpleWindow.cpp"
+					RelativePath="..\lsMisc\CreateSimpleWindow.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -451,29 +455,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\MyUtility\GetDirFromPath.cpp"
-					>
-					<FileConfiguration
-						Name="UnicodeRelease|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -483,10 +465,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\GetModuleDirectory.cpp"
+					RelativePath="..\lsMisc\GetDirFromPath.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -495,7 +477,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -505,10 +487,32 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\I18N.cpp"
+					RelativePath="..\lsMisc\GetModuleDirectory.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\lsMisc\I18N.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -518,7 +522,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -529,10 +533,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\IsFileExists.cpp"
+					RelativePath="..\lsMisc\IsFileExists.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -541,7 +545,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -551,10 +555,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\IsFileOpen.cpp"
+					RelativePath="..\lsMisc\IsFileOpen.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -563,7 +567,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -573,10 +577,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\SHDeleteFile.cpp"
+					RelativePath="..\lsMisc\showballoon.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -585,7 +589,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -595,10 +599,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\showballoon.cpp"
+					RelativePath="..\lsMisc\StdStringReplace.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -607,7 +611,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -617,10 +621,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\StdStringReplace.cpp"
+					RelativePath="..\lsMisc\stdwin32\stdwin32.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -629,7 +633,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -639,10 +643,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\stdwin32\stdwin32.cpp"
+					RelativePath="..\lsMisc\UrlEncode.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -651,7 +655,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -661,10 +665,10 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\UrlEncode.cpp"
+					RelativePath="..\lsMisc\UTF16toUTF8.cpp"
 					>
 					<FileConfiguration
-						Name="UnicodeRelease|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -673,7 +677,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="UnicodeDebug|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -683,33 +687,11 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\MyUtility\UTF16toUTF8.cpp"
-					>
-					<FileConfiguration
-						Name="UnicodeRelease|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="UnicodeDebug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\MyUtility\WritePrivateProfileInt.cpp"
+					RelativePath="..\lsMisc\WritePrivateProfileInt.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\WritePrivateProfileWString.cpp"
+					RelativePath="..\lsMisc\WritePrivateProfileWString.cpp"
 					>
 				</File>
 			</Filter>
@@ -723,7 +705,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\MyUtility\CreateWString.h"
+				RelativePath="..\lsMisc\CreateWString.h"
 				>
 			</File>
 			<File
@@ -739,7 +721,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\MyUtility\ResolveLink.h"
+				RelativePath="..\lsMisc\ResolveLink.h"
 				>
 			</File>
 			<File
@@ -751,7 +733,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\MyUtility\showballoon.h"
+				RelativePath="..\lsMisc\SHMoveFile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\lsMisc\showballoon.h"
 				>
 			</File>
 			<File
@@ -770,59 +756,55 @@
 				Name="MyUH"
 				>
 				<File
-					RelativePath="..\MyUtility\CenterWindow.h"
+					RelativePath="..\lsMisc\CenterWindow.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\CreateSimpleWindow.h"
+					RelativePath="..\lsMisc\CreateSimpleWindow.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\GetModuleDirectory.h"
+					RelativePath="..\lsMisc\GetModuleDirectory.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\I18N.h"
+					RelativePath="..\lsMisc\I18N.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\IsDirectory.h"
+					RelativePath="..\lsMisc\IsDirectory.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\IsFileExists.h"
+					RelativePath="..\lsMisc\IsFileExists.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\IsFileOpen.h"
+					RelativePath="..\lsMisc\IsFileOpen.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\SHDeleteFile.h"
+					RelativePath="..\lsMisc\StdStringReplace.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\StdStringReplace.h"
+					RelativePath="..\lsMisc\stdwin32\stdwin32.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\stdwin32\stdwin32.h"
+					RelativePath="..\lsMisc\UrlEncode.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\UrlEncode.h"
+					RelativePath="..\lsMisc\UTF16toUTF8.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\UTF16toUTF8.h"
+					RelativePath="..\lsMisc\WritePrivateProfileInt.h"
 					>
 				</File>
 				<File
-					RelativePath="..\MyUtility\WritePrivateProfileInt.h"
-					>
-				</File>
-				<File
-					RelativePath="..\MyUtility\WritePrivateProfileWString.h"
+					RelativePath="..\lsMisc\WritePrivateProfileWString.h"
 					>
 				</File>
 			</Filter>
@@ -839,7 +821,7 @@
 				RelativePath="src\kocchiwork.rc"
 				>
 				<FileConfiguration
-					Name="UnicodeRelease|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCResourceCompilerTool"
@@ -848,7 +830,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="UnicodeDebug|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCResourceCompilerTool"

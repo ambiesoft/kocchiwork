@@ -6,15 +6,17 @@
 #include "common.h"
 // #include "systeminfo.h"
 
-#include "../../MyUtility/StdStringReplace.h"
-#include "../../MyUtility/IsFileExists.h"
-#include "../../MyUtility/UrlEncode.h"
-#include "../../MyUtility/UTF16toUTF8.h"
-#include "../../MyUtility/IsFileOpen.h"
-#include "../../MyUtility/showballoon.h"
-#include "../../MyUtility/I18N.h"
+#include "../../lsMisc/StdStringReplace.h"
+#include "../../lsMisc/IsFileExists.h"
+#include "../../lsMisc/UrlEncode.h"
+#include "../../lsMisc/UTF16toUTF8.h"
+#include "../../lsMisc/IsFileOpen.h"
+#include "../../lsMisc/showballoon.h"
+#include "../../lsMisc/I18N.h"
 
 #include "C:\\Linkout\\CommonDLL\\TimedMessageBox.h"
+
+using namespace Ambiesoft;
 
 wstring myUrlEncode(wstring strIN)
 {
@@ -23,7 +25,7 @@ wstring myUrlEncode(wstring strIN)
 
 	char* pUtf8Encoded=NULL;
 	// UrlEncode(pUtf8, strlen((char*)pUtf8), &pUtf8Encoded, TRUE);
-	pUtf8Encoded= urlencodenew((char*)pUtf8);
+	pUtf8Encoded= UrlEncode(pUtf8);
 	stlsoft::scoped_handle<void*> mapUtf8Encoded(pUtf8Encoded, free);
 
 	wchar_t* pLast = UTF8toUTF16((LPBYTE)pUtf8Encoded);

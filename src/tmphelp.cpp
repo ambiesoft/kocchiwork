@@ -4,8 +4,10 @@
 #include "heavyboost.h"
 #include "err.h"
 
-#include "../../MyUtility/HelpDefines.h"
-#include "../../MyUtility/WritePrivateProfileWString.h"
+#include "../../lsMisc/HelpDefines.h"
+#include "../../lsMisc/WritePrivateProfileWString.h"
+
+using namespace Ambiesoft;
 
 BOOL GetFileData(LPCTSTR pFile, WIN32_FIND_DATA* pData)
 {

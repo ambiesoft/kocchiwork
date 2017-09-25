@@ -7,11 +7,11 @@
 
 // #include "systeminfo.h"
 
-#include "../../MyUtility/StdStringReplace.h"
-#include "../../MyUtility/IsFileExists.h"
-#include "../../MyUtility/UrlEncode.h"
-#include "../../MyUtility/UTF16toUTF8.h"
-#include "../../MyUtility/IsFileOpen.h"
+#include "../../lsMisc/StdStringReplace.h"
+#include "../../lsMisc/IsFileExists.h"
+#include "../../lsMisc/UrlEncode.h"
+#include "../../lsMisc/UTF16toUTF8.h"
+#include "../../lsMisc/IsFileOpen.h"
 
 bool ReturnFileAndQuit(HWND hWnd);
 

@@ -22,6 +22,7 @@ namespace po = boost::program_options;
 #include "common.h"
 // #include "systeminfo.h"
 
+using namespace Ambiesoft;
 
 void Untray()
 {
@@ -270,7 +271,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		message += _T("\r\n\r\n");
 		message += NS("Do you want to trash it and copy remote file?");
 
-		if(IDYES != MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
+		if(IDYES != MessageBox(g_hWnd, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
 			return 0;
 
 		FILETIME ftCurrent;
@@ -300,7 +301,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
 			errExit(NS("Copy failed"));
 
-		if(!SHDeleteFile(savefile.c_str(), SHDELETE_NOUI))
+		if(!SHDeleteFile(savefile.c_str())) //, SHDELETE_NOUI))
 			errExit(NS("could not trash file"));
 	}
 
@@ -333,7 +334,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		tstring message = NS("Execute failed. Do you want to remove the copied file?");
 		message += CRLF;
 		message += g_workfile.c_str();
-		if(IDYES == MessageBox(NULL,
+		if(IDYES == MessageBox(g_hWnd,
 			message.c_str(),
 			APP_NAME,
 			MB_ICONWARNING|MB_YESNO))
@@ -362,8 +363,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(!g_hWnd)
 		errExit(NS("could not create a winoow"));
 
+
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-	
+	SendMessage(g_hWnd, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
+	SendMessage(g_hWnd, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
+
 	tstring traytip =string_format( NS("Monitoring \"%s\""), g_workfile.c_str());
 
 
@@ -448,21 +452,27 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
 		if(nCmp==0)
 		{
+			HWND h = CreateSimpleWindow();
+			stlsoft::scoped_handle<HWND> dh(h, DestroyWindow);
+
+			SendMessage(h, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
+			SendMessage(h, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
+
 			tstring message;
 			message = NS("File not changed. Do you want to delete the copied file?");
 			message += CRLF;
 			message += g_workfile.c_str();
-			if(IDYES==MessageBox(NULL, message.c_str(), APP_NAME, 
+			if(IDYES==MessageBox(h, message.c_str(), APP_NAME, 
 				MB_SYSTEMMODAL| MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
 			{
 				BOOL done = FALSE;
 				while(!done)
 				{
 					done=TRUE;
-					if(!SHDeleteFile(g_workfile.c_str(), SHDELETE_NOUI))
+					if(!SHDeleteFile(g_workfile.c_str())) //, SHDELETE_NOUI))
 					{
 						done=FALSE;
-						if(IDCANCEL==MessageBox(NULL,
+						if(IDCANCEL==MessageBox(g_hWnd,
 							NS("Failed to delete file"),
 							APP_NAME,
 							MB_SYSTEMMODAL|MB_DEFBUTTON1|MB_ICONEXCLAMATION|MB_RETRYCANCEL))
