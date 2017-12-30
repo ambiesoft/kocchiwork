@@ -1,0 +1,29 @@
+{
+    "name": "kocchiwork",
+    "solution": "kocchiwork2013.sln",
+    "targetproject": "kocchiwork",
+    "configuration": "Release",
+    "targets": [
+        {
+            "setoutdirforbuild": true,
+            "platform": "Win32",
+            "outdir": "c:\\Linkout\\kocchiwork"
+        }
+    ],
+    "ShouldBeFiles": [
+        "History.txt",
+        "kocchiwork.exe",
+        "License.txt",
+        "Readme.txt",
+        "TimedMessageBox.dll",
+        "lang\\jpn.txt"
+    ],
+    "TotalFileCount": 6,
+    "archivedir": "C:\\Linkout",
+    "remotedir": "http://ambiesoft.fam.cx/ffdav/uploads/kocchiwork/",
+    "remotesha1": "http://ambiesoft.fam.cx/ffdav/uploads/getSha1.php?file=kocchiwork/{}",
+    "ShouldNotBeFiles": [],
+    "ShouldBeOneOfThem": [],
+    "obtainverfrom": "history.txt",
+    "obtainverregex": "\\d+\\.\\d+"
+}
