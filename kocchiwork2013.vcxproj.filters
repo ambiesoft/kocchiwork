@@ -87,9 +87,6 @@
     <ClCompile Include="..\lsMisc\showballoon.cpp">
       <Filter>2 Source Files\lsMisc</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\StdStringReplace.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
     <ClCompile Include="..\lsMisc\stdwin32\stdwin32.cpp">
       <Filter>2 Source Files\lsMisc</Filter>
     </ClCompile>

@@ -41,7 +41,7 @@ using namespace std;
 #include "../../lsMisc/SHMoveFile.h"
 #include "../../lsMisc/I18N.h"
 
-#include "../../lsMisc/StdStringReplace.h"
+
 #include "../../lsMisc/IsFileExists.h"
 #include "../../lsMisc/UrlEncode.h"
 #include "../../lsMisc/UTF16toUTF8.h"

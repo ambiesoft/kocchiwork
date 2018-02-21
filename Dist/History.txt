@@ -1,2 +1,5 @@
+2018/02/21 v1.3
+MessageBox windows is null and not sysmodal
+
 2017/09/26 v1.0
 start making history

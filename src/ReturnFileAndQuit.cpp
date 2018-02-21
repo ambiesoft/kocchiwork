@@ -58,7 +58,7 @@ bool  ReturnFileAndQuit(HWND hWnd)
 	message += NS("copy destination :") + g_remotefile;
 
 	if(IDYES != MessageBox(
-		g_hWnd, 
+		NULL, 
 		message.c_str(), 
 		APP_NAME, 
 		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_DEFBUTTON2|MB_YESNO))
@@ -87,7 +87,7 @@ bool  ReturnFileAndQuit(HWND hWnd)
 			message += _T("\r\n");
 			message += NS("Fix the conflict.");
 
-			MessageBox(g_hWnd, message.c_str(), APP_NAME, MB_ICONWARNING);
+			MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONWARNING);
 			return false;
 		}
 	}

@@ -160,7 +160,6 @@ copy "$(ProjectDir)Dist\Readme.txt" "$(TargetDir)"
     <ClCompile Include="..\lsMisc\ResolveLink.cpp" />
     <ClCompile Include="..\lsMisc\SHMoveFile.cpp" />
     <ClCompile Include="..\lsMisc\showballoon.cpp" />
-    <ClCompile Include="..\lsMisc\StdStringReplace.cpp" />
     <ClCompile Include="..\lsMisc\stdwin32\stdwin32.cpp" />
     <ClCompile Include="..\lsMisc\UrlEncode.cpp" />
     <ClCompile Include="..\lsMisc\UTF16toUTF8.cpp" />

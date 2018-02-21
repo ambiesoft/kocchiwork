@@ -93,6 +93,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR     lpCmdLine,
                      int       nCmdShow )
 {
+	// MessageBox(NULL, L"AAA", L"BBBB", MB_ICONINFORMATION);
 /**
 	po::options_description desc("Allowed options");
 	desc.add_options()
@@ -275,7 +276,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		message += _T("\r\n\r\n");
 		message += NS("Do you want to trash it and copy remote file?");
 
-		if(IDYES != MessageBox(g_hWnd, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
+		if(IDYES != MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
 			return 0;
 
 		FILETIME ftCurrent;
@@ -466,9 +467,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			message = NS("File not changed. Do you want to delete the copied file?");
 			message += CRLF;
 			message += g_workfile.c_str();
-			ShowWindow(g_hWnd, SW_SHOW);
-			if (IDYES == MessageBox(g_hWnd, message.c_str(), APP_NAME,
-				MB_SYSTEMMODAL| MB_DEFBUTTON2|MB_ICONQUESTION|MB_YESNO))
+			// ShowWindow(g_hWnd, SW_SHOW);
+			if (IDYES == MessageBox(NULL, message.c_str(), APP_NAME,
+				MB_APPLMODAL | MB_DEFBUTTON2 | MB_ICONQUESTION | MB_YESNO))
 			{
 				BOOL done = FALSE;
 				while(!done)
@@ -477,7 +478,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 					if(0 != SHDeleteFile(g_workfile.c_str(), FOF_ALLOWUNDO|FOF_SILENT|FOF_FILESONLY))
 					{
 						done=FALSE;
-						if(IDCANCEL==MessageBox(g_hWnd,
+						if(IDCANCEL==MessageBox(NULL,
 							NS("Failed to delete file"),
 							APP_NAME,
 							MB_SYSTEMMODAL|MB_DEFBUTTON1|MB_ICONEXCLAMATION|MB_RETRYCANCEL))
