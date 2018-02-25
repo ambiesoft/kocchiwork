@@ -50,7 +50,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=".;../lsMisc/stlsoft/include;G:\boost_1_53_0"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;../lsMisc/stlsoft/include;G:\boost_1_53_0"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -142,7 +142,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;../lsMisc/stlsoft/include;G:\boost_1_53_0"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;../lsMisc/stlsoft/include;G:\boost_1_53_0"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -252,6 +252,10 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\lsMisc\GetLastErrorString.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\src\heavyboost.cpp"
@@ -424,7 +428,7 @@
 				</FileConfiguration>
 			</File>
 			<Filter
-				Name="MyU"
+				Name="lsMisc"
 				>
 				<File
 					RelativePath="..\lsMisc\CenterWindow.cpp"
@@ -506,7 +510,6 @@
 							Name="VCCLCompilerTool"
 							AdditionalIncludeDirectories=""
 							PreprocessorDefinitions=""
-							UsePrecompiledHeader="0"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -516,7 +519,6 @@
 							Name="VCCLCompilerTool"
 							AdditionalIncludeDirectories=""
 							PreprocessorDefinitions=""
-							UsePrecompiledHeader="0"
 						/>
 					</FileConfiguration>
 				</File>
@@ -566,28 +568,6 @@
 				</File>
 				<File
 					RelativePath="..\lsMisc\showballoon.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\lsMisc\StdStringReplace.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -698,6 +678,10 @@
 			</File>
 			<File
 				RelativePath="src\err.h"
+				>
+			</File>
+			<File
+				RelativePath="..\lsMisc\GetLastErrorString.h"
 				>
 			</File>
 			<File
