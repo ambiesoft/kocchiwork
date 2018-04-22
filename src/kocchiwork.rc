@@ -7,19 +7,17 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "windows.h"
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Japanese resources
+// Japanese (Japan) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
-#ifdef _WIN32
 LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
 #pragma code_page(932)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +44,7 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Japanese resources
+#endif    // Japanese (Japan) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -54,10 +52,8 @@ END
 // Neutral resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
-#ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -73,14 +69,14 @@ IDI_ICON_MAIN           ICON                    "icon.ico"
 // Dialog
 //
 
-IDD_DIALOG_RECENT DIALOG  0, 0, 358, 207
+IDD_DIALOG_RECENT DIALOGEX 0, 0, 358, 207
 STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 CAPTION "Dialog"
-FONT 9, "MS Shell Dlg 2"
+FONT 9, "MS Shell Dlg 2", 0, 0, 0x0
 BEGIN
+    LISTBOX         IDC_LIST_RECENT,7,7,344,170,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,246,186,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,301,186,50,14
-    LISTBOX         IDC_LIST_RECENT,7,7,344,170,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
 END
 
 
@@ -90,7 +86,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_DIALOG_RECENT, DIALOG
     BEGIN
