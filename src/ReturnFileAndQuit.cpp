@@ -53,9 +53,9 @@ bool  ReturnFileAndQuit(HWND hWnd)
 	message += _T("\r\n\r\n");
 
 
-	message += NS("copy source :") + g_workfile;
+	message += NS("copy source: ") + g_workfile;
 	message += _T("\r\n");
-	message += NS("copy destination :") + g_remotefile;
+	message += NS("copy destination: ") + g_remotefile;
 
 	if(IDYES != MessageBox(
 		NULL, 
