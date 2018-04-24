@@ -57,7 +57,7 @@ using namespace stdwin32;
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.02"
+#define APP_VERSION L"1.4"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {

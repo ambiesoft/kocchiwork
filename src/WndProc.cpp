@@ -253,6 +253,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_REOPENFILE, NS("&Reopen"));
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENWITHEXPLORER, NS("&Open File Location"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENREMOTE_WITHEXPLOER, NS("Open Re&mote File Location"));
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
 				
 				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_QUIT, NS("&Exit"));
@@ -351,6 +352,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			{
 				tstring param = _T("/select,");
 				param += g_workfile;
+				ShellExecute(NULL, _T("open"), _T("Explorer"), param.c_str(), NULL, SW_SHOW);
+			}
+			break;
+			
+			case IDC_OPENREMOTE_WITHEXPLOER:
+			{
+				tstring param = _T("/select,");
+				param += g_remotefile;
 				ShellExecute(NULL, _T("open"), _T("Explorer"), param.c_str(), NULL, SW_SHOW);
 			}
 			break;

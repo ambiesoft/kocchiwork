@@ -1,3 +1,6 @@
+2018/04/24 v1.4
+Add: Feature to open the directory of the remote file from Tasktray menu.
+
 2018/02/21 v1.3
 MessageBox windows is null and not sysmodal
 
