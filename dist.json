@@ -18,7 +18,7 @@
         "TimedMessageBox.dll",
         "lang\\jpn.txt"
     ],
-    "TotalFileCount": 6,
+    "TotalFileCount": "exact",
     "archivedir": "C:\\Linkout",
     "remotedir": "http://ambiesoft.fam.cx/ffdav/uploads/kocchiwork/",
     "remotesha1": "http://ambiesoft.fam.cx/ffdav/uploads/getSha1.php?file=kocchiwork/{}",
