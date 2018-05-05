@@ -375,10 +375,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	tstring traytip =string_format( NS("Monitoring \"%s\""), g_workfile.c_str());
 
-
-	// traytip += _T("original ");
-	// tstring tremotefile = g_remotefile;
-	// traytip += _T("fffffffffffffffffffffffffff");
 	if(!AddTrayIcon(
 		g_hWnd, 
 		WM_APP_TRAY_NOTIFY, 
