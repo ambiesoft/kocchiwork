@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-
+#include "../../lsMisc/stlScopedClear.h"
 
 
 #ifdef _DLL
@@ -68,7 +68,21 @@ BOOL InitApp()
 
 
 
+wstring RenameKocchiExt(LPCWSTR pFile)
+{
+	LPWSTR p = _tcsdup(pFile);
+	STLSOFT_SCODEDFREE_CRT(p);
 
+	LPWSTR pExt = _tcsrchr(p, L'.');
+	if(!pExt)
+		return pFile;
+
+	if(lstrcmpi(pExt, L".kocchi") != 0)
+		return pFile;
+
+	*pExt = 0;
+	return p;
+}
 
 
 
@@ -211,7 +225,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			errExit(NS("cound not find filename"));
 
 		g_remotefile = szT;
-		g_workfile = workdir + _T("\\") + pFile;
+
+		g_workfile = workdir + _T("\\") + RenameKocchiExt(pFile);
 	}
 	
 	if(!IsFileExists(g_remotefile.c_str()))
@@ -330,10 +345,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	sei.nShow = SW_SHOW;
 //	sei.hInstApp = GetModuleHandle(NULL);
 	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
-	{
-		tstring dir = GetDirFromPath(g_workfile.c_str());
-		sei.lpDirectory = dir.c_str();
-	}
+	tstring dirT = GetDirFromPath(g_workfile.c_str());
+	sei.lpDirectory = dirT.c_str();
+
 	if(!ShellExecuteEx(&sei)) 
 	{
 		tstring message = NS("Execute failed. Do you want to remove the copied file?");
