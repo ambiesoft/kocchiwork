@@ -49,6 +49,8 @@ using namespace std;
 #include "../../lsMisc/WritePrivateProfileInt.h"
 #include "../../lsMisc/CenterWindow.h"
 #include "../../lsMisc/ResolveLink.h"
+#include "../../lsMisc/stlScopedClear.h"
+#include "../../lsMisc/CommandLineParser.h"
 
 
 #include "../../lsMisc/stdwin32/stdwin32.h"
@@ -57,7 +59,7 @@ using namespace stdwin32;
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.4"
+#define APP_VERSION L"1.5"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {

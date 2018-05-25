@@ -94,7 +94,7 @@ copy lang\jpn.txt "$(TargetDir)lang\"
 copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\
 copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
 copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
-copy "$(ProjectDir)Dist\Readme.txt" "$(TargetDir)"
+copy "$(SolutionDir)README.md" "$(TargetDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -143,12 +143,13 @@ copy lang\jpn.txt "$(TargetDir)lang\"
 copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\
 copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
 copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
-copy "$(ProjectDir)Dist\Readme.txt" "$(TargetDir)"
+copy "$(SolutionDir)README.md" "$(TargetDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\lsMisc\CenterWindow.cpp" />
+    <ClCompile Include="..\lsMisc\CommandLineParser.cpp" />
     <ClCompile Include="..\lsMisc\CreateSimpleWindow.cpp" />
     <ClCompile Include="..\lsMisc\GetDirFromPath.cpp" />
     <ClCompile Include="..\lsMisc\GetLastErrorString.cpp" />
@@ -186,6 +187,7 @@ copy "$(ProjectDir)Dist\Readme.txt" "$(TargetDir)"
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lsMisc\CenterWindow.h" />
+    <ClInclude Include="..\lsMisc\CommandLineParser.h" />
     <ClInclude Include="..\lsMisc\CreateSimpleWindow.h" />
     <ClInclude Include="..\lsMisc\CreateWString.h" />
     <ClInclude Include="..\lsMisc\GetLastErrorString.h" />
@@ -225,7 +227,6 @@ copy "$(ProjectDir)Dist\Readme.txt" "$(TargetDir)"
   <ItemGroup>
     <Text Include="Dist\History.txt" />
     <Text Include="Dist\License.txt" />
-    <Text Include="Dist\Readme.txt" />
     <Text Include="lang\jpn.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

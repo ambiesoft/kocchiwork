@@ -105,6 +105,9 @@
     <ClCompile Include="..\lsMisc\GetLastErrorString.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\lsMisc\CommandLineParser.cpp">
+      <Filter>2 Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common.h">
@@ -188,6 +191,9 @@
     <ClInclude Include="..\lsMisc\GetLastErrorString.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\lsMisc\CommandLineParser.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\icon.ico">
@@ -204,9 +210,6 @@
       <Filter>5 Dist</Filter>
     </Text>
     <Text Include="Dist\License.txt">
-      <Filter>5 Dist</Filter>
-    </Text>
-    <Text Include="Dist\Readme.txt">
       <Filter>5 Dist</Filter>
     </Text>
     <Text Include="lang\jpn.txt">

@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-#include "../../lsMisc/stlScopedClear.h"
-
 
 #ifdef _DLL
 #pragma message("_DLL is defined")
@@ -147,32 +145,38 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //		g_remotefile = _T("\\\\inpsrv\\Share\\pass\\text.txt");
 #endif
 
+	CCommandLineParser parser;
+	
 	bool f_noSaveRecent = false;
-	try
-	{
-		for (int i = 1; i < __argc; ++i)
-		{
-			wstring arg = __targv[i];
-			if (lstrcmpi(arg.c_str(), L"/P") == 0)
-			{
-				g_progfile = stdwin32::trim( __targv[i + 1]);
-				++i;
-			}
-			else if (lstrcmpi(arg.c_str(), L"/N") == 0)
-			{
-				f_noSaveRecent = true;
-			}
-			else
-			{
-				g_remotefile = __targv[i];
-			}
-		}
-	}
-	catch (...)
-	{
-		errExit(NS("Fatal : Illegal Option"));
-	}
+	parser.AddOption(L"/P", 1, &g_progfile);
+	parser.AddOption(L"/N", 0, &f_noSaveRecent);
+	parser.AddOption(L"", 1, &g_remotefile);
+	//try
+	//{
+	//	for (int i = 1; i < __argc; ++i)
+	//	{
+	//		wstring arg = __targv[i];
+	//		if (lstrcmpi(arg.c_str(), L"/P") == 0)
+	//		{
+	//			g_progfile = stdwin32::trim( __targv[i + 1]);
+	//			++i;
+	//		}
+	//		else if (lstrcmpi(arg.c_str(), L"/N") == 0)
+	//		{
+	//			f_noSaveRecent = true;
+	//		}
+	//		else
+	//		{
+	//			g_remotefile = __targv[i];
+	//		}
+	//	}
+	//}
+	//catch (...)
+	//{
+	//	errExit(NS("Fatal : Illegal Option"));
+	//}
 
+	parser.Parse();
 
 	if(hasEndingI(g_remotefile, _T(".lnk")))
 	{
