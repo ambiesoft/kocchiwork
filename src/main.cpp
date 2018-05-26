@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include <vld.h>
+
 
 #ifdef _DLL
 #pragma message("_DLL is defined")
@@ -95,6 +97,26 @@ wstring RenameKocchiExt(LPCWSTR pFile)
 
 
 
+// MessageBox(NULL, L"AAA", L"BBBB", MB_ICONINFORMATION);
+/**
+po::options_description desc("Allowed options");
+desc.add_options()
+("help", "produce help message")
+("compression", po::value<int>(), "set compression level")
+;
+
+po::variables_map vm;
+po::store(po::parse_command_line(__argc, __targv, desc), vm);
+po::notify(vm);
+
+if (vm.count("help")) {
+// cout << desc << "\n";
+stringstream wss;
+desc.print(wss);
+//errExit(getdtdws wss.str());
+return 1;
+}
+**/
 
 
 
@@ -105,30 +127,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR     lpCmdLine,
                      int       nCmdShow )
 {
-	// MessageBox(NULL, L"AAA", L"BBBB", MB_ICONINFORMATION);
-/**
-	po::options_description desc("Allowed options");
-	desc.add_options()
-		("help", "produce help message")
-		("compression", po::value<int>(), "set compression level")
-		;
-
-	po::variables_map vm;
-	po::store(po::parse_command_line(__argc, __targv, desc), vm);
-	po::notify(vm);
-
-	if (vm.count("help")) {
-		// cout << desc << "\n";
-		stringstream wss;
-		desc.print(wss);
-		//errExit(getdtdws wss.str());
-		return 1;
-	}
-**/
-#ifdef _DEBUG
-	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF | _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG));
-#endif
-
+//#ifdef _DEBUG
+//	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF | _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG));
+//#endif
+	
 	Ambiesoft::i18nInitLangmap(hInstance, NULL, _T(""));
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
 
@@ -255,7 +257,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if(GetLastError()==ERROR_ALREADY_EXISTS)
 		{
-			tstring message = NS("This file is currently opened");
+			tstring message = NS("This file is currently opened.");
 			message += CRLF;
 			message += g_remotefile.c_str();
 			errExit(message.c_str());

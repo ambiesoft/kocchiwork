@@ -12,6 +12,12 @@
 #define _WIN32_WINNT _WIN32_WINNT_WIN2K
 #define _WIN32_IE 0x0500
 
+//#ifdef _DEBUG
+//#define _CRTDBG_MAP_ALLOC  
+//#include <stdlib.h>  
+//#include <crtdbg.h>  
+//#endif
+
 #if _MSC_VER <= 1400 // below vc2005
 #include <checkaccess.h>
 #endif
@@ -29,6 +35,7 @@
 
 
 #include <stlsoft/smartptr/scoped_handle.hpp>
+
 
 using namespace std;
 

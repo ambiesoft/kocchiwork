@@ -26,3 +26,4 @@
 "Monitoring \"%s\""="\"%s\" を監視しています"
 "Recent Files"="最近使ったファイル"
 "&Open"="開く(&O)"
+"This file is currently opened."="このファイルは現在開かれています。"
