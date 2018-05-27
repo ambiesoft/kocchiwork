@@ -17,6 +17,9 @@
 //#include <stdlib.h>  
 //#include <crtdbg.h>  
 //#endif
+#ifdef _DEBUG
+#include <vld.h>
+#endif
 
 #if _MSC_VER <= 1400 // below vc2005
 #include <checkaccess.h>

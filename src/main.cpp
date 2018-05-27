@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-#include <vld.h>
-
 
 #ifdef _DLL
 #pragma message("_DLL is defined")
