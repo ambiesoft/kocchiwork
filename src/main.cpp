@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "../../lsMisc/HighDPI.h"
 
 #ifdef _DLL
 #pragma message("_DLL is defined")
@@ -128,7 +129,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //#ifdef _DEBUG
 //	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF | _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG));
 //#endif
-	
+	InitHighDPISupport();
+
 	Ambiesoft::i18nInitLangmap(hInstance, NULL, _T(""));
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
 
@@ -249,7 +251,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		_tcslwr(pDup);
 		tstring mutexname = pDup;
 		free(pDup);pDup=NULL;
-		mutexname=StdStringReplace(mutexname, _T("\\"), _T("_"));
+		mutexname=stdStringReplace(mutexname, _T("\\"), _T("_"));
 		if(!CreateMutex(NULL, TRUE, mutexname.c_str()))
 			errExit(NS("CreateMutex failed"), GetLastError());
 
@@ -391,7 +393,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	SendMessage(g_hWnd, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
 	SendMessage(g_hWnd, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 
-	tstring traytip =string_format( NS("Monitoring \"%s\""), g_workfile.c_str());
+	tstring traytip = stdFormat( NS("Monitoring \"%s\""), g_workfile.c_str());
 
 	if(!AddTrayIcon(
 		g_hWnd, 

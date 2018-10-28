@@ -25,6 +25,12 @@
     <Filter Include="2 Source Files\lsMisc">
       <UniqueIdentifier>{5252ff4c-2c0f-400e-b3dc-8555672dd098}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2 Source Files\lsMisc\stdosd">
+      <UniqueIdentifier>{993ef960-58fb-4608-9b23-49e174065b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1 Header Files\lsMisc\stdosd">
+      <UniqueIdentifier>{da17ce5a-9cd7-40b6-aae9-00fd4022c324}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp">
@@ -106,6 +112,15 @@
       <Filter>2 Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\lsMisc\CommandLineParser.cpp">
+      <Filter>2 Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lsMisc\stdosd\stdosd_win.cpp">
+      <Filter>2 Source Files\lsMisc\stdosd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lsMisc\stdosd\stdosd.cpp">
+      <Filter>2 Source Files\lsMisc\stdosd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lsMisc\HighDPI.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,6 +207,12 @@
       <Filter>1 Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\lsMisc\CommandLineParser.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lsMisc\stdosd\stdosd.h">
+      <Filter>1 Header Files\lsMisc\stdosd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lsMisc\HighDPI.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,3 +1,6 @@
+2018/10/29 v1.0.6
+HighDPI support
+
 2018/05/25 v1.5
 Special treatment for a file with extention ".kocchi".
 

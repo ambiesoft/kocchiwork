@@ -17,9 +17,10 @@
 //#include <stdlib.h>  
 //#include <crtdbg.h>  
 //#endif
-#ifdef _DEBUG
-#include <vld.h>
-#endif
+
+//#ifdef _DEBUG
+//#include <vld.h>
+//#endif
 
 #if _MSC_VER <= 1400 // below vc2005
 #include <checkaccess.h>
@@ -66,10 +67,13 @@ using namespace std;
 #include "../../lsMisc/stdwin32/stdwin32.h"
 using namespace stdwin32;
 
+#include "../../lsMisc/stdosd/stdosd.h"
+using namespace Ambiesoft::stdosd;
+
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.5"
+#define APP_VERSION L"1.0.6"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {
