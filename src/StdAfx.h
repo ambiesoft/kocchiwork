@@ -65,7 +65,7 @@ using namespace std;
 
 
 #include "../../lsMisc/stdwin32/stdwin32.h"
-using namespace stdwin32;
+using namespace Ambiesoft::stdwin32;
 
 #include "../../lsMisc/stdosd/stdosd.h"
 using namespace Ambiesoft::stdosd;
