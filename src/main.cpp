@@ -118,7 +118,20 @@ return 1;
 **/
 
 
+class SessionCount {
+	CSessionGlobalMemory<UINT> gcs_count_;
+public:
+	SessionCount() : gcs_count_("gcs_count"){
+		gcs_count_ = gcs_count_ + 1;
+	}
+	~SessionCount(){
+		gcs_count_ = gcs_count_ - 1;
+	}
 
+	UINT count() const{
+		return gcs_count_;
+	}
+};
 
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -334,6 +347,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(!GetFileData(g_workfile.c_str(), &g_wfdWork))
 		errExit(NS("could not obtain file info"));
 
+	SessionCount sesstionCount;
 
 
 	SHELLEXECUTEINFO sei = {0};
@@ -519,7 +533,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
-	RemoveDirectory(workdir.c_str());
+	if (!RemoveDirectory(workdir.c_str()))
+	{
+		if (sesstionCount.count() <= 1)
+		{
+			errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), -1, TRUE);
+		}
+	}
 	DestroyIcon(g_hTrayIcon);
 	return msg.wParam;
 }

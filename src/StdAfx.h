@@ -70,10 +70,13 @@ using namespace Ambiesoft::stdwin32;
 #include "../../lsMisc/stdosd/stdosd.h"
 using namespace Ambiesoft::stdosd;
 
+#include "../../SessionGlobalMemory/SessionGlobalMemory.h"
+using namespace Ambiesoft;
+
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.0.6"
+#define APP_VERSION L"1.0.7"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {

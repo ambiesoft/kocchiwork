@@ -11,3 +11,8 @@ void errExit(LPCTSTR p , DWORD dwLastError,BOOL bNoExit)
 		exit(1);
 
 }
+
+//void errExit(LPCTSTR p, BOOL bNoExit = FALSE)
+//{
+//	errExit(p, -1, bNoExit);
+//}

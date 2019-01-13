@@ -1,3 +1,6 @@
+2019/01/13 v1.0.7
+Check Directory is empty after all instances finishes.
+
 2018/10/29 v1.0.6
 HighDPI support
 
