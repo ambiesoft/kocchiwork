@@ -123,6 +123,9 @@
     <ClCompile Include="..\lsMisc\HighDPI.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\lsMisc\OpenCommon.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="..\lsMisc\HighDPI.h">
       <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lsMisc\OpenCommon.h">
+      <Filter>1 Header Files\lsMisc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

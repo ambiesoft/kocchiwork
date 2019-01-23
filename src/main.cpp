@@ -163,8 +163,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	CCommandLineParser parser;
 	
 	bool f_noSaveRecent = false;
+	wstring lang;
+
 	parser.AddOption(L"/P", 1, &g_progfile);
 	parser.AddOption(L"/N", 0, &f_noSaveRecent);
+	parser.AddOption(L"/L", 1, &lang);
 	parser.AddOption(L"", 1, &g_remotefile);
 	//try
 	//{
@@ -192,6 +195,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//}
 
 	parser.Parse();
+
+	if (!lang.empty())
+	{
+		Ambiesoft::i18nInitLangmap(hInstance, lang.c_str(), _T(""));
+	}
 
 	if(hasEndingI(g_remotefile, _T(".lnk")))
 	{

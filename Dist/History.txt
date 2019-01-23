@@ -1,3 +1,6 @@
+2019/01/23 v1.0.8
+Fix: 'Open Local File Location'
+
 2019/01/13 v1.0.7
 Check Directory is empty after all instances finishes.
 

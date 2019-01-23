@@ -9,7 +9,7 @@
 
 "&About..."="バージョン情報(&A)..."
 "&Exit"="終了(&E)"
-"&Open File Location"="ファイルの場所を開く(&O)"
+"&Open Local File Location"="ローカルファイルの場所を開く(&O)"
 "Open Re&mote File Location"="リモートファイルの場所を開く(&M)"
 "&Reopen"="開きなおす(&R)"
 "Do you want to trash it and copy remote file?"="削除してリモートファイルをコピーしますか？"

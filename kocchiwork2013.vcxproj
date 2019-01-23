@@ -161,6 +161,7 @@ copy "$(SolutionDir)README.md" "$(TargetDir)"
     </ClCompile>
     <ClCompile Include="..\lsMisc\IsFileExists.cpp" />
     <ClCompile Include="..\lsMisc\IsFileOpen.cpp" />
+    <ClCompile Include="..\lsMisc\OpenCommon.cpp" />
     <ClCompile Include="..\lsMisc\ResolveLink.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -209,6 +210,7 @@ copy "$(SolutionDir)README.md" "$(TargetDir)"
     <ClInclude Include="..\lsMisc\IsDirectory.h" />
     <ClInclude Include="..\lsMisc\IsFileExists.h" />
     <ClInclude Include="..\lsMisc\IsFileOpen.h" />
+    <ClInclude Include="..\lsMisc\OpenCommon.h" />
     <ClInclude Include="..\lsMisc\ResolveLink.h" />
     <ClInclude Include="..\lsMisc\SHMoveFile.h" />
     <ClInclude Include="..\lsMisc\showballoon.h" />
