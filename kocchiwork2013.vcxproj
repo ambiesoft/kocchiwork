@@ -95,6 +95,7 @@ copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\
 copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
 copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
 copy "$(SolutionDir)README.md" "$(TargetDir)"
+copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -144,6 +145,7 @@ copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\
 copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
 copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
 copy "$(SolutionDir)README.md" "$(TargetDir)"
+copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
