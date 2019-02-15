@@ -1,3 +1,29 @@
+// BSD 2-Clause License
+// 
+// Copyright (c) 2019, Ambiesoft
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+// 
+// * Redistributions of source code must retain the above copyright notice, this
+//   list of conditions and the following disclaimer.
+// 
+// * Redistributions in binary form must reproduce the above copyright notice,
+//   this list of conditions and the following disclaimer in the documentation
+//   and/or other materials provided with the distribution.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 #include "stdafx.h"
 
 #include "../../lsMisc/HighDPI.h"
@@ -169,36 +195,25 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	parser.AddOption(L"/N", 0, &f_noSaveRecent);
 	parser.AddOption(L"/L", 1, &lang);
 	parser.AddOption(L"", 1, &g_remotefile);
-	//try
-	//{
-	//	for (int i = 1; i < __argc; ++i)
-	//	{
-	//		wstring arg = __targv[i];
-	//		if (lstrcmpi(arg.c_str(), L"/P") == 0)
-	//		{
-	//			g_progfile = stdwin32::trim( __targv[i + 1]);
-	//			++i;
-	//		}
-	//		else if (lstrcmpi(arg.c_str(), L"/N") == 0)
-	//		{
-	//			f_noSaveRecent = true;
-	//		}
-	//		else
-	//		{
-	//			g_remotefile = __targv[i];
-	//		}
-	//	}
-	//}
-	//catch (...)
-	//{
-	//	errExit(NS("Fatal : Illegal Option"));
-	//}
 
 	parser.Parse();
 
 	if (!lang.empty())
 	{
-		Ambiesoft::i18nInitLangmap(hInstance, lang.c_str(), _T(""));
+		wstring lang_lower = boostToLower_copy(lang);
+		if (lang_lower != L"jpn" && lang_lower != L"eng")
+		{
+			errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown language \"%s\""), lang.c_str()));
+		}
+
+		if (lang_lower != L"eng")
+			Ambiesoft::i18nInitLangmap(hInstance, lang_lower.c_str(), _T(""));
+	}
+
+	if (parser.hadUnknownOption())
+	{
+		wstring unknown = parser.getUnknowOptionStrings();
+		errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown option(s) \"%s\""), unknown.c_str()));
 	}
 
 	if(hasEndingI(g_remotefile, _T(".lnk")))
@@ -256,10 +271,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		g_workfile = workdir + _T("\\") + RenameKocchiExt(pFile);
 	}
 	
+
 	if(!IsFileExists(g_remotefile.c_str()))
 	{
-		// tstring message = ( boost::wformat(NS("%1% is not a file.")) % g_remotefile.c_str() ).str();
-		tstring message = doformat(g_remotefile);
+		tstring message = boostformat(NS("'%1%' is not a file."), g_remotefile.c_str());
 		errExit(message.c_str());
 	}
 

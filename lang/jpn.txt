@@ -1,5 +1,5 @@
 "Fatal : No File Specified"="致命：ファイルが指定されていません"
-"%1% is not a file."="%1% はファイルではありません。"
+"'%1%' is not a file."="'%1%' はファイルではありません。"
 "App closed. Do you want to continue monitor file?"="アプリが終了しました。ファイル監視を続けますか？"
 "The File was changed. Do you want to move the changed file back to the original location?"="ファイルが変更されました。変更されたファイルを元の場所に戻しますか？"
 "copy destination: "="コピー先: "
@@ -8,6 +8,7 @@
 
 
 "&About..."="バージョン情報(&A)..."
+"&Help..."="ヘルプ(&H)..."
 "&Exit"="終了(&E)"
 "&Open Local File Location"="ローカルファイルの場所を開く(&O)"
 "Open Re&mote File Location"="リモートファイルの場所を開く(&M)"
@@ -26,4 +27,8 @@
 "Monitoring \"%s\""="\"%s\" を監視しています"
 "Recent Files"="最近使ったファイル"
 "&Open"="開く(&O)"
+"&Cancel"="キャンセル(&C)"
 "This file is currently opened."="このファイルは現在開かれています。"
+
+"Unknown language \"%s\""="未知の言語です \"%s\""
+"Unknown option(s) \"%s\""="未知のオプションです \"%s\""

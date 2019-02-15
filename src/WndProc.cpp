@@ -1,3 +1,29 @@
+// BSD 2-Clause License
+// 
+// Copyright (c) 2019, Ambiesoft
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+// 
+// * Redistributions of source code must retain the above copyright notice, this
+//   list of conditions and the following disclaimer.
+// 
+// * Redistributions in binary form must reproduce the above copyright notice,
+//   this list of conditions and the following disclaimer in the documentation
+//   and/or other materials provided with the distribution.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 #include "stdafx.h"
 
 #include "resource.h"
@@ -246,18 +272,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				POINT apos;
 				HMENU hSubMenu = CreatePopupMenu();
 #ifdef _DEBUG
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_START, NS("TEST"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_START, L"TEST");
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
 #endif
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_ABOUT, NS("&About..."));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_ABOUT, (L"&About..."));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_SWHOWHELP, (L"&Help..."));
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
 
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_REOPENFILE, NS("&Reopen"));
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENWITHEXPLORER, NS("&Open Local File Location"));
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENREMOTE_WITHEXPLOER, NS("Open Re&mote File Location"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_REOPENFILE, (L"&Reopen"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENWITHEXPLORER, (L"&Open Local File Location"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_OPENREMOTE_WITHEXPLOER, (L"Open Re&mote File Location"));
 				AppendMenu(hSubMenu, MF_SEPARATOR, 0, NULL);
 				
-				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_QUIT, NS("&Exit"));
+				AppendMenu(hSubMenu, MF_BYCOMMAND, IDC_QUIT, (L"&Exit"));
 
 				Ambiesoft::i18nChangeMenuText(hSubMenu);
 
@@ -323,6 +350,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 	
+			case IDC_SWHOWHELP:
+			{
+				if (_wcsicmp(Ambiesoft::i18nGetCurrentLang(), L"jpn") == 0)
+				{
+					OpenCommon(hWnd, L"https://github.com/ambiesoft/kocchiwork/blob/master/README-JP.md");
+				}
+				else
+				{ 
+					OpenCommon(hWnd, L"https://github.com/ambiesoft/kocchiwork/blob/master/README.md");
+				}
+			}
+			break;
+
 			case IDC_QUIT:
 			{
 				DestroyWindow(hWnd);

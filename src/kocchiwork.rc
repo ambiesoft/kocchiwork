@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "windows.h"
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -71,12 +71,11 @@ IDI_ICON_MAIN           ICON                    "icon.ico"
 
 IDD_DIALOG_RECENT DIALOGEX 0, 0, 358, 207
 STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
-CAPTION "Dialog"
 FONT 9, "MS Shell Dlg 2", 0, 0, 0x0
 BEGIN
     LISTBOX         IDC_LIST_RECENT,7,7,344,170,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "&Open",IDOK,246,186,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,301,186,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,301,186,50,14
 END
 
 

@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ で生成されたインクルード ファイル。
-// kocchiwork.rc で使用
+// Microsoft Visual C++
+// kocchiwork.rc
 //
 #define IDI_ICON_MAIN                   101
 #define IDD_DIALOG_RECENT               102
@@ -11,6 +11,7 @@
 #define IDC_REOPENFILE                  40004
 #define IDC_OPENWITHEXPLORER            40005
 #define IDC_OPENREMOTE_WITHEXPLOER      40006
+#define IDC_SWHOWHELP                   40007
 #define IDC_LAST                        40500
 
 // Next default values for new objects

@@ -1,16 +1,43 @@
+// BSD 2-Clause License
+// 
+// Copyright (c) 2019, Ambiesoft
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+// 
+// * Redistributions of source code must retain the above copyright notice, this
+//   list of conditions and the following disclaimer.
+// 
+// * Redistributions in binary form must reproduce the above copyright notice,
+//   this list of conditions and the following disclaimer in the documentation
+//   and/or other materials provided with the distribution.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 #include "stdafx.h"
 
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "heavyboost.h"
 
-tstring doformat(tstring ins)
-{
-	return ( boost::wformat(NS("%1% is not a file.")) % ins.c_str() ).str();
-}
 
-tstring boostformat2(LPCTSTR format, LPCTSTR p1, LPCTSTR p2)
+tstring boostformat(LPCTSTR format, LPCTSTR p1)
+{
+	return (boost::wformat(format) % p1).str();
+}
+tstring boostformat(LPCTSTR format, LPCTSTR p1, LPCTSTR p2)
 {
 	return (boost::wformat(format) % p1 % p2).str();
 }
@@ -18,4 +45,14 @@ tstring boostformat2(LPCTSTR format, LPCTSTR p1, LPCTSTR p2)
 tstring dolex(int i)
 {
 	return boost::lexical_cast<tstring>(i);
+}
+
+
+void boostToLower(tstring& str)
+{
+	boost::algorithm::to_lower(str);
+}
+tstring boostToLower_copy(const tstring& str)
+{
+	return boost::algorithm::to_lower_copy(str);
 }
