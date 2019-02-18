@@ -28,6 +28,6 @@
 
 tstring boostformat(LPCTSTR format, LPCTSTR p1);
 tstring boostformat(LPCTSTR format, LPCTSTR p1, LPCTSTR p2);
-tstring dolex(int i);
+tstring boostitostring(int i);
 void boostToLower(tstring& str);
 tstring boostToLower_copy(const tstring& str);

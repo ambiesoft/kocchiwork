@@ -1,3 +1,6 @@
+2019/02/18 v1.0.10
+Show a mark which indicates file existence.
+
 2019/02/16 v1.0.9
 Add License
 

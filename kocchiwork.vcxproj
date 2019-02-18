@@ -45,10 +45,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformToolset)\$(ProjectName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)D</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformToolset)\$(ProjectName)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -91,7 +93,7 @@
     <PostBuildEvent>
       <Command>mkdir "$(TargetDir)lang"
 copy lang\jpn.txt "$(TargetDir)lang\"
-copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\
+copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
 copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
 copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
 copy "$(SolutionDir)README.md" "$(TargetDir)"
@@ -141,7 +143,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <PostBuildEvent>
       <Command>mkdir "$(TargetDir)lang"
 copy lang\jpn.txt "$(TargetDir)lang\"
-copy C:\Linkout\CommonDLL\TimedMessageBox.dll C:\Linkout\kocchiwork\
+copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
 copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
 copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
 copy "$(SolutionDir)README.md" "$(TargetDir)"

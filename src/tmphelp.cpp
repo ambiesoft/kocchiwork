@@ -189,7 +189,7 @@ void GetRecents(RECENTSTYPE& recents)
 		{
 	//		szT[0]=0;
 			tstring sec(_T("recent_"));
-			sec += dolex(i);
+			sec += boostitostring(i);
 		
 			tstring tout;
 			if(GetPrivateProfileWString(_T("recents"),
@@ -227,7 +227,7 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 		for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
 		{
 			tstring sec(_T("recent_"));
-			sec += dolex(i);
+			sec += boostitostring(i);
 
 			if(!WritePrivateProfileWString(_T("recents"),
 				sec.c_str(),
@@ -250,31 +250,25 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 
 
 
-tstring GetSelected(HWND hwndList)
+tstring GetSelected(HWND hwndList, const RECENTSTYPE& recents)
 {
 	tstring fileret;
 	int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 	if(cur != LB_ERR)
 	{
-		int len = SendMessage(hwndList, LB_GETTEXTLEN, cur, 0);
-		LPTSTR p = new TCHAR[len+1];
-		p[0]=0;
-		SendMessage(hwndList, LB_GETTEXT, cur, (LPARAM)p);
-		fileret = p;
-		delete[] p;
-
-/*		
-		tstring thisexe = stdGetModuleFileName();
-		if(ShellExecute(hwndList,
-			NULL,
-			thisexe.c_str(),
-			file.c_str(),
-			NULL,
-			SW_SHOW) <= (HINSTANCE)32)
+		//int len = SendMessage(hwndList, LB_GETTEXTLEN, cur, 0);
+		//LPTSTR p = new TCHAR[len+1];
+		//p[0]=0;
+		//SendMessage(hwndList, LB_GETTEXT, cur, (LPARAM)p);
+		//fileret = p;
+		//delete[] p;
+		int index = SendMessage(hwndList, LB_GETITEMDATA, cur, 0);
+		if (index != LB_ERR)
 		{
-			errExit(NS("Fatal : ShellExecute"));
+			RECENTSTYPE::const_iterator it = recents.cbegin();
+			advance(it, index);
+			fileret = *it;
 		}
-*/
 	}
 	return fileret;
 }
@@ -332,48 +326,52 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	static HWND shwndBtnOK;
 	static HWND shwndBtnCancel;
 
+	static RECENTSTYPE srecents;
 	switch(uMsg)
 	{
 		case WM_INITDIALOG:
 		{
+			// prepare static values
 			spRet = (tstring*)lParam;
 			shwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
 			shwndBtnOK = GetDlgItem(hDlg, IDOK);
 			shwndBtnCancel = GetDlgItem(hDlg, IDCANCEL);
+			GetRecents(srecents);
 
-
+			// Set icon
 			SendMessage(hDlg, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
 			SendMessage(hDlg, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 			
+			// Internationalize dialog controls
 			i18nChangeChildWindowText(hDlg);
-			wstring title = boostformat(L"%s | %s", NS("Recent Files"), APP_NAME);
 
+			// set title
+			wstring title = boostformat(L"%s | %s", NS("Recent Files"), APP_NAME);
 			SetWindowText(hDlg, title.c_str());
 
-			RECENTSTYPE recents;
-			GetRecents(recents);
-
 			
-			RECENTSTYPE::iterator it;
-			int i=0;
 			HDC hdcList = GetWindowDC(shwndList);
 			LONG maxLength = SendMessage(shwndList, LB_GETHORIZONTALEXTENT, 0, 0);
 			LONG maxLengthOrig = maxLength;
-			for (it=recents.begin() ; it != recents.end() ; ++it, ++i)
-			{ 
+			for (RECENTSTYPE::iterator it = srecents.begin(); it != srecents.end(); ++it)
+			{
+				tstring str = PathFileExists(it->c_str()) ? L"OK" : L"NA";
+				str += L": ";
+				str += it->c_str();
+
 				int pos = (int)SendMessage(shwndList,
 					LB_ADDSTRING,
-					0, 
-					(LPARAM)it->c_str());
+					0,
+					(LPARAM)str.c_str());
 				// Set the array index of the player as item data.
 				// This enables us to retrieve the item from the array
 				// even after the items are sorted by the list box.
-				SendMessage(shwndList, LB_SETITEMDATA, pos, (LPARAM) i); 
+				SendMessage(shwndList, LB_SETITEMDATA, pos, (LPARAM)distance(srecents.begin(), it));
 
 				SIZE size;
-				if(GetTextExtentPoint32(hdcList,
-					it->c_str(),
-					it->size(), // *sizeof((*it)[0]),
+				if (GetTextExtentPoint32(hdcList,
+					str.c_str(),
+					str.size(), // *sizeof((*it)[0]),
 					&size))
 				{
 					maxLength = max(maxLength, size.cx);
@@ -387,9 +385,6 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				point.y = maxLength;
 				LPtoDP(hdcList, &point, 1);
 
-				//int x = GetDeviceCaps(hdcList,LOGPIXELSX);
-				//LONG y = GetDialogBaseUnits();
-				//SendMessage(hwndList, LB_SETHORIZONTALEXTENT, maxLength*x/y, 0);
 				SendMessage(shwndList, LB_SETHORIZONTALEXTENT, point.y, 0);
 			}
 			ReleaseDC(shwndList, hdcList);
@@ -487,8 +482,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				{
 					if(HIWORD(wParam)==LBN_DBLCLK)
 					{
-						HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
-						*spRet = GetSelected(hwndList);
+						*spRet = GetSelected(shwndList, srecents);
 
 						EndDialog(hDlg, IDOK);
 						return 1;
@@ -498,8 +492,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 				case IDOK:
 				{
-					HWND hwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
-					*spRet = GetSelected(hwndList);
+					*spRet = GetSelected(shwndList, srecents);
 
 					EndDialog(hDlg, IDOK);
 					return 1;

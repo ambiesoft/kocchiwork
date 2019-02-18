@@ -42,7 +42,7 @@ tstring boostformat(LPCTSTR format, LPCTSTR p1, LPCTSTR p2)
 	return (boost::wformat(format) % p1 % p2).str();
 }
 
-tstring dolex(int i)
+tstring boostitostring(int i)
 {
 	return boost::lexical_cast<tstring>(i);
 }

@@ -1,13 +1,13 @@
 {
     "name": "kocchiwork",
-    "solution": "kocchiwork2013.sln",
+    "solution": "kocchiwork.sln",
     "targetproject": "kocchiwork",
     "configuration": "Release",
     "targets": [
         {
-            "setoutdirforbuild": true,
+            "setoutdirforbuild": false,
             "platform": "Win32",
-            "outdir": "c:\\Linkout\\kocchiwork"
+            "outdir": "Release\\v120_xp\\kocchiwork"
         }
     ],
     "ShouldBeFiles": [
@@ -15,6 +15,7 @@
         "kocchiwork.exe",
         "License.txt",
         "README.md",
+        "README-JP.md",
         "TimedMessageBox.dll",
         "lang\\jpn.txt"
     ],
