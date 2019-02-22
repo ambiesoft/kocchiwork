@@ -35,12 +35,13 @@
 #include "../../lsMisc/WritePrivateProfileWString.h"
 
 using namespace Ambiesoft;
-
+using namespace std;
 
 std::wstring GetIniFile()
-{koko
-	tstring inifile = stdGetModuleFileName();
-	inifile += _T(".ini");
+{
+	wstring inifile = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName()),
+		stdGetFileNameWitoutExtension(stdGetModuleFileName()) + L".ini");
+	
 
 	return inifile;
 }
