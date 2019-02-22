@@ -24,35 +24,31 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "stdafx.h"
-
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/algorithm/string.hpp>
+#include "boostpch.h"
 
 #include "heavyboost.h"
 
 
-tstring boostformat(LPCTSTR format, LPCTSTR p1)
+std::wstring boostformat(const wchar_t* format, const wchar_t* p1)
 {
 	return (boost::wformat(format) % p1).str();
 }
-tstring boostformat(LPCTSTR format, LPCTSTR p1, LPCTSTR p2)
+std::wstring boostformat(const wchar_t* format, const wchar_t* p1, const wchar_t* p2)
 {
 	return (boost::wformat(format) % p1 % p2).str();
 }
 
-tstring boostitostring(int i)
+std::wstring boostitostring(int i)
 {
-	return boost::lexical_cast<tstring>(i);
+	return boost::lexical_cast<std::wstring>(i);
 }
 
 
-void boostToLower(tstring& str)
+void boostToLower(std::wstring& str)
 {
 	boost::algorithm::to_lower(str);
 }
-tstring boostToLower_copy(const tstring& str)
+std::wstring boostToLower_copy(const std::wstring& str)
 {
 	return boost::algorithm::to_lower_copy(str);
 }

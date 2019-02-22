@@ -185,9 +185,22 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClCompile Include="..\lsMisc\UTF16toUTF8.cpp" />
     <ClCompile Include="..\lsMisc\WritePrivateProfileInt.cpp" />
     <ClCompile Include="..\lsMisc\WritePrivateProfileWString.cpp" />
+    <ClCompile Include="src\boostpch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">boostpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(TargetName)-boost.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">boostpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(TargetName)-boost.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
     <ClCompile Include="src\common.cpp" />
     <ClCompile Include="src\err.cpp" />
-    <ClCompile Include="src\heavyboost.cpp" />
+    <ClCompile Include="src\heavyboost.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">boostpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(TargetName)-boost.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">boostpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(TargetName)-boost.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
     <ClCompile Include="src\kocchiwork.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ReturnFileAndQuit.cpp" />
@@ -225,6 +238,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClInclude Include="..\lsMisc\UTF16toUTF8.h" />
     <ClInclude Include="..\lsMisc\WritePrivateProfileInt.h" />
     <ClInclude Include="..\lsMisc\WritePrivateProfileWString.h" />
+    <ClInclude Include="src\boostpch.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\err.h" />
     <ClInclude Include="src\heavyboost.h" />

@@ -24,10 +24,5 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#pragma once
+#include "boostpch.h"
 
-std::wstring boostformat(const wchar_t* format, const wchar_t* p1);
-std::wstring boostformat(const wchar_t* format, const wchar_t* p1, const wchar_t* p2);
-std::wstring boostitostring(int i);
-void boostToLower(std::wstring& str);
-std::wstring boostToLower_copy(const std::wstring& str);

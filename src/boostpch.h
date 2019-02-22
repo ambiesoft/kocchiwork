@@ -26,8 +26,10 @@
 
 #pragma once
 
-std::wstring boostformat(const wchar_t* format, const wchar_t* p1);
-std::wstring boostformat(const wchar_t* format, const wchar_t* p1, const wchar_t* p2);
-std::wstring boostitostring(int i);
-void boostToLower(std::wstring& str);
-std::wstring boostToLower_copy(const std::wstring& str);
+#include <Windows.h>
+
+#include <string>
+
+#include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
