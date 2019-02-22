@@ -24,9 +24,25 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-BOOL GetFileData(LPCTSTR pFile, WIN32_FIND_DATA* pData);
-BOOL GetFileLastWriteTime(LPCTSTR pFile, FILETIME* pFT);
-BOOL AddTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR pszTip);
-BOOL PopupTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR pszTip);
-BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage);
-tstring OpenRecent();
+#define MAX_RECENT_SIZE 16
+typedef list<tstring> RECENTSTYPE;
+
+std::wstring GetIniFile();
+void GetRecents(RECENTSTYPE& recents);
+BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile);
+
+class ProcessMutex {
+	HANDLE h_;
+public:
+	ProcessMutex() {
+		HANDLE h = CreateMutex(NULL, FALSE, _T("kocciwork_recent_mutex"));
+		if (!h)
+			errExit(_T("CreateMutex"), GetLastError());
+
+		h_ = h;
+		WaitForSingleObject(h, INFINITE);
+	}
+	~ProcessMutex() {
+		ReleaseMutex(h_);
+	}
+};

@@ -25,12 +25,15 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "stdafx.h"
-#include "tmphelp.h"
 #include "resource.h"
-#include "heavyboost.h"
-#include "err.h"
 
 #include "common.h"
+#include "heavyboost.h"
+#include "err.h"
+#include "app.h"
+
+#include "tmphelp.h"
+
 
 #include "../../lsMisc/HelpDefines.h"
 #include "../../lsMisc/WritePrivateProfileWString.h"
@@ -129,16 +132,7 @@ BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage)
 //}
 
 
-tstring GetIniFile()
-{
-	tstring inifile = stdGetModuleFileName();
-	inifile += _T(".ini");
 
-	return inifile;
-}
-
-#define MAX_RECENT_SIZE 16
-typedef list<tstring> RECENTSTYPE;
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 tstring OpenRecent()
@@ -156,97 +150,7 @@ tstring OpenRecent()
 }
 
 
-class ProcessMutex {
-	HANDLE h_;
-public:
-	ProcessMutex() {
-		HANDLE h = CreateMutex(NULL, FALSE, _T("kocciwork_recent_mutex"));
-		if(!h)
-			errExit(_T("CreateMutex"), GetLastError());
 
-		h_=h;
-		WaitForSingleObject(h, INFINITE);
-	}
-	~ProcessMutex() {
-		ReleaseMutex(h_);
-	}
-};
-
-void GetRecents(RECENTSTYPE& recents)
-{
-	tstring inifile = GetIniFile();
-
-	{
-		ProcessMutex mut;
-		// MessageBox(NULL, L"Mutex Aquired", APP_NAME, MB_OK);
-
-		int count = GetPrivateProfileInt(_T("recents"),
-			_T("count"),
-			0,
-			inifile.c_str());
-	//	TCHAR szT[1024];
-		for(int i=0 ; i < count ; ++i)
-		{
-	//		szT[0]=0;
-			tstring sec(_T("recent_"));
-			sec += boostitostring(i);
-		
-			tstring tout;
-			if(GetPrivateProfileWString(_T("recents"),
-				sec.c_str(),
-				_T(""),
-				tout,
-				inifile.c_str()))
-			{
-				if(!tout.empty())
-				{
-					recents.push_back(tout);
-				}
-			}
-		}
-	}
-}
-
-
-
-BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
-{
-	tstring inifile = GetIniFile();
-
-	RECENTSTYPE recents;
-	GetRecents(recents);
-
-	recents.remove(pFile);
-	recents.push_front(pFile);
-
-	int count = min(recents.size(), MAX_RECENT_SIZE);
-	RECENTSTYPE::iterator it;
-	int i=0;
-	{
-		ProcessMutex mut;
-		for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
-		{
-			tstring sec(_T("recent_"));
-			sec += boostitostring(i);
-
-			if(!WritePrivateProfileWString(_T("recents"),
-				sec.c_str(),
-				it->c_str(),
-				inifile.c_str()))
-			{
-				return FALSE;
-			}
-		}
-		if(!WritePrivateProfileInt(_T("recents"),
-			_T("count"),
-			i,
-			inifile.c_str()))
-		{
-			return FALSE;
-		}
-	}
-	return TRUE;
-}
 
 
 
@@ -256,12 +160,6 @@ tstring GetSelected(HWND hwndList, const RECENTSTYPE& recents)
 	int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 	if(cur != LB_ERR)
 	{
-		//int len = SendMessage(hwndList, LB_GETTEXTLEN, cur, 0);
-		//LPTSTR p = new TCHAR[len+1];
-		//p[0]=0;
-		//SendMessage(hwndList, LB_GETTEXT, cur, (LPARAM)p);
-		//fileret = p;
-		//delete[] p;
 		int index = SendMessage(hwndList, LB_GETITEMDATA, cur, 0);
 		if (index != LB_ERR)
 		{

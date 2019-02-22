@@ -129,6 +129,9 @@
     <ClCompile Include="src\boostpch.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\app.cpp">
+      <Filter>2 Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common.h">
@@ -225,6 +228,9 @@
       <Filter>1 Header Files\lsMisc</Filter>
     </ClInclude>
     <ClInclude Include="src\boostpch.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>

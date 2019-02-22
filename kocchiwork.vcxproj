@@ -185,6 +185,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClCompile Include="..\lsMisc\UTF16toUTF8.cpp" />
     <ClCompile Include="..\lsMisc\WritePrivateProfileInt.cpp" />
     <ClCompile Include="..\lsMisc\WritePrivateProfileWString.cpp" />
+    <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\boostpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">boostpch.h</PrecompiledHeaderFile>
@@ -238,6 +239,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClInclude Include="..\lsMisc\UTF16toUTF8.h" />
     <ClInclude Include="..\lsMisc\WritePrivateProfileInt.h" />
     <ClInclude Include="..\lsMisc\WritePrivateProfileWString.h" />
+    <ClInclude Include="src\app.h" />
     <ClInclude Include="src\boostpch.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\err.h" />

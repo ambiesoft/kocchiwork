@@ -28,24 +28,15 @@
 
 #include "../../lsMisc/HighDPI.h"
 
-#ifdef _DLL
-#pragma message("_DLL is defined")
-#endif
-
-// #include <boost/format.hpp>
 #include "heavyboost.h"
-
-/**
-#define BOOST_LIB_DIAGNOSTIC
-#include <boost/program_options.hpp>
-namespace po = boost::program_options;
-**/
 
 #include "resource.h"
 #include "thread.h"
 #include "err.h"
+#include "app.h"
+
 #include "common.h"
-// #include "systeminfo.h"
+
 
 using namespace Ambiesoft;
 
