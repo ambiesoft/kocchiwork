@@ -1,6 +1,9 @@
 ipch/
 kocchiwork2013.sdf
 
+*.pdb/
+pingme.txt
+
 Debug/
 Release/
 *.ncb

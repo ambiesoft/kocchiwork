@@ -47,17 +47,10 @@ using namespace Ambiesoft;
 
 wstring myUrlEncode(wstring strIN)
 {
-	BYTE* pUtf8 = UTF16toUTF8(strIN.c_str());
-	stlsoft::scoped_handle<void*> mapUtf8(pUtf8, free);
-
-	char* pUtf8Encoded=NULL;
-	// UrlEncode(pUtf8, strlen((char*)pUtf8), &pUtf8Encoded, TRUE);
-	pUtf8Encoded= UrlEncode(pUtf8);
-	stlsoft::scoped_handle<void*> mapUtf8Encoded(pUtf8Encoded, free);
-
-	wchar_t* pLast = UTF8toUTF16((LPBYTE)pUtf8Encoded);
-	stlsoft::scoped_handle<void*> mapLast(pLast, free);
-	return pLast;
+	unique_ptr<char> pUtf8(UTF16toUTF8_new(strIN.c_str()));
+	unique_ptr<char> pUtf8Encoded(UrlEncode_new(pUtf8.get()));
+	unique_ptr<wchar_t> pLast(UTF8toUTF16_new(pUtf8Encoded.get()));
+	return pLast.get();
 }
 
 BOOL user32_ShutdownBlockReasonCreate( HWND hwnd, LPCWSTR lpcwstr )
@@ -134,7 +127,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			g_hTrayIcon, 
 			traytip.c_str()))
 		{
-			errExit(NS("could not register tray icon."),GetLastError());
+			DWORD dwLE = GetLastError();
+			errExit(NS("could not register tray icon."), &dwLE);
 		}
 		return 0;
 	}
@@ -185,7 +179,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 							g_hTrayIcon, 
 							text.c_str()))
 						{
-							errExit(NS("could not register tray icon."),GetLastError());
+							DWORD dwLE = GetLastError();
+							errExit(NS("could not register tray icon."), &dwLE);
 						}
 
 

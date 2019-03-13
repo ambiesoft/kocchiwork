@@ -37,8 +37,10 @@ public:
 	ProcessMutex() {
 		HANDLE h = CreateMutex(NULL, FALSE, _T("kocciwork_recent_mutex"));
 		if (!h)
-			errExit(_T("CreateMutex"), GetLastError());
-
+		{
+			DWORD dwLE = GetLastError();
+			errExit(_T("CreateMutex"), &dwLE);
+		}
 		h_ = h;
 		WaitForSingleObject(h, INFINITE);
 	}

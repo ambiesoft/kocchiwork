@@ -52,8 +52,11 @@ bool  ReturnFileAndQuit(HWND hWnd)
 
 	{
 		WIN32_FIND_DATA wfdWorkCurrent;
-		if(!GetFileData(g_workfile.c_str(), &wfdWorkCurrent))
-			errExit(NS("could not obtain work file data"), GetLastError());
+		if (!GetFileData(g_workfile.c_str(), &wfdWorkCurrent))
+		{
+			DWORD dwLE = GetLastError();
+			errExit(NS("could not obtain work file data"), &dwLE);
+		}
 
 
 		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
@@ -97,7 +100,8 @@ bool  ReturnFileAndQuit(HWND hWnd)
 		WIN32_FIND_DATA wfdRemoteNow;
 		if(!GetFileData(g_remotefile.c_str(), &wfdRemoteNow))
 		{
-			errExit(NS("could not obtain remote file time"), GetLastError(), TRUE);
+			DWORD dwLE = GetLastError();
+			errExit(NS("could not obtain remote file time"), &dwLE, TRUE);
 			return false;
 		}
 
@@ -121,17 +125,9 @@ bool  ReturnFileAndQuit(HWND hWnd)
 	if(!MoveFileEx( g_workfile.c_str(), g_remotefile.c_str(), 
 		MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH ) )
 	{
-		errExit(NS("could not move file"), GetLastError());
+		DWORD dwLE = GetLastError();
+		errExit(NS("could not move file"), &dwLE);
 	}
-	//if(!CopyFile(
-	//	g_workfile.c_str(), 
-	//	g_remotefile.c_str(), 
-	//	FALSE // overwirte
-	//	))
-	//{
-	//	errExit(NS("could not copy-back file"), GetLastError());
-	//}
-	//SHDeleteFile(g_workfile.c_str());
 
 	doPostQuitMessage(0);
 	return true;

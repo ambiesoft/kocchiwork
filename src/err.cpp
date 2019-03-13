@@ -26,19 +26,24 @@
 
 #include "stdafx.h"
 
-void errExit(const std::wstring& str, DWORD dwLastError, BOOL bNoExit)
+#include "../../lsMisc/GetLastErrorString.h"
+
+using namespace Ambiesoft;
+
+void errExit(const std::wstring& str, const DWORD* const pdwLastError, BOOL bNoExit)
 {
+	wstring message(str);
+	if (pdwLastError)
+	{
+		message += L"\r\n\r\n";
+		message += GetLastErrorString(*pdwLastError);
+	}
 	MessageBox(NULL,
-		str.c_str(),
+		message.c_str(),
 		APP_NAME,
 		MB_ICONERROR);
 
 	if(!bNoExit)
 		exit(1);
-
 }
 
-//void errExit(LPCTSTR p, BOOL bNoExit = FALSE)
-//{
-//	errExit(p, -1, bNoExit);
-//}

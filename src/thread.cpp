@@ -26,21 +26,16 @@
 
 #include "stdafx.h"
 
+#include "../../lsMisc/GetLastErrorString.h"
+
 #include "thread.h"
 #include "err.h"
+
+using namespace Ambiesoft;
 
 unsigned  __stdcall kanshi(void * p)
 {
 	threadData* pTD = (threadData*)p;
-//	if(pTD->bAppKanshi_	)
-//	{
-//		HANDLE waits[] = {pTD->hDie_, pTD->hApp_};
-//		DWORD dwWaited = WaitForMultipleObjects(_countof(waits), waits, FALSE, INFINITE);
-//
-//		PostMessage(pTD->hWnd_, WM_APP_APPKANHIDONE, 0, 0);
-//	}
-//	else
-
 
 	{
 		tstring dir = GetDirFromPath(pTD->pWorkingFile_);
@@ -67,8 +62,15 @@ unsigned  __stdcall kanshi(void * p)
 						errExit(NS("could not find next notification"));
 
 					FILETIME ft;
-					if(!GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
-						errExit(NS("could not get last write time"));
+					if (!GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
+					{
+						::Sleep(1000);
+						if (!GetFileLastWriteTime(pTD->pWorkingFile_, &ft))
+						{
+							DWORD dwLE = GetLastError();
+							errExit(NS("could not get last write time."), &dwLE, TRUE);
+						}
+					}
 
 					if(0 != CompareFileTime (&ft, &lastChecked))
 					{

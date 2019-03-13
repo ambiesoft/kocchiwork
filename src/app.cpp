@@ -39,8 +39,8 @@ using namespace std;
 
 std::wstring GetIniFile()
 {
-	wstring inifile = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName()),
-		stdGetFileNameWitoutExtension(stdGetModuleFileName()) + L".ini");
+	wstring inifile = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName<wchar_t>()),
+		stdGetFileNameWitoutExtension(stdGetModuleFileName<wchar_t>()) + L".ini");
 	
 
 	return inifile;

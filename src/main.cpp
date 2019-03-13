@@ -279,8 +279,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		tstring mutexname = pDup;
 		free(pDup);pDup=NULL;
 		mutexname=stdStringReplace(mutexname, _T("\\"), _T("_"));
-		if(!CreateMutex(NULL, TRUE, mutexname.c_str()))
-			errExit(NS("CreateMutex failed"), GetLastError());
+		if (!CreateMutex(NULL, TRUE, mutexname.c_str()))
+		{
+			DWORD dwLE = GetLastError();
+			errExit(NS("CreateMutex failed"), &dwLE);
+		}
 
 		if(GetLastError()==ERROR_ALREADY_EXISTS)
 		{
@@ -328,8 +331,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			return 0;
 
 		FILETIME ftCurrent;
-		if(!GetFileLastWriteTime(g_workfile.c_str(), &ftCurrent))
-			errExit(NS("Could not get filetime"), GetLastError());
+		if (!GetFileLastWriteTime(g_workfile.c_str(), &ftCurrent))
+		{
+			DWORD dwLE = GetLastError();
+			errExit(NS("Could not get filetime"), &dwLE);
+		}
 
 		if(CompareFileTime(&ftCurrent, &g_wfdRemote.ftLastWriteTime) > 0)
 			errExit(NS("Existing file is newer than the remote file. exiting."));
@@ -429,10 +435,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		g_hTrayIcon, 
 		traytip.c_str()))
 	{
-		errExit(NS("could not register tray icon."),GetLastError());
+		DWORD dwLE = GetLastError();
+		errExit(NS("could not register tray icon."), &dwLE);
 	}
-	if(0!=atexit(Untray))
-		errExit(NS("atexit failed."), errno);
+	if (0 != atexit(Untray))
+	{
+		DWORD dwLE = errno;
+		errExit(NS("atexit failed."), &dwLE);
+	}
 
 
 	HANDLE hThreadDie = NULL;
@@ -448,8 +458,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		hThreadDie = CreateEvent(NULL, FALSE, FALSE, NULL);
 		threadData td;
 		td.hDie_ = hThreadDie;
-		if(!td.hDie_)
-			errExit(NS("could not create event"), GetLastError());
+		if (!td.hDie_)
+		{
+			DWORD dwLE = GetLastError();
+			errExit(NS("could not create event"), &dwLE);
+		}
 		td.hWnd_ = g_hWnd;
 		td.ftWork_ = g_wfdWork.ftLastWriteTime;
 		td.pWorkingFile_ = g_workfile.c_str();
@@ -485,8 +498,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(sei.hProcess)
 		CloseHandle(sei.hProcess);
 
-	if(hThreadDie && !SetEvent(hThreadDie))
-		errExit(NS("could not SetEvent"), GetLastError());
+	if (hThreadDie && !SetEvent(hThreadDie))
+	{
+		DWORD dwLE = GetLastError();
+		errExit(NS("could not SetEvent"), &dwLE);
+	}
 
 	if(hThread)
 		WaitForSingleObject(hThread, INFINITE);
@@ -494,8 +510,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(PathFileExists(g_workfile.c_str()))
 	{
 		WIN32_FIND_DATA wfdWorkCurrent;
-		if(!GetFileData(g_workfile.c_str(), &wfdWorkCurrent))
-			errExit(NS("could not obtain work file data"), GetLastError());
+		if (!GetFileData(g_workfile.c_str(), &wfdWorkCurrent))
+		{
+			DWORD dwLE = GetLastError();
+			errExit(NS("could not obtain work file data"), &dwLE);
+		}
 
 
 		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
@@ -551,7 +570,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		if (sesstionCount.count() <= 1)
 		{
-			errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), -1, TRUE);
+			errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), nullptr, TRUE);
 		}
 	}
 	DestroyIcon(g_hTrayIcon);

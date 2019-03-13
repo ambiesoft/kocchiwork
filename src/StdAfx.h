@@ -62,12 +62,12 @@
 #include <Shellapi.h>
 #include <string>
 #include <list>
+#include <memory>
 
 
-#include <stlsoft/smartptr/scoped_handle.hpp>
 
 
-using namespace std;
+
 
 #include "../../lsMisc/tstring.h"
 #include "../../lsMisc/GetModuleDirectory.h"
@@ -102,7 +102,7 @@ using namespace Ambiesoft;
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.0.10"
+#define APP_VERSION L"1.0.11"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {
@@ -112,6 +112,7 @@ enum {
 };
 #define CRLF _T("\r\n")
 
+using namespace std;
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++

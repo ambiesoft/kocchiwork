@@ -24,5 +24,5 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-void errExit(const std::wstring& str, DWORD dwLastError = -1, BOOL bNoExit = FALSE);
+void errExit(const std::wstring& str, const DWORD* const pdwLastError = nullptr, BOOL bNoExit = FALSE);
 
