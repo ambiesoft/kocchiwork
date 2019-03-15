@@ -78,7 +78,7 @@ bool  ReturnFileAndQuit(HWND hWnd)
 	} busybacker(&gBusy);
 
 	tstring message;
-	message += NS("The File was changed. Do you want to move the changed file back to the original location?");
+	message += NS("The file have been updated. Do you want to move the changed file back to the original location?");
 	message += _T("\r\n\r\n");
 
 
@@ -90,7 +90,7 @@ bool  ReturnFileAndQuit(HWND hWnd)
 		NULL, 
 		message.c_str(), 
 		APP_NAME, 
-		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_DEFBUTTON2|MB_YESNO))
+		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_YESNO))
 	{
 		return false;
 	}

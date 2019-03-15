@@ -527,12 +527,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			//SendMessage(h, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 
 			tstring message;
-			message = NS("File not changed. Do you want to delete the copied file?");
+			message = NS("File not changed. Do you want to trash the copied file?");
+			message += CRLF;
 			message += CRLF;
 			message += g_workfile.c_str();
 			// ShowWindow(g_hWnd, SW_SHOW);
 			if (IDYES == MessageBox(NULL, message.c_str(), APP_NAME,
-				MB_APPLMODAL | MB_DEFBUTTON2 | MB_ICONQUESTION | MB_YESNO))
+				MB_APPLMODAL | MB_ICONQUESTION | MB_YESNO))
 			{
 				BOOL done = FALSE;
 				while(!done)
