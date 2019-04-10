@@ -102,7 +102,7 @@ using namespace Ambiesoft;
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.0.11"
+#define APP_VERSION L"1.0.12"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {

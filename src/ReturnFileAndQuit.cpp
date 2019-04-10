@@ -25,16 +25,30 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "stdafx.h"
+
+#include <sstream>
+
+#include "../../lsMisc/GetLastErrorString.h"
+#include "../../lsMisc/blockedbool.h"
+
 #include "kocchiwork.h"
 #include "err.h"
 #include "common.h"
 
-BOOL gBusy;
+using namespace Ambiesoft;
+using namespace std;
 
-bool  ReturnFileAndQuit(HWND hWnd)
+bool gBusy;
+bool gMovebackCanceled;  // suppress multiple moveback check,
+                         // Once user choose cancel to move back the file, this becomes 'true'
+
+CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 {
 	if(gBusy)
-		return false;
+		return CHECKFILE_BUSY;
+
+	if (gMovebackCanceled)
+		return CHECKFILE_ALREADYCANCELED;
 
 	HANDLE hFile = CreateFile (g_workfile.c_str(), 
 		GENERIC_READ, 
@@ -44,7 +58,7 @@ bool  ReturnFileAndQuit(HWND hWnd)
 		FILE_ATTRIBUTE_NORMAL, 
 		NULL);
 	if(hFile==INVALID_HANDLE_VALUE)
-		return false;
+		return CHECKFILE_OPENED;
 
 	CloseHandle(hFile);
 
@@ -62,37 +76,25 @@ bool  ReturnFileAndQuit(HWND hWnd)
 		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
 		if(nCmp==0)
 		{
-			return false;
+			return CHECKFILE_NOTMODIFIED;
 		}
 	}
 
-	struct BUSYBACKER {
-		BOOL* pb_;
-		BUSYBACKER(BOOL* pb) {
-			*pb = TRUE;
-			pb_ = pb;
-		}
-		~BUSYBACKER() {
-			*pb_ = FALSE;
-		}
-	} busybacker(&gBusy);
+	BlockedBool busybacker(&gBusy);
 
-	tstring message;
-	message += NS("The file have been updated. Do you want to move the changed file back to the original location?");
-	message += _T("\r\n\r\n");
-
-
-	message += NS("copy source: ") + g_workfile;
-	message += _T("\r\n");
-	message += NS("copy destination: ") + g_remotefile;
+	wstringstream message;
+	message << NS("The file have been updated. Do you want to move the changed file back to the original location?") << endl;
+	message << endl;
+	message << NS("copy source: ") << g_workfile << endl;
+	message << NS("copy destination: ") << g_remotefile << endl;
 
 	if(IDYES != MessageBox(
 		NULL, 
-		message.c_str(), 
+		message.str().c_str(),
 		APP_NAME, 
 		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_YESNO))
 	{
-		return false;
+		return CHECKFILE_MODIFIED_BUTUSERCANCELED;
 	}
 
 	if(PathFileExists(g_remotefile.c_str()))
@@ -102,33 +104,47 @@ bool  ReturnFileAndQuit(HWND hWnd)
 		{
 			DWORD dwLE = GetLastError();
 			errExit(NS("could not obtain remote file time"), &dwLE, TRUE);
-			return false;
+			return CHECKFILE_ERROR;
 		}
 
 		BOOL bChanged = CompareSizeAndLastWrite(&g_wfdRemote, &wfdRemoteNow) != 0;
 
 		if(bChanged)
 		{
-			tstring message;
-			message = NS("Operation canceled.");
-			message += _T("\r\n");
-			message += NS("The remote file may be updated after this application starts.");
-			message += _T("\r\n");
-			message += _T("\r\n");
-			message += NS("Fix the conflict.");
+			wstringstream message;
+			message << NS("Operation canceled.") << endl;
+			message << NS("The remote file may be updated after this application starts.") << endl;
+			message << endl;
+			message << NS("Fix the conflict.");
 
-			MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONWARNING);
-			return false;
+			MessageBox(NULL, message.str().c_str(), APP_NAME, MB_ICONWARNING);
+			return CHECKFILE_ERROR;
 		}
 	}
 
-	if(!MoveFileEx( g_workfile.c_str(), g_remotefile.c_str(), 
-		MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH ) )
+	BOOL ok = FALSE;
+	do
 	{
-		DWORD dwLE = GetLastError();
-		errExit(NS("could not move file"), &dwLE);
-	}
+		ok = MoveFileEx(g_workfile.c_str(), g_remotefile.c_str(),
+			MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH);
+
+		if (!ok)
+		{
+			wstring strLE = GetLastErrorString(GetLastError());
+
+			wstringstream message;
+			message << NS("Failed to move the file back to original location.") << endl;
+			message << strLE << endl;
+
+			int ret = MessageBox(nullptr, message.str().c_str(), APP_NAME, MB_ICONERROR | MB_RETRYCANCEL);
+			if (ret == IDCANCEL)
+			{
+				gMovebackCanceled = true;
+				return CHECKFILE_MODIFIED_BUTUSERCANCELED;
+			}
+		}
+	} while (!ok);
 
 	doPostQuitMessage(0);
-	return true;
+	return CHECKFILE_MOVEBACKED;
 }

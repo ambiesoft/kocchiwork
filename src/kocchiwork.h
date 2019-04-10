@@ -24,9 +24,14 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#pragma once
+
 extern tstring g_workfile;
 extern tstring g_remotefile;
 extern tstring g_progfile;
+
+extern bool gMovebackCanceled;
+
 
 extern WIN32_FIND_DATA g_wfdRemote;
 int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, WIN32_FIND_DATA* p2);

@@ -27,9 +27,6 @@
 #include "stdafx.h"
 
 #include "resource.h"
-#include "thread.h"
-#include "err.h"
-#include "common.h"
 // #include "systeminfo.h"
 
 
@@ -40,10 +37,19 @@
 #include "../../lsMisc/showballoon.h"
 #include "../../lsMisc/I18N.h"
 #include "../../lsMisc/OpenCommon.h"
+#include "../../lsMisc/blockedbool.h"
 
 #include "C:\\Linkout\\CommonDLL\\TimedMessageBox.h"
 
+#include "thread.h"
+#include "err.h"
+#include "common.h"
+
+
 using namespace Ambiesoft;
+
+#define TIMERID 1
+#define TIMER_INTERVAL 5000
 
 wstring myUrlEncode(wstring strIN)
 {
@@ -133,7 +139,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		return 0;
 	}
 
-	static bool btimerprocessing;
+	static bool btimerprocessing = false;
 	switch(nMsg)
 	{
 		case WM_CREATE:
@@ -142,7 +148,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			sTaskBarCreated = RegisterWindowMessage(_T("TaskbarCreated"));
 
 //			EnableDebugPriv();
-			SetTimer(hWnd, 1, 5000,NULL);
+			if (0 == SetTimer(hWnd, TIMERID, TIMER_INTERVAL, NULL))
+			{
+				DWORD dwLE = GetLastError();
+				errExit(NS("Failed to SetTimer."), &dwLE);
+			}
 		}
 		break;
 		
@@ -150,28 +160,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		{
 			if(btimerprocessing)
 				break;
-			btimerprocessing = true;
+			BlockedBool bcTimer(&btimerprocessing);
+
 			if(g_hKanshiApp)
 			{
-				DWORD dw =WaitForSingleObject(g_hKanshiApp, 1);
+				DWORD dw = WaitForSingleObject(g_hKanshiApp, 1);
 				if(dw == WAIT_OBJECT_0)
 				{// app is gone
 					g_hKanshiApp = NULL;
 					if(IsFileOpen(g_workfile.c_str()))
 					{
-						wstring title=L"kocchiwork";
+						// Kanshi app is gone, but file is opened
 						wstring text = NS("App was closed but file still opens, changed mode to monitor file");
-
-/**
-						wchar_t file[MAX_PATH];
-						GetModuleFileName(NULL, file, MAX_PATH);
-						*wcsrchr(file, L'\\') = 0;
-						lstrcat(file, L"\\showballoon.exe");
-
-						HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
-						showballoon(g_hWnd,title ,text, g_hTrayIcon,WM_APP_TRAY_NOTIFY,TRUE);
-**/
-
 
 						if(!PopupTrayIcon(
 							g_hWnd, 
@@ -182,32 +182,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 							DWORD dwLE = GetLastError();
 							errExit(NS("could not register tray icon."), &dwLE);
 						}
-
-
-
-
-						//wstring param;
-						//param += L"/title:";
-						//param += myUrlEncode(title);
-						//param += L" /icon:kocchiwork.exe";
-						//param += _T(" \"") + myUrlEncode(message) + _T("\"");						
-
-						//ShellExecute(NULL,
-						//	NULL,
-						//	file,
-						//	param.c_str(),
-						//	NULL,
-						//	SW_SHOW);
-						
-						//SetForegroundWindow(hWnd);
-						//MessageBoxA(hWnd,
-						 	//"sss",
-							//"sss",
-							//0);
-						// KillTimer(hWnd,1);
 					}
 					else
-					{ // no one opens file
+					{
+						// Kanshi app is gone and nobody opens file
 						int mret = IDNO;
 						if( (time(NULL)-g_starttime) < 10)
 						{
@@ -219,37 +197,52 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 						}
 
 						if(mret==IDYES)
-						{//use file monitor
-							KillTimer(hWnd,1);
+						{
+							//use file monitor
+							KillTimer(hWnd, TIMERID);
 						}
 						else
 						{
 							//quit
-							KillTimer(hWnd,1);
+							KillTimer(hWnd, TIMERID);
 							doPostQuitMessage(0);
 						}
 					}
 				}
 			}
 			else
-			{// no kanshiapp
+			{
+				// no kanshiapp
 				static int count;				
 				if(!IsFileOpen(g_workfile.c_str()))
 				{
+					// File is not opened
 					count++;
 					if(count > 1)
 					{
-						ReturnFileAndQuit(hWnd);
-						KillTimer(hWnd,1);
-						doPostQuitMessage(0);
+						// more than 10 sec. passed
+						switch (ReturnFileAndQuit(hWnd))
+						{
+						case CHECKFILE_BUSY:
+						case CHECKFILE_OPENED:
+						case CHECKFILE_ERROR:
+							break;
+						case CHECKFILE_ALREADYCANCELED:
+						case CHECKFILE_NOTMODIFIED:
+						case CHECKFILE_MODIFIED_BUTUSERCANCELED:
+						case CHECKFILE_MOVEBACKED:
+							// quit operation succeeded
+							KillTimer(hWnd, TIMERID);
+							doPostQuitMessage(0);
+							break;
+						}
 					}
 				}
 				else
 				{
-					count=0;
+					count = 0;
 				}
 			}
-			btimerprocessing = false;
 		}
 		break;
 		

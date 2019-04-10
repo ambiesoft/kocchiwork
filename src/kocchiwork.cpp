@@ -39,7 +39,7 @@
 #include "../../lsMisc/UTF16toUTF8.h"
 #include "../../lsMisc/IsFileOpen.h"
 
-bool ReturnFileAndQuit(HWND hWnd);
+
 
 
 

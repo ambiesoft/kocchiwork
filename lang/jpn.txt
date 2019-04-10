@@ -32,3 +32,5 @@
 
 "Unknown language \"%s\""="未知の言語です \"%s\""
 "Unknown option(s) \"%s\""="未知のオプションです \"%s\""
+
+"Failed to move the file back to original location."="ファイルを元の場所に戻すことに失敗しました。"

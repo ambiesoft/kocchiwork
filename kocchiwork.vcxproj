@@ -152,6 +152,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lsMisc\blockedbool.cpp" />
     <ClCompile Include="..\lsMisc\CenterWindow.cpp" />
     <ClCompile Include="..\lsMisc\CommandLineParser.cpp" />
     <ClCompile Include="..\lsMisc\CreateSimpleWindow.cpp" />
@@ -217,6 +218,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClCompile Include="src\WndProc.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lsMisc\blockedbool.h" />
     <ClInclude Include="..\lsMisc\CenterWindow.h" />
     <ClInclude Include="..\lsMisc\CommandLineParser.h" />
     <ClInclude Include="..\lsMisc\CreateSimpleWindow.h" />
@@ -246,7 +248,6 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClInclude Include="src\heavyboost.h" />
     <ClInclude Include="src\kocchiwork.h" />
     <ClInclude Include="src\resource.h" />
-    <ClInclude Include="src\ReturnFileAndQuit.h" />
     <ClInclude Include="src\StdAfx.h" />
     <ClInclude Include="src\thread.h" />
     <ClInclude Include="src\tmphelp.h" />

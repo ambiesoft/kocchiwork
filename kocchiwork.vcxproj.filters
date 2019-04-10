@@ -132,6 +132,9 @@
     <ClCompile Include="src\app.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\lsMisc\blockedbool.cpp">
+      <Filter>2 Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common.h">
@@ -147,9 +150,6 @@
       <Filter>1 Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\resource.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ReturnFileAndQuit.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\StdAfx.h">
@@ -231,6 +231,9 @@
       <Filter>1 Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\app.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lsMisc\blockedbool.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>
