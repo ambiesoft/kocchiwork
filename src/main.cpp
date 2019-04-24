@@ -27,6 +27,8 @@
 #include "stdafx.h"
 
 #include "../../lsMisc/HighDPI.h"
+#include "../../lsMisc/CommandLineString.h"
+#include "../../lsMisc/OpenCommon.h"
 
 #include "heavyboost.h"
 
@@ -151,6 +153,77 @@ public:
 };
 
 
+static void GetArgumentsFromCommandLine(
+	tstring& progfile,
+	bool& noSaveRecent,
+	tstring& lang,
+	std::vector<tstring>& remoteFiles)
+{
+	CCommandLineParser parser;
+
+	parser.AddOption(L"/P", 1, &progfile);
+	parser.AddOption(L"/N", 0, &noSaveRecent);
+	parser.AddOption(L"/L", 1, &lang);
+	COption optionMain;
+	parser.AddOption(&optionMain);
+
+	parser.Parse();
+
+	if (!lang.empty())
+	{
+		wstring lang_lower = boostToLower_copy(lang);
+		if (lang_lower != L"jpn" && lang_lower != L"eng")
+		{
+			errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown language \"%s\""), lang.c_str()));
+		}
+
+		if (lang_lower != L"eng")
+			Ambiesoft::i18nInitLangmap(g_hInst, lang_lower.c_str(), _T(""));
+	}
+
+	if (parser.hadUnknownOption())
+	{
+		wstring unknown = parser.getUnknowOptionStrings();
+		errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown option(s) \"%s\""), unknown.c_str()));
+	}
+
+	for (size_t i = 0; i < optionMain.getValueCount(); ++i)
+	{
+		remoteFiles.push_back(optionMain.getValue(i));
+	}
+}
+
+static void LaunchMeOneByOne(
+	tstring& progfile,
+	bool& noSaveRecent,
+	tstring& lang,
+	std::vector<tstring>& remoteFiles)
+{
+	tstring argBase;
+	if (!progfile.empty())
+		argBase += stdFormat(L"/P \"%s\" ", progfile.c_str());
+	if (noSaveRecent)
+		argBase += L"/N ";
+	if (!lang.empty())
+		argBase += stdFormat(L"/L \"%s\" ", lang.c_str());
+
+	tstring exe = stdGetModuleFileName<wchar_t>();
+	tstring dir = stdGetCurrentDirectory();
+	for (auto&& elem : remoteFiles)
+	{
+		tstring arg = stdFormat(L"%s \"%s\"",
+			argBase.c_str(),
+			elem.c_str());
+		if (!OpenCommon(nullptr,
+			exe.c_str(),
+			arg.c_str(),
+			dir.c_str()))
+		{
+			errExit(NS("Failed to OpenCommon"));
+		}
+	}
+
+}
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR     lpCmdLine,
@@ -160,7 +233,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF | _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG));
 //#endif
 	InitHighDPISupport();
-
+	g_hInst = hInstance;
 	Ambiesoft::i18nInitLangmap(hInstance, NULL, _T(""));
 	g_hTrayIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON_MAIN));
 
@@ -177,34 +250,30 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //		g_remotefile = _T("\\\\inpsrv\\Share\\pass\\text.txt");
 #endif
 
-	CCommandLineParser parser;
-	
 	bool f_noSaveRecent = false;
 	wstring lang;
 
-	parser.AddOption(L"/P", 1, &g_progfile);
-	parser.AddOption(L"/N", 0, &f_noSaveRecent);
-	parser.AddOption(L"/L", 1, &lang);
-	parser.AddOption(L"", 1, &g_remotefile);
-
-	parser.Parse();
-
-	if (!lang.empty())
 	{
-		wstring lang_lower = boostToLower_copy(lang);
-		if (lang_lower != L"jpn" && lang_lower != L"eng")
+		vector<tstring> remoteFiles;
+		GetArgumentsFromCommandLine(
+			g_progfile,
+			f_noSaveRecent,
+			lang,
+			remoteFiles);
+		switch (remoteFiles.size())
 		{
-			errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown language \"%s\""), lang.c_str()));
+		case 0:
+			break;
+		case 1:
+			g_remotefile = remoteFiles[0];
+			break;
+		default:
+			LaunchMeOneByOne(g_progfile,
+				f_noSaveRecent,
+				lang,
+				remoteFiles);
+			return 0;
 		}
-
-		if (lang_lower != L"eng")
-			Ambiesoft::i18nInitLangmap(hInstance, lang_lower.c_str(), _T(""));
-	}
-
-	if (parser.hadUnknownOption())
-	{
-		wstring unknown = parser.getUnknowOptionStrings();
-		errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown option(s) \"%s\""), unknown.c_str()));
 	}
 
 	if(hasEndingI(g_remotefile, _T(".lnk")))
@@ -219,11 +288,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	if (g_remotefile.empty())
 	{
-		 g_remotefile = OpenRecent();
-		 if(g_remotefile.empty())
-		 {
+		std::vector<std::wstring> openFiles = OpenRecent();
+		if (openFiles.empty())
 			return 0;
-		 }
+
+		tstring progfile;
+		bool noSaveRecent = false;
+		tstring lang;
+		vector<tstring> dummy;
+
+		GetArgumentsFromCommandLine(
+			progfile,
+			noSaveRecent,
+			lang,
+			dummy);
+
+		LaunchMeOneByOne(progfile, noSaveRecent, lang, openFiles);
+
+		return 0;
 	}
 
 	if (g_remotefile.empty())

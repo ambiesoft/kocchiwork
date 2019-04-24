@@ -26,6 +26,7 @@
 
 #pragma once
 
+extern HINSTANCE g_hInst;
 extern HICON g_hTrayIcon;
 extern HWND g_hWnd;
 extern HANDLE g_hKanshiApp;

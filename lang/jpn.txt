@@ -23,7 +23,8 @@
 "Fix the conflict."="コンフリクトを修正してください。"
 "Fatal : Failed to resolve link"="致命：リンクを解決できません"
 
-"File not changed. Do you want to delete the copied file?"="ファイルは変更されていません。コピーしたファイルを削除しますか？"
+
+"File not changed. Do you want to trash the copied file?"="ファイルは変更されていません。コピーしたファイルを削除しますか？"
 "Monitoring \"%s\""="\"%s\" を監視しています"
 "Recent Files"="最近使ったファイル"
 "&Open"="開く(&O)"

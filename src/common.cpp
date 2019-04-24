@@ -26,6 +26,7 @@
 
 #include "stdafx.h"
 
+HINSTANCE g_hInst;
 HICON g_hTrayIcon;
 HWND g_hWnd;
 HANDLE g_hKanshiApp;

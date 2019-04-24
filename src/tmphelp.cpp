@@ -135,16 +135,16 @@ BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage)
 
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-tstring OpenRecent()
+std::vector<std::wstring> OpenRecent()
 {
-	tstring ret;
+	std::vector<std::wstring> ret;
 	if(IDOK != DialogBoxParam(GetModuleHandle(NULL),
 		MAKEINTRESOURCE(IDD_DIALOG_RECENT),
 		NULL,
 		NewCmdDlgProc,
 		(LPARAM)&ret))
 	{
-		return _T("");
+		return std::vector<std::wstring>();
 	}
 	return ret;
 }
@@ -154,20 +154,36 @@ tstring OpenRecent()
 
 
 
-tstring GetSelected(HWND hwndList, const RECENTSTYPE& recents)
+std::vector<std::wstring> GetSelected(HWND hwndList, const RECENTSTYPE& recents)
 {
-	tstring fileret;
-	int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
-	if(cur != LB_ERR)
+	const int maxcount = 32766;
+	vector<int> vI;
+	vI.resize(maxcount);
+	assert(vI.size() == maxcount);
+	int count = SendMessage(hwndList, LB_GETSELITEMS, maxcount, (LPARAM)&vI[0]);
+	if (count == LB_ERR)
+		return std::vector<std::wstring>();
+	
+	std::vector<std::wstring> fileret;
+	assert(maxcount >= count);
+	for (int i = 0; i < count; ++i)
 	{
-		int index = SendMessage(hwndList, LB_GETITEMDATA, cur, 0);
-		if (index != LB_ERR)
-		{
-			RECENTSTYPE::const_iterator it = recents.cbegin();
-			advance(it, index);
-			fileret = *it;
-		}
+		int index = vI[i];
+		RECENTSTYPE::const_iterator it = recents.cbegin();
+		advance(it, index);
+		fileret.push_back(*it);
 	}
+	//int cur = SendMessage(hwndList, LB_GETCURSEL, 0, 0);
+	//if(cur != LB_ERR)
+	//{
+	//	int index = SendMessage(hwndList, LB_GETITEMDATA, cur, 0);
+	//	if (index != LB_ERR)
+	//	{
+	//		RECENTSTYPE::const_iterator it = recents.cbegin();
+	//		advance(it, index);
+	//		fileret.push_back(*it);
+	//	}
+	//}
 	return fileret;
 }
 
@@ -212,7 +228,7 @@ BOOL getS2C(HWND h, RECT& r)
 
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	static tstring* spRet;
+	static std::vector<std::wstring>* spRet;
 
 
 	static RECT sdeltaL;
@@ -230,7 +246,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case WM_INITDIALOG:
 		{
 			// prepare static values
-			spRet = (tstring*)lParam;
+			spRet = (std::vector<std::wstring>*)lParam;
 			shwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
 			shwndBtnOK = GetDlgItem(hDlg, IDOK);
 			shwndBtnCancel = GetDlgItem(hDlg, IDCANCEL);

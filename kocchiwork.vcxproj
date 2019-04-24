@@ -221,6 +221,7 @@ copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
     <ClInclude Include="..\lsMisc\blockedbool.h" />
     <ClInclude Include="..\lsMisc\CenterWindow.h" />
     <ClInclude Include="..\lsMisc\CommandLineParser.h" />
+    <ClInclude Include="..\lsMisc\CommandLineString.h" />
     <ClInclude Include="..\lsMisc\CreateSimpleWindow.h" />
     <ClInclude Include="..\lsMisc\CreateWString.h" />
     <ClInclude Include="..\lsMisc\GetLastErrorString.h" />
