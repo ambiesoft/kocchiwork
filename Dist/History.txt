@@ -1,3 +1,6 @@
+2019/05/06 v1.0.14
+Put c runtime dlls in the archive.
+
 2019/04/24 v1.0.13
 Accept multiple files
 
