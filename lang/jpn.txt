@@ -35,3 +35,4 @@
 "Unknown option(s) \"%s\""="未知のオプションです \"%s\""
 
 "Failed to move the file back to original location."="ファイルを元の場所に戻すことに失敗しました。"
+"The file have been updated. Do you want to move the changed file back to the original location?"="ファイルが更新されました。変更されたファイルをもとの場所に上書き移動しますか？"

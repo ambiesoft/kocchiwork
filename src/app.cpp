@@ -35,6 +35,7 @@
 #include "../../lsMisc/WritePrivateProfileWString.h"
 
 using namespace Ambiesoft;
+using namespace Ambiesoft::stdosd;
 using namespace std;
 
 std::wstring GetIniFile()

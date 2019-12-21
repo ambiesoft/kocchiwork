@@ -30,15 +30,6 @@
 // #include "systeminfo.h"
 
 
-#include "../../lsMisc/IsFileExists.h"
-#include "../../lsMisc/UrlEncode.h"
-#include "../../lsMisc/UTF16toUTF8.h"
-#include "../../lsMisc/IsFileOpen.h"
-#include "../../lsMisc/showballoon.h"
-#include "../../lsMisc/I18N.h"
-#include "../../lsMisc/OpenCommon.h"
-#include "../../lsMisc/blockedbool.h"
-
 #include "C:\\Linkout\\CommonDLL\\TimedMessageBox.h"
 
 #include "thread.h"

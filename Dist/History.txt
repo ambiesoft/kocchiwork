@@ -1,3 +1,6 @@
+2019/12/21 v1.0.15
+I18N
+
 2019/05/06 v1.0.14
 Put c runtime dlls in the archive.
 

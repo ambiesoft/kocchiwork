@@ -63,7 +63,7 @@
 #include <string>
 #include <list>
 #include <memory>
-
+#include <sstream>
 
 
 
@@ -77,8 +77,15 @@
 #include "../../lsMisc/GetDirFromPath.h"
 #include "../../lsMisc/SHMoveFile.h"
 #include "../../lsMisc/I18N.h"
-
-
+#include "../../lsMisc/IsFileExists.h"
+#include "../../lsMisc/UrlEncode.h"
+#include "../../lsMisc/UTF16toUTF8.h"
+#include "../../lsMisc/IsFileOpen.h"
+#include "../../lsMisc/showballoon.h"
+#include "../../lsMisc/I18N.h"
+#include "../../lsMisc/OpenCommon.h"
+#include "../../lsMisc/GetLastErrorString.h"
+#include "../../lsMisc/stdosd/blockedbool.h"
 #include "../../lsMisc/IsFileExists.h"
 #include "../../lsMisc/UrlEncode.h"
 #include "../../lsMisc/UTF16toUTF8.h"
@@ -88,21 +95,16 @@
 #include "../../lsMisc/ResolveLink.h"
 #include "../../lsMisc/stlScopedClear.h"
 #include "../../lsMisc/CommandLineParser.h"
-
-
+#include "../../lsMisc/stdosd/blockedbool.h"
 #include "../../lsMisc/stdwin32/stdwin32.h"
-using namespace Ambiesoft::stdwin32;
-
 #include "../../lsMisc/stdosd/stdosd.h"
-using namespace Ambiesoft::stdosd;
-
 #include "../../SessionGlobalMemory/SessionGlobalMemory.h"
-using namespace Ambiesoft;
+
 
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.0.14"
+#define APP_VERSION L"1.0.15"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {

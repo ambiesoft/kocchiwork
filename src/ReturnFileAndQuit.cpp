@@ -26,10 +26,7 @@
 
 #include "stdafx.h"
 
-#include <sstream>
 
-#include "../../lsMisc/GetLastErrorString.h"
-#include "../../lsMisc/blockedbool.h"
 
 #include "kocchiwork.h"
 #include "err.h"

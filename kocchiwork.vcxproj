@@ -64,7 +64,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>.;../lsMisc/stlsoft/include;G:\boost_1_65_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../lsMisc/stlsoft/include;G:\boost_1_71_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -115,7 +115,7 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../lsMisc/stlsoft/include;G:\boost_1_65_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../lsMisc/stlsoft/include;G:\boost_1_71_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_MBCS;UNICODE;WINNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -158,7 +158,6 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\lsMisc\blockedbool.cpp" />
     <ClCompile Include="..\lsMisc\CenterWindow.cpp" />
     <ClCompile Include="..\lsMisc\CommandLineParser.cpp" />
     <ClCompile Include="..\lsMisc\CreateSimpleWindow.cpp" />
@@ -179,6 +178,7 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     </ClCompile>
     <ClCompile Include="..\lsMisc\SHMoveFile.cpp" />
     <ClCompile Include="..\lsMisc\showballoon.cpp" />
+    <ClCompile Include="..\lsMisc\stdosd\blockedbool.cpp" />
     <ClCompile Include="..\lsMisc\stdosd\stdosd.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -224,7 +224,6 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     <ClCompile Include="src\WndProc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lsMisc\blockedbool.h" />
     <ClInclude Include="..\lsMisc\CenterWindow.h" />
     <ClInclude Include="..\lsMisc\CommandLineParser.h" />
     <ClInclude Include="..\lsMisc\CommandLineString.h" />
@@ -241,6 +240,7 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     <ClInclude Include="..\lsMisc\ResolveLink.h" />
     <ClInclude Include="..\lsMisc\SHMoveFile.h" />
     <ClInclude Include="..\lsMisc\showballoon.h" />
+    <ClInclude Include="..\lsMisc\stdosd\blockedbool.h" />
     <ClInclude Include="..\lsMisc\stdosd\stdosd.h" />
     <ClInclude Include="..\lsMisc\StdStringReplace.h" />
     <ClInclude Include="..\lsMisc\stdwin32\stdwin32.h" />

@@ -41,6 +41,8 @@
 
 
 using namespace Ambiesoft;
+using namespace Ambiesoft::stdosd;
+using namespace Ambiesoft::stdwin32;
 
 void Untray()
 {
