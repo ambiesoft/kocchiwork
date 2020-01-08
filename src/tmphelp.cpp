@@ -226,6 +226,29 @@ BOOL getS2C(HWND h, RECT& r)
 	return TRUE;
 }
 
+static WNDPROC sprevlistProc;
+LRESULT CALLBACK listProc(
+	HWND hwnd,        // handle to window
+	UINT uMsg,        // message identifier
+	WPARAM wParam,    // first message parameter
+	LPARAM lParam)    // second message parameter
+{
+	if (uMsg == WM_MBUTTONDOWN)
+	{
+		LRESULT result = SendMessage(hwnd, LB_ITEMFROMPOINT, 0, lParam);
+		if (HIWORD(result) == 0)
+		{
+			int index = LOWORD(result);
+
+			// inside client
+			bool selected = SendMessage(hwnd, LB_GETSEL, index, 0) > 0;
+			
+			SendMessage(hwnd, LB_SETSEL, selected ? FALSE : TRUE, index);
+		}
+	}
+	return CallWindowProc(sprevlistProc, hwnd, uMsg, wParam, lParam);
+}
+
 BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static std::vector<std::wstring>* spRet;
@@ -248,6 +271,10 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			// prepare static values
 			spRet = (std::vector<std::wstring>*)lParam;
 			shwndList = GetDlgItem(hDlg, IDC_LIST_RECENT);
+			// subclass list
+			sprevlistProc = (WNDPROC)SetWindowLong(shwndList, GWL_WNDPROC, (LONG)listProc);
+			assert(sprevlistProc);
+
 			shwndBtnOK = GetDlgItem(hDlg, IDOK);
 			shwndBtnCancel = GetDlgItem(hDlg, IDCANCEL);
 			GetRecents(srecents);
@@ -290,6 +317,7 @@ BOOL CALLBACK NewCmdDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				{
 					maxLength = max(maxLength, size.cx);
 				}
+
 			}
 
 			if(maxLength != maxLengthOrig)
