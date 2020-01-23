@@ -13,6 +13,7 @@
     "ShouldBeFiles": [
         "History.txt",
         "kocchiwork.exe",
+        "kocchiwork.pdb",
         "License.txt",
         "README.md",
         "README-JP.md",
