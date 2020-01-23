@@ -181,7 +181,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 						if( (time(NULL)-g_starttime) < 10)
 						{
 							SetForegroundWindow(hWnd);
-							mret = MessageBox(hWnd,
+							mret = MessageBox(NULL,
 								NS("App closed. Do you want to continue monitor file?"),
 								L"kocchiwork",
 								MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2);
@@ -322,7 +322,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				message += _T("\r\n");
 				message += _T("Remote\t");
 				message += g_remotefile;
-				MessageBox(hWnd, 
+				MessageBox(NULL, 
 					message.c_str(),
 					APP_NAME, 
 					MB_ICONINFORMATION);
@@ -360,7 +360,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				sei.lpDirectory = dir.c_str();
 				if(!ShellExecuteEx(&sei)) 
 				{
-					MessageBox(hWnd,
+					MessageBox(NULL,
 						NS("Failed to ShellExecuteEx"),
 						APP_NAME,
 						MB_ICONERROR);
