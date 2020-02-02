@@ -168,6 +168,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 							g_hWnd, 
 							WM_APP_TRAY_NOTIFY, 
 							g_hTrayIcon, 
+							APP_NAME,
 							text.c_str()))
 						{
 							DWORD dwLE = GetLastError();

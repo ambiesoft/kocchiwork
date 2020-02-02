@@ -60,53 +60,6 @@ BOOL GetFileLastWriteTime(LPCTSTR pFile, FILETIME* pFT)
 	return TRUE;
 }
 
-BOOL AddTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR pszTip)
-{
-
-	NOTIFYICONDATA tnd = {0};
-	tnd.cbSize = sizeof(tnd);
-	tnd.hWnd = hWnd;
-	tnd.uID	= dwIDandCallbackMessage;
-	tnd.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
-	tnd.uCallbackMessage = dwIDandCallbackMessage;
-	tnd.hIcon = hIcon;
-	if( pszTip )
-		lstrcpyn(tnd.szTip, pszTip, _countof(tnd.szTip)-1);
-
-	return Shell_NotifyIcon(NIM_ADD, &tnd);
-}
-
-BOOL PopupTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage, HICON hIcon, LPCTSTR pszTip)
-{
-	NOTIFYICONDATA tnd = {0};
-	tnd.cbSize = sizeof(tnd);
-	tnd.hWnd = hWnd;
-	tnd.uID	= dwIDandCallbackMessage;
-	tnd.uFlags = NIF_ICON | NIF_INFO;
-//	tnd.uCallbackMessage = dwIDandCallbackMessage;
-	tnd.hIcon = hIcon;
-	if( pszTip )
-	{
-		lstrcpyn(tnd.szInfo, pszTip, _countof(tnd.szTip)-1);
-	}
-	lstrcpyn(tnd.szInfoTitle, APP_NAME, _countof(tnd.szInfoTitle)-1);
-	tnd.dwInfoFlags = NIIF_INFO;
-
-	return Shell_NotifyIcon(NIM_MODIFY, &tnd);
-}
-
-BOOL RemoveTrayIcon(HWND hWnd, UINT dwIDandCallbackMessage)
-{
-
-	NOTIFYICONDATA tnd = {0};
-	tnd.cbSize = sizeof(tnd);
-	tnd.hWnd = hWnd;
-	tnd.uID	= dwIDandCallbackMessage;
-	tnd.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
-	tnd.uCallbackMessage = dwIDandCallbackMessage;
-
-	return Shell_NotifyIcon(NIM_DELETE, &tnd);
-}
 
 //tstring GetRecent()
 //{

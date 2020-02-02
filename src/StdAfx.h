@@ -90,6 +90,7 @@
 #include "../../lsMisc/UrlEncode.h"
 #include "../../lsMisc/UTF16toUTF8.h"
 #include "../../lsMisc/IsFileOpen.h"
+#include "../../lsMisc/TrayIcon.h"
 #include "../../lsMisc/WritePrivateProfileInt.h"
 #include "../../lsMisc/CenterWindow.h"
 #include "../../lsMisc/ResolveLink.h"

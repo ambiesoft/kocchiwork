@@ -135,6 +135,9 @@
     <ClCompile Include="..\lsMisc\stdosd\blockedbool.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\lsMisc\TrayIcon.cpp">
+      <Filter>2 Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common.h">
@@ -237,6 +240,9 @@
       <Filter>1 Header Files\lsMisc</Filter>
     </ClInclude>
     <ClInclude Include="..\lsMisc\stdosd\blockedbool.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lsMisc\TrayIcon.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>
