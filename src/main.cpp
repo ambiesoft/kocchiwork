@@ -477,7 +477,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		tstring message = NS("Execute failed. Do you want to remove the copied file?");
 		message += CRLF;
 		message += g_workfile.c_str();
-		if(IDYES == MessageBox(g_hWnd,
+		if(IDYES == MessageBox(NULL,
 			message.c_str(),
 			APP_NAME,
 			MB_ICONWARNING|MB_YESNO))

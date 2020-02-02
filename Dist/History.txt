@@ -1,3 +1,6 @@
+2020/01/23 v1.0.17
+Show messagebox on taskbar
+
 2020/01/08 v1.0.16
 middle click to select item
 
