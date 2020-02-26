@@ -655,7 +655,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		if (sesstionCount.count() <= 1)
 		{
-			errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), nullptr, TRUE);
+			Sleep(5000);
+			if (!RemoveDirectory(workdir.c_str()))
+			{
+				if (sesstionCount.count() <= 1)
+				{
+					errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), nullptr, TRUE);
+				}
+			}
 		}
 	}
 	DestroyIcon(g_hTrayIcon);
