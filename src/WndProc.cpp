@@ -125,7 +125,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			traytip.c_str()))
 		{
 			DWORD dwLE = GetLastError();
-			errExit(NS("could not register tray icon."), &dwLE);
+			errExit(NS("Failed to register tray icon."), &dwLE, true);
 		}
 		return 0;
 	}
@@ -172,7 +172,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 							text.c_str()))
 						{
 							DWORD dwLE = GetLastError();
-							errExit(NS("could not register tray icon."), &dwLE);
+							errExit(NS("Failed to popup tray icon."), &dwLE, true);
 						}
 					}
 					else

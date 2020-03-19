@@ -22,7 +22,8 @@
 "The remote file may be updated after this application starts."="リモートファイルがこのアプリを起動した後で編集された可能性があります。"
 "Fix the conflict."="コンフリクトを修正してください。"
 "Fatal : Failed to resolve link"="致命：リンクを解決できません"
-
+"Failed to register tray icon."="トレイアイコンの登録に失敗しました。"
+"Failed to popup tray icon."="トレイアイコンのポップアップに失敗しました。"
 
 "File not changed. Do you want to trash the copied file?"="ファイルは変更されていません。コピーしたファイルを削除しますか？"
 "Monitoring \"%s\""="\"%s\" を監視しています"

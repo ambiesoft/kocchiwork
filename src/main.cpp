@@ -520,7 +520,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		traytip.c_str()))
 	{
 		DWORD dwLE = GetLastError();
-		errExit(NS("could not register tray icon."), &dwLE);
+		errExit(NS("Failed to register tray icon."), &dwLE, true);
 	}
 	if (0 != atexit(Untray))
 	{
