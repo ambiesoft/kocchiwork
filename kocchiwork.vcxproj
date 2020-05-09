@@ -92,17 +92,8 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Bscmake>
     <PostBuildEvent>
-      <Command>mkdir "$(TargetDir)lang"
-copy lang\jpn.txt "$(TargetDir)lang\"
-copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
-copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
-copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
-copy "$(SolutionDir)README.md" "$(TargetDir)"
-copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
-
-echo C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Microsoft.VC120.CRT\*" /to:"$(OutDir)"
-C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Microsoft.VC120.CRT\*" /to:"$(OutDir)"
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -145,17 +136,8 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Bscmake>
     <PostBuildEvent>
-      <Command>mkdir "$(TargetDir)lang"
-copy lang\jpn.txt "$(TargetDir)lang\"
-copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
-copy "$(ProjectDir)Dist\History.txt" "$(TargetDir)"
-copy "$(ProjectDir)Dist\License.txt" "$(TargetDir)"
-copy "$(SolutionDir)README.md" "$(TargetDir)"
-copy "$(SolutionDir)README-JP.md" "$(TargetDir)"
-
-echo C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Microsoft.VC120.CRT\*" /to:"$(OutDir)"
-C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Microsoft.VC120.CRT\*" /to:"$(OutDir)"
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -192,8 +174,6 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     <ClCompile Include="..\lsMisc\TrayIcon.cpp" />
     <ClCompile Include="..\lsMisc\UrlEncode.cpp" />
     <ClCompile Include="..\lsMisc\UTF16toUTF8.cpp" />
-    <ClCompile Include="..\lsMisc\WritePrivateProfileInt.cpp" />
-    <ClCompile Include="..\lsMisc\WritePrivateProfileWString.cpp" />
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\boostpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -249,8 +229,7 @@ C:\LegacyPrograms\FFC\FFC.exe /t12 "$(VCInstallDir)redist\$(PlatformTarget)\Micr
     <ClInclude Include="..\lsMisc\TrayIcon.h" />
     <ClInclude Include="..\lsMisc\UrlEncode.h" />
     <ClInclude Include="..\lsMisc\UTF16toUTF8.h" />
-    <ClInclude Include="..\lsMisc\WritePrivateProfileInt.h" />
-    <ClInclude Include="..\lsMisc\WritePrivateProfileWString.h" />
+    <ClInclude Include="..\profile\cpp\Profile\include\ambiesoft.profile.h" />
     <ClInclude Include="src\app.h" />
     <ClInclude Include="src\boostpch.h" />
     <ClInclude Include="src\common.h" />

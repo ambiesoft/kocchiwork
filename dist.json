@@ -1,13 +1,13 @@
 {
     "name": "kocchiwork",
     "solution": "kocchiwork.sln",
-    "targetproject": "kocchiwork",
+    "targetproject": "zzzDist",
     "configuration": "Release",
     "targets": [
         {
-            "setoutdirforbuild": false,
+            "setoutdirforbuild": true,
             "platform": "Win32",
-            "outdir": "Release\\v120_xp\\kocchiwork"
+            "outdir": "build"
         }
     ],
     "ShouldBeFiles": [
@@ -21,7 +21,15 @@
         "lang\\jpn.txt",
         "vccorlib120.dll",
 		"msvcp120.dll",
-		"msvcr120.dll"
+		"msvcr120.dll",
+		"kocchichoose.exe",
+		"Ambiesoft.AmbLib.pdb",
+		"Ambiesoft.AmbLibcpp.pdb",
+		"Ambiesoft.AmbLibcpp.dll",
+		"Ambiesoft.Profile.pdb",
+		"Ambiesoft.Profile.dll",
+		"kocchichoose.pdb",
+		"Ambiesoft.AmbLib.dll"
     ],
     "TotalFileCount": "exact",
     "archivedir": "C:\\Linkout",

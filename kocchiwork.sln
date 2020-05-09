@@ -5,6 +5,14 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kocchiwork", "kocchiwork.vcxproj", "{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kocchichoose", "kocchichoose\kocchichoose.csproj", "{F7AC3EA4-CD35-4E44-A885-98820E9C848C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zzzDist", "zzzDist\zzzDist.vcxproj", "{5274BD1A-5530-46C2-AAD4-1BEB01A9DE86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F7AC3EA4-CD35-4E44-A885-98820E9C848C} = {F7AC3EA4-CD35-4E44-A885-98820E9C848C}
+		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B} = {DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +23,14 @@ Global
 		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.Debug|Win32.Build.0 = Debug|Win32
 		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.Release|Win32.ActiveCfg = Release|Win32
 		{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}.Release|Win32.Build.0 = Release|Win32
+		{F7AC3EA4-CD35-4E44-A885-98820E9C848C}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{F7AC3EA4-CD35-4E44-A885-98820E9C848C}.Debug|Win32.Build.0 = Debug|Any CPU
+		{F7AC3EA4-CD35-4E44-A885-98820E9C848C}.Release|Win32.ActiveCfg = Release|Any CPU
+		{F7AC3EA4-CD35-4E44-A885-98820E9C848C}.Release|Win32.Build.0 = Release|Any CPU
+		{5274BD1A-5530-46C2-AAD4-1BEB01A9DE86}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5274BD1A-5530-46C2-AAD4-1BEB01A9DE86}.Debug|Win32.Build.0 = Debug|Win32
+		{5274BD1A-5530-46C2-AAD4-1BEB01A9DE86}.Release|Win32.ActiveCfg = Release|Win32
+		{5274BD1A-5530-46C2-AAD4-1BEB01A9DE86}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

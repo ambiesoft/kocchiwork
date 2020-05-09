@@ -27,3 +27,10 @@
 BOOL GetFileData(LPCTSTR pFile, WIN32_FIND_DATA* pData);
 BOOL GetFileLastWriteTime(LPCTSTR pFile, FILETIME* pFT);
 std::vector<std::wstring> OpenRecent();
+void GetArgumentsFromCommandLine(
+	tstring& progfile,
+	bool& noSaveRecent,
+	tstring& lang,
+	std::vector<tstring>& remoteFiles);
+BOOL OpenRecentCS();
+std::wstring GetArgCommand(const std::wstring& progfile, const bool noSaveRecent, const std::wstring& lang);

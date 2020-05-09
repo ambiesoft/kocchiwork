@@ -36,9 +36,11 @@
 
 
 #include "../../lsMisc/HelpDefines.h"
-#include "../../lsMisc/WritePrivateProfileWString.h"
+//#include "../../lsMisc/WritePrivateProfileWString.h"
+#include "../../lsMisc/stdosd/stdosd.h"
 
 using namespace Ambiesoft;
+using namespace Ambiesoft::stdosd;
 
 BOOL GetFileData(LPCTSTR pFile, WIN32_FIND_DATA* pData)
 {
@@ -102,9 +104,78 @@ std::vector<std::wstring> OpenRecent()
 	return ret;
 }
 
+void GetArgumentsFromCommandLine(
+	tstring& progfile,
+	bool& noSaveRecent,
+	tstring& lang,
+	std::vector<tstring>& remoteFiles)
+{
+	CCommandLineParser parser;
 
+	parser.AddOption(L"/P", 1, &progfile);
+	parser.AddOption(L"/N", 0, &noSaveRecent);
+	parser.AddOption(L"/L", 1, &lang);
+	COption optionMain;
+	parser.AddOption(&optionMain);
 
+	parser.Parse();
 
+	if (!lang.empty())
+	{
+		wstring lang_lower = boostToLower_copy(lang);
+		if (lang_lower != L"jpn" && lang_lower != L"eng")
+		{
+			errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown language \"%s\""), lang.c_str()));
+		}
+
+		if (lang_lower != L"eng")
+			Ambiesoft::i18nInitLangmap(g_hInst, lang_lower.c_str(), _T(""));
+	}
+
+	if (parser.hadUnknownOption())
+	{
+		wstring unknown = parser.getUnknowOptionStrings();
+		errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown option(s) \"%s\""), unknown.c_str()));
+	}
+
+	for (size_t i = 0; i < optionMain.getValueCount(); ++i)
+	{
+		remoteFiles.push_back(optionMain.getValue(i));
+	}
+}
+
+BOOL OpenRecentCS()
+{
+	wstring kocchichoose = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName<wchar_t>()),
+		L"kocchichoose.exe");
+
+	tstring progfile;
+	bool noSaveRecent = false;
+	tstring lang;
+	vector<tstring> dummy;
+
+	GetArgumentsFromCommandLine(
+		progfile,
+		noSaveRecent,
+		lang,
+		dummy);
+	
+	return OpenCommon(NULL, kocchichoose.c_str(), GetArgCommand(
+		progfile, noSaveRecent, lang).c_str());
+}
+
+wstring GetArgCommand(const wstring& progfile, const bool noSaveRecent, const wstring& lang)
+{
+	wstring argBase;
+	if (!progfile.empty())
+		argBase += stdFormat(L"/P \"%s\" ", progfile.c_str());
+	if (noSaveRecent)
+		argBase += L"/N ";
+	if (!lang.empty())
+		argBase += stdFormat(L"/L \"%s\" ", lang.c_str());
+
+	return argBase;
+}
 
 
 std::vector<std::wstring> GetSelected(HWND hwndList, const RECENTSTYPE& recents)

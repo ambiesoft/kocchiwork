@@ -1,3 +1,6 @@
+2020/05/09 v1.1.1
+Add Chooser
+
 2020/03/19 v1.0.19
 App will not quit after tray icon registation failed
 

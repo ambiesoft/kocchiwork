@@ -96,12 +96,6 @@
     <ClCompile Include="..\lsMisc\UTF16toUTF8.cpp">
       <Filter>2 Source Files\lsMisc</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\WritePrivateProfileInt.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\WritePrivateProfileWString.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
     <ClCompile Include="..\lsMisc\stdosd\stdosd_win.cpp">
       <Filter>2 Source Files\lsMisc\stdosd</Filter>
     </ClCompile>
@@ -197,12 +191,6 @@
     <ClInclude Include="..\lsMisc\UTF16toUTF8.h">
       <Filter>1 Header Files\lsMisc</Filter>
     </ClInclude>
-    <ClInclude Include="..\lsMisc\WritePrivateProfileInt.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\WritePrivateProfileWString.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
     <ClInclude Include="..\lsMisc\stdosd\stdosd.h">
       <Filter>1 Header Files\lsMisc\stdosd</Filter>
     </ClInclude>
@@ -243,6 +231,9 @@
       <Filter>1 Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\lsMisc\TrayIcon.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\profile\cpp\Profile\include\ambiesoft.profile.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>

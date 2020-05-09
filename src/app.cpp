@@ -25,14 +25,17 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "stdafx.h"
+
+#include "../../lsMisc/HelpDefines.h"
+// #include "../../lsMisc/WritePrivateProfileWString.h"
+#include "../../profile/cpp/Profile/include/ambiesoft.profile.h"
+
 #include "resource.h"
 #include "heavyboost.h"
 #include "err.h"
 #include "app.h"
 #include "common.h"
 
-#include "../../lsMisc/HelpDefines.h"
-#include "../../lsMisc/WritePrivateProfileWString.h"
 
 using namespace Ambiesoft;
 using namespace Ambiesoft::stdosd;
@@ -53,27 +56,29 @@ void GetRecents(RECENTSTYPE& recents)
 
 	{
 		ProcessMutex mut;
-
-		int count = GetPrivateProfileInt(_T("recents"),
-			_T("count"),
+		Profile::CHashIni ini = Profile::ReadAll(inifile);
+		int count = 0;
+		Profile::GetInt(
+			"recents",
+			"count",
 			0,
-			inifile.c_str());
+			count,
+			ini);
 
 		for (int i = 0; i < count; ++i)
 		{
-			tstring sec(_T("recent_"));
-			sec += boostitostring(i);
-
-			tstring tout;
-			if (GetPrivateProfileWString(_T("recents"),
-				sec.c_str(),
-				_T(""),
-				tout,
-				inifile.c_str()))
+			string sec = "recent_" + to_string(i);
+			string sout;
+			if (Profile::GetString(
+				"recents",
+				sec,
+				"",
+				sout,
+				ini))
 			{
-				if (!tout.empty())
+				if (!sout.empty())
 				{
-					recents.push_back(tout);
+					recents.push_back(toStdWstringFromUtf8(sout));
 				}
 			}
 		}
@@ -95,26 +100,31 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 	int i=0;
 	{
 		ProcessMutex mut;
+		Profile::CHashIni ini = Profile::ReadAll(inifile);
 		for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
 		{
-			tstring sec(_T("recent_"));
-			sec += boostitostring(i);
+			string sec = "recent_" + to_string(i);
 
-			if(!WritePrivateProfileWString(_T("recents"),
-				sec.c_str(),
-				it->c_str(),
-				inifile.c_str()))
+			if (!Profile::WriteString(
+				"recents",
+				sec,
+				toStdUtf8String(it->c_str()),
+				ini))
 			{
 				return FALSE;
 			}
 		}
-		if(!WritePrivateProfileInt(_T("recents"),
-			_T("count"),
+		if(!Profile::WriteInt(
+			"recents",
+			"count",
 			i,
-			inifile.c_str()))
+			ini))
 		{
 			return FALSE;
 		}
+
+		if (!Profile::WriteAll(ini, inifile))
+			return FALSE;
 	}
 	return TRUE;
 }

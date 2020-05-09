@@ -155,45 +155,6 @@ public:
 };
 
 
-static void GetArgumentsFromCommandLine(
-	tstring& progfile,
-	bool& noSaveRecent,
-	tstring& lang,
-	std::vector<tstring>& remoteFiles)
-{
-	CCommandLineParser parser;
-
-	parser.AddOption(L"/P", 1, &progfile);
-	parser.AddOption(L"/N", 0, &noSaveRecent);
-	parser.AddOption(L"/L", 1, &lang);
-	COption optionMain;
-	parser.AddOption(&optionMain);
-
-	parser.Parse();
-
-	if (!lang.empty())
-	{
-		wstring lang_lower = boostToLower_copy(lang);
-		if (lang_lower != L"jpn" && lang_lower != L"eng")
-		{
-			errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown language \"%s\""), lang.c_str()));
-		}
-
-		if (lang_lower != L"eng")
-			Ambiesoft::i18nInitLangmap(g_hInst, lang_lower.c_str(), _T(""));
-	}
-
-	if (parser.hadUnknownOption())
-	{
-		wstring unknown = parser.getUnknowOptionStrings();
-		errExit(Ambiesoft::stdosd::stdFormat(NS("Unknown option(s) \"%s\""), unknown.c_str()));
-	}
-
-	for (size_t i = 0; i < optionMain.getValueCount(); ++i)
-	{
-		remoteFiles.push_back(optionMain.getValue(i));
-	}
-}
 
 static void LaunchMeOneByOne(
 	tstring& progfile,
@@ -201,13 +162,7 @@ static void LaunchMeOneByOne(
 	tstring& lang,
 	std::vector<tstring>& remoteFiles)
 {
-	tstring argBase;
-	if (!progfile.empty())
-		argBase += stdFormat(L"/P \"%s\" ", progfile.c_str());
-	if (noSaveRecent)
-		argBase += L"/N ";
-	if (!lang.empty())
-		argBase += stdFormat(L"/L \"%s\" ", lang.c_str());
+	tstring argBase = GetArgCommand(progfile, noSaveRecent, lang);
 
 	tstring exe = stdGetModuleFileName<wchar_t>();
 	tstring dir = stdGetCurrentDirectory();
@@ -290,23 +245,25 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	if (g_remotefile.empty())
 	{
-		std::vector<std::wstring> openFiles = OpenRecent();
-		if (openFiles.empty())
-			return 0;
+		//std::vector<std::wstring> openFiles = OpenRecent();
+		//if (openFiles.empty())
+		//	return 0;
 
-		tstring progfile;
-		bool noSaveRecent = false;
-		tstring lang;
-		vector<tstring> dummy;
+		//tstring progfile;
+		//bool noSaveRecent = false;
+		//tstring lang;
+		//vector<tstring> dummy;
 
-		GetArgumentsFromCommandLine(
-			progfile,
-			noSaveRecent,
-			lang,
-			dummy);
+		//GetArgumentsFromCommandLine(
+		//	progfile,
+		//	noSaveRecent,
+		//	lang,
+		//	dummy);
 
-		LaunchMeOneByOne(progfile, noSaveRecent, lang, openFiles);
+		//LaunchMeOneByOne(progfile, noSaveRecent, lang, openFiles);
 
+		//return 0;
+		OpenRecentCS();
 		return 0;
 	}
 
