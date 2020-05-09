@@ -33,10 +33,10 @@
             this.lblFind = new System.Windows.Forms.Label();
             this.txtFind = new System.Windows.Forms.TextBox();
             this.listRecents = new System.Windows.Forms.ListView();
+            this.chFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.chFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chExt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ilExe = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listRecents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chFile,
-            this.chExt});
+            this.chStatus});
             this.listRecents.Location = new System.Drawing.Point(48, 35);
             this.listRecents.Name = "listRecents";
             this.listRecents.Size = new System.Drawing.Size(678, 324);
@@ -73,6 +73,15 @@
             this.listRecents.UseCompatibleStateImageBehavior = false;
             this.listRecents.View = System.Windows.Forms.View.Details;
             this.listRecents.ItemActivate += new System.EventHandler(this.listRecents_ItemActivate);
+            // 
+            // chFile
+            // 
+            this.chFile.Text = "File";
+            this.chFile.Width = 546;
+            // 
+            // chStatus
+            // 
+            this.chStatus.Text = "status";
             // 
             // btnOK
             // 
@@ -96,15 +105,6 @@
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // chFile
-            // 
-            this.chFile.Text = "File";
-            this.chFile.Width = 546;
-            // 
-            // chExt
-            // 
-            this.chExt.Text = "Extension";
             // 
             // ilExe
             // 
@@ -140,7 +140,7 @@
         private System.Windows.Forms.TextBox txtFind;
         private System.Windows.Forms.ListView listRecents;
         private System.Windows.Forms.ColumnHeader chFile;
-        private System.Windows.Forms.ColumnHeader chExt;
+        private System.Windows.Forms.ColumnHeader chStatus;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ImageList ilExe;

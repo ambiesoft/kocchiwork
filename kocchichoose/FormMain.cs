@@ -66,22 +66,32 @@ namespace kocchichoose
                 // Set a default icon for the file.
                 Icon iconForFile = SystemIcons.WinLogo;
 
-                FileInfo file = new FileInfo(filename);
-                var item = new ListViewItem(file.FullName, 1);
-
-                // Check to see if the image collection contains an image
-                // for this extension, using the extension as a key.
-                if (!ilExe.Images.ContainsKey(file.Extension))
+                try
                 {
-                    // If not, add the image to the image list.
-                    // This fails on UNC
-                    // iconForFile = Icon.ExtractAssociatedIcon(file.FullName);
-                    iconForFile = Etier.IconHelper.IconReader.GetFileIcon(file.FullName,
-                        Etier.IconHelper.IconReader.IconSize.Small, false);
-                    ilExe.Images.Add(file.Extension, iconForFile);
+                    FileInfo file = new FileInfo(filename);
+                    var item = new ListViewItem(file.FullName, 1);
+
+                    // Check to see if the image collection contains an image
+                    // for this extension, using the extension as a key.
+                    if (!ilExe.Images.ContainsKey(file.Extension))
+                    {
+                        // If not, add the image to the image list.
+                        // This fails on UNC
+                        // iconForFile = Icon.ExtractAssociatedIcon(file.FullName);
+                        iconForFile = Etier.IconHelper.IconReader.GetFileIcon(file.FullName,
+                            Etier.IconHelper.IconReader.IconSize.Small, false);
+                        ilExe.Images.Add(file.Extension, iconForFile);
+                    }
+                    item.ImageKey = file.Extension;
+                    item.SubItems.Add("OK");
+                    listRecents.Items.Add(item);
                 }
-                item.ImageKey = file.Extension;
-                listRecents.Items.Add(item);
+                catch(Exception ex)
+                {
+                    var item = new ListViewItem(filename,1);
+                    item.SubItems.Add(ex.Message);
+                    listRecents.Items.Add(item);
+                }
             }
         }
 
@@ -119,7 +129,8 @@ namespace kocchichoose
             {
                 try
                 {
-                    System.Diagnostics.Process.Start(kocchiwork, AmbLib.doubleQuoteIfSpace(item.Text));
+                    FileInfo fi = new FileInfo(item.Text);
+                    System.Diagnostics.Process.Start(kocchiwork, AmbLib.doubleQuoteIfSpace(fi.FullName));
                 }
                 catch(Exception ex)
                 {
