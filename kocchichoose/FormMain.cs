@@ -24,6 +24,8 @@ namespace kocchichoose
         
         static readonly string KEY_COLUMNWIDTH = "ColumnWidth";
 
+        List<string> _allRecents = new List<string>();
+
         string IniPath
         {
             get
@@ -42,7 +44,7 @@ namespace kocchichoose
             AmbLib.LoadFormXYWH(this, SECTION_LOCATION, ini);
             AmbLib.LoadListViewColumnWidth(listRecents, SECTION_OPTION, KEY_COLUMNWIDTH, ini);
 
-            List<string> allRecents = new List<string>();
+            
             int count;
             Profile.GetInt("recents", "count", 0, out count, ini);
             for (int i = 0; i < count; ++i)
@@ -54,15 +56,25 @@ namespace kocchichoose
                 {
                     if (!string.IsNullOrEmpty(tout))
                     {
-                        allRecents.Add(tout);
+                        _allRecents.Add(tout);
                     }
                 }
             }
 
             listRecents.SmallImageList = ilExe;
+            UpdateRecent();
+        }
+
+        void UpdateRecent()
+        {
+            listRecents.Items.Clear();
+
             // https://docs.microsoft.com/en-us/dotnet/framework/winforms/advanced/how-to-extract-the-icon-associated-with-a-file-in-windows-forms
-            foreach (string filename in allRecents)
+            foreach (string filename in _allRecents)
             {
+                if (!(string.IsNullOrEmpty(txtFind.Text) || filename.ToLower().IndexOf(txtFind.Text) >= 0))
+                    continue;
+
                 // Set a default icon for the file.
                 Icon iconForFile = SystemIcons.WinLogo;
 
@@ -86,15 +98,14 @@ namespace kocchichoose
                     item.SubItems.Add("OK");
                     listRecents.Items.Add(item);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    var item = new ListViewItem(filename,1);
+                    var item = new ListViewItem(filename, 1);
                     item.SubItems.Add(ex.Message);
                     listRecents.Items.Add(item);
                 }
             }
         }
-
         private void listRecents_ItemActivate(object sender, EventArgs e)
         {
             if (!doOpen())
@@ -150,6 +161,16 @@ namespace kocchichoose
             {
                 CppUtils.Alert(Properties.Resources.STR_FAILEDTOSAVEINI);
             }
+        }
+
+        private void btnClearFind_Click(object sender, EventArgs e)
+        {
+            txtFind.Clear();
+        }
+
+        private void txtFind_TextChanged(object sender, EventArgs e)
+        {
+            UpdateRecent();
         }
     }
 }
