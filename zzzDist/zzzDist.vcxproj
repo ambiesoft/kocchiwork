@@ -93,7 +93,7 @@ del "$(OutDir)zzzDist.*"
     </Link>
     <PostBuildEvent>
       <Command>mkdir "$(TargetDir)lang"
-copy "$(SolutionDir)lang\jpn.txt "$(TargetDir)lang\"
+copy "$(SolutionDir)lang\jpn.txt" "$(TargetDir)lang\"
 copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
 copy "$(SolutionDir)Dist\History.txt" "$(TargetDir)"
 copy "$(SolutionDir)Dist\License.txt" "$(TargetDir)"

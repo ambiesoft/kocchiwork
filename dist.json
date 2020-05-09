@@ -7,7 +7,7 @@
         {
             "setoutdirforbuild": true,
             "platform": "Win32",
-            "outdir": "build"
+            "outdir": "build\\kocchiwork"
         }
     ],
     "ShouldBeFiles": [
