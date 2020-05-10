@@ -136,7 +136,7 @@ namespace kocchichoose
             string kocchiwork = Path.Combine(
                 Path.GetDirectoryName(Application.ExecutablePath),
                 KOCCHIWORK_EXE);
-            foreach(ListViewItem item in listRecents.Items)
+            foreach(ListViewItem item in listRecents.SelectedItems)
             {
                 try
                 {
