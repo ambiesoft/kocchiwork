@@ -65,6 +65,13 @@ namespace kocchichoose
             UpdateRecent();
         }
 
+        string GetFileStatusString(FileInfo fi)
+        {
+            if (!fi.Exists)
+                return Properties.Resources.STR_FILENOTFOUND;
+
+            return "OK";
+        }
         void UpdateRecent()
         {
             listRecents.Items.Clear();
@@ -95,7 +102,7 @@ namespace kocchichoose
                         ilExe.Images.Add(file.Extension, iconForFile);
                     }
                     item.ImageKey = file.Extension;
-                    item.SubItems.Add("OK");
+                    item.SubItems.Add(GetFileStatusString(file));
                     listRecents.Items.Add(item);
                 }
                 catch (Exception ex)

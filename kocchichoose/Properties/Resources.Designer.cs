@@ -70,6 +70,15 @@ namespace kocchichoose.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not Found.
+        /// </summary>
+        internal static string STR_FILENOTFOUND {
+            get {
+                return ResourceManager.GetString("STR_FILENOTFOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No files are selected..
         /// </summary>
         internal static string STR_NOFILESELECTED {
