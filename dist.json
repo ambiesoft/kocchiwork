@@ -29,7 +29,8 @@
 		"Ambiesoft.Profile.pdb",
 		"Ambiesoft.Profile.dll",
 		"kocchichoose.pdb",
-		"Ambiesoft.AmbLib.dll"
+		"Ambiesoft.AmbLib.dll",
+		"ja-JP/kocchichoose.resources.dll"
     ],
     "TotalFileCount": "exact",
     "archivedir": "C:\\Linkout",
