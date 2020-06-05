@@ -1,3 +1,7 @@
+2020/06/05 v1.1.3
+I18N japan for chooser
+show 'Not Found' on status (chooser)
+
 2020/05/09 v1.1.2
 check long path
 
