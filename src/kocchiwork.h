@@ -35,3 +35,5 @@ extern bool gMovebackCanceled;
 
 extern WIN32_FIND_DATA g_wfdRemote;
 int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, WIN32_FIND_DATA* p2);
+int CompareSizeAndLastWrite(LPCWSTR p1, WIN32_FIND_DATA* p2);
+int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, LPCWSTR p2);

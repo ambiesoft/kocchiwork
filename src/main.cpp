@@ -67,6 +67,28 @@ int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, WIN32_FIND_DATA* p2)
 
 	return ret;
 }
+int CompareSizeAndLastWrite(LPCWSTR p1, WIN32_FIND_DATA* p2)
+{
+	WIN32_FIND_DATA wfd;
+	if (!GetFileData(p1, &wfd))
+	{
+		DWORD dwLE = GetLastError();
+		errExit(NS("could not obtain work file data"), &dwLE);
+	}
+
+	return CompareSizeAndLastWrite(&wfd, p2);
+}
+int CompareSizeAndLastWrite(WIN32_FIND_DATA* p1, LPCWSTR p2)
+{
+	WIN32_FIND_DATA wfd;
+	if (!GetFileData(p2, &wfd))
+	{
+		DWORD dwLE = GetLastError();
+		errExit(NS("could not obtain work file data"), &dwLE);
+	}
+
+	return CompareSizeAndLastWrite(p1, &wfd);
+}
 
 BOOL IsFiletimeFuture(FILETIME* pFT)
 {
@@ -548,55 +570,49 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if(hThread)
 		WaitForSingleObject(hThread, INFINITE);
 
+	CHECKFILERESULT checkFileResult = CHECKFILE_NONE;
 	if(PathFileExists(g_workfile.c_str()))
 	{
-		WIN32_FIND_DATA wfdWorkCurrent;
-		if (!GetFileData(g_workfile.c_str(), &wfdWorkCurrent))
+		for (;;)
 		{
-			DWORD dwLE = GetLastError();
-			errExit(NS("could not obtain work file data"), &dwLE);
-		}
-
-
-		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
-		if(nCmp==0)
-		{
-			//HWND h = CreateSimpleWindow();
-			//stlsoft::scoped_handle<HWND> dh(h, DestroyWindow);
-
-			//SendMessage(h, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
-			//SendMessage(h, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
-
-			tstring message;
-			message = NS("File not changed. Do you want to trash the copied file?");
-			message += CRLF;
-			message += CRLF;
-			message += g_workfile.c_str();
-			// ShowWindow(g_hWnd, SW_SHOW);
-			if (IDYES == MessageBox(NULL, message.c_str(), APP_NAME,
-				MB_APPLMODAL | MB_ICONQUESTION | MB_YESNO))
+			int nCmp = CompareSizeAndLastWrite(g_workfile.c_str(), &g_wfdRemote);
+			if (nCmp == 0)  // File not changed
 			{
-				BOOL done = FALSE;
-				while(!done)
+				tstring message;
+				message = NS("File not changed. Do you want to trash the copied file?");
+				message += CRLF;
+				message += CRLF;
+				message += g_workfile.c_str();
+				if (IDYES == MessageBox(NULL, message.c_str(), APP_NAME,
+					MB_APPLMODAL | MB_ICONQUESTION | MB_YESNO))
 				{
-					done=TRUE;
-					if(0 != SHDeleteFile(g_workfile.c_str(), FOF_ALLOWUNDO|FOF_SILENT|FOF_FILESONLY))
+					// Recheck file is not changed while MessageBox
+					if (nCmp != CompareSizeAndLastWrite(g_workfile.c_str(), &g_wfdRemote))
+						continue;
+
+					BOOL done = FALSE;
+					while (!done)
 					{
-						done=FALSE;
-						if(IDCANCEL==MessageBox(NULL,
-							NS("Failed to delete file"),
-							APP_NAME,
-							MB_SYSTEMMODAL|MB_DEFBUTTON1|MB_ICONEXCLAMATION|MB_RETRYCANCEL))
+						done = TRUE;
+						if (0 != SHDeleteFile(g_workfile.c_str(), FOF_ALLOWUNDO | FOF_SILENT | FOF_FILESONLY))
 						{
-							errExit(NS("could not trash file. exiting."));
+							done = FALSE;
+							if (IDCANCEL == MessageBox(NULL,
+								NS("Failed to delete file"),
+								APP_NAME,
+								MB_SYSTEMMODAL | MB_DEFBUTTON1 | MB_ICONEXCLAMATION | MB_RETRYCANCEL))
+							{
+								errExit(NS("could not trash file. exiting."));
+							}
 						}
 					}
-				} 
+				}
 			}
-		}
-		else if(nCmp > 0)
-		{
-			ReturnFileAndQuit(NULL);
+			else if (nCmp > 0)  // File Changed
+			{
+				checkFileResult = ReturnFileAndQuit(NULL);
+			}
+			break;
 		}
 	}
 
@@ -608,20 +624,26 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
-	if (!RemoveDirectory(workdir.c_str()))
+	if (checkFileResult == CHECKFILE_NONE ||
+		checkFileResult == CHECKFILE_NOTMODIFIED ||
+		checkFileResult == CHECKFILE_MOVEBACKED)
 	{
-		if (sesstionCount.count() <= 1)
+		if (!RemoveDirectory(workdir.c_str()))
 		{
-			Sleep(5000);
-			if (!RemoveDirectory(workdir.c_str()))
+			if (sesstionCount.count() <= 1)
 			{
-				if (sesstionCount.count() <= 1)
+				Sleep(5000);
+				if (!RemoveDirectory(workdir.c_str()))
 				{
-					errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), nullptr, TRUE);
+					if (sesstionCount.count() <= 1)
+					{
+						errExit(NS("RemoveDirectory fails. Files may still exists in the directory."), nullptr, TRUE);
+					}
 				}
 			}
 		}
 	}
+
 	DestroyIcon(g_hTrayIcon);
 	return msg.wParam;
 }

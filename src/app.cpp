@@ -56,7 +56,7 @@ void GetRecents(RECENTSTYPE& recents)
 
 	{
 		ProcessMutex mut;
-		Profile::CHashIni ini = Profile::ReadAll(inifile);
+		Profile::HashIniHandleWrapper ini = Profile::ReadAll(inifile);
 		int count = 0;
 		Profile::GetInt(
 			"recents",
@@ -100,7 +100,7 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 	int i=0;
 	{
 		ProcessMutex mut;
-		Profile::CHashIni ini = Profile::ReadAll(inifile);
+		Profile::HashIniHandleWrapper ini = Profile::ReadAll(inifile);
 		for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
 		{
 			string sec = "recent_" + to_string(i);

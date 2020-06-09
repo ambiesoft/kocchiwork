@@ -59,23 +59,12 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 
 	CloseHandle(hFile);
 
-
-
+	int nCmp = CompareSizeAndLastWrite(g_workfile.c_str(), &g_wfdRemote);
+	if(nCmp==0)
 	{
-		WIN32_FIND_DATA wfdWorkCurrent;
-		if (!GetFileData(g_workfile.c_str(), &wfdWorkCurrent))
-		{
-			DWORD dwLE = GetLastError();
-			errExit(NS("could not obtain work file data"), &dwLE);
-		}
-
-
-		int nCmp = CompareSizeAndLastWrite(&wfdWorkCurrent, &g_wfdRemote);
-		if(nCmp==0)
-		{
-			return CHECKFILE_NOTMODIFIED;
-		}
+		return CHECKFILE_NOTMODIFIED;
 	}
+
 
 	BlockedBool busybacker(&gBusy);
 
@@ -96,15 +85,7 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 
 	if(PathFileExists(g_remotefile.c_str()))
 	{
-		WIN32_FIND_DATA wfdRemoteNow;
-		if(!GetFileData(g_remotefile.c_str(), &wfdRemoteNow))
-		{
-			DWORD dwLE = GetLastError();
-			errExit(NS("could not obtain remote file time"), &dwLE, TRUE);
-			return CHECKFILE_ERROR;
-		}
-
-		BOOL bChanged = CompareSizeAndLastWrite(&g_wfdRemote, &wfdRemoteNow) != 0;
+		BOOL bChanged = CompareSizeAndLastWrite(&g_wfdRemote, g_remotefile.c_str()) != 0;
 
 		if(bChanged)
 		{
