@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="STR_AREYOUSURETOCLEARALL" xml:space="preserve">
+    <value>Are you sure you want to clear all items?</value>
+  </data>
+  <data name="STR_AREYOUSURETOCLEARERROR" xml:space="preserve">
+    <value>Are you sure you want to clea all error items?</value>
+  </data>
   <data name="STR_FAILEDTOSAVEINI" xml:space="preserve">
     <value>Failed to save ini</value>
   </data>

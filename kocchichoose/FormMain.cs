@@ -44,20 +44,14 @@ namespace kocchichoose
             AmbLib.LoadFormXYWH(this, SECTION_LOCATION, ini);
             AmbLib.LoadListViewColumnWidth(listRecents, SECTION_OPTION, KEY_COLUMNWIDTH, ini);
 
-            
-            int count;
-            Profile.GetInt("recents", "count", 0, out count, ini);
-            for (int i = 0; i < count; ++i)
-            {
-                string sec = "recent_" + i;
-                string tout;
 
-                if (Profile.GetString("recents", sec, string.Empty, out tout, ini))
+            string[] all;
+            Profile.GetStringArray("recents", "recentitem", out all, ini);
+            foreach (string item in all)
+            {
+                if (!string.IsNullOrEmpty(item))
                 {
-                    if (!string.IsNullOrEmpty(tout))
-                    {
-                        _allRecents.Add(tout);
-                    }
+                    _allRecents.Add(item);
                 }
             }
 
@@ -65,12 +59,18 @@ namespace kocchichoose
             UpdateRecent();
         }
 
-        string GetFileStatusString(FileInfo fi)
+        void GetFileStatusString(FileInfo fi, out string ret, out LVInfo.LVState state)
         {
             if (!fi.Exists)
-                return Properties.Resources.STR_FILENOTFOUND;
+            {
+                ret = Properties.Resources.STR_FILENOTFOUND;
+                state = LVInfo.LVState.LVState_NotFound;
+                return;
+            }
 
-            return "OK";
+            ret = "OK";
+            state = LVInfo.LVState.LVState_Normal;
+            return;
         }
         void UpdateRecent()
         {
@@ -102,13 +102,19 @@ namespace kocchichoose
                         ilExe.Images.Add(file.Extension, iconForFile);
                     }
                     item.ImageKey = file.Extension;
-                    item.SubItems.Add(GetFileStatusString(file));
+
+                    string text;
+                    LVInfo.LVState state;
+                    GetFileStatusString(file, out text, out state);
+                    item.SubItems.Add(text);
+                    item.Tag = new LVInfo(state);
                     listRecents.Items.Add(item);
                 }
                 catch (Exception ex)
                 {
                     var item = new ListViewItem(filename, 1);
                     item.SubItems.Add(ex.Message);
+                    item.Tag = new LVInfo(LVInfo.LVState.LVState_Exception);
                     listRecents.Items.Add(item);
                 }
             }
@@ -133,6 +139,21 @@ namespace kocchichoose
                 return;
 
             DialogResult = btnOK.DialogResult;
+
+            // Save to ini
+            txtFind.Clear();
+            UpdateRecent();
+
+            List<string> allItems = new List<string>();
+            foreach(ListViewItem item in listRecents.Items)
+                allItems.Add(item.Text);
+
+            HashIni ini = Profile.ReadAll(IniPath);
+            Profile.WriteStringArray("recents", "recentitem", allItems.ToArray(), ini);
+            if(!Profile.WriteAll(ini,IniPath))
+            {
+                CppUtils.Alert(Properties.Resources.STR_FAILEDTOSAVEINI);
+            }
         }
 
         bool doOpen()
@@ -178,6 +199,34 @@ namespace kocchichoose
         private void txtFind_TextChanged(object sender, EventArgs e)
         {
             UpdateRecent();
+        }
+
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != CppUtils.YesOrNo(Properties.Resources.STR_AREYOUSURETOCLEARALL))
+                return;
+
+            listRecents.Items.Clear();
+        }
+
+        private void btnClearError_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != CppUtils.YesOrNo(Properties.Resources.STR_AREYOUSURETOCLEARERROR))
+                return;
+
+            var toDels = new List<ListViewItem>();
+            foreach(ListViewItem item in listRecents.Items)
+            {
+                LVInfo lvInfo = item.Tag as LVInfo;
+                if (lvInfo.IsError)
+                    toDels.Add(item);
+            }
+
+            foreach (ListViewItem item in toDels)
+            {
+                listRecents.Items.Remove(item);
+                _allRecents.Remove(item.Text);
+            }
         }
     }
 }

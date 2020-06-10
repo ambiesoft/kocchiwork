@@ -39,6 +39,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.ilExe = new System.Windows.Forms.ImageList(this.components);
             this.btnClearFind = new System.Windows.Forms.Button();
+            this.btnClearAll = new System.Windows.Forms.Button();
+            this.btnClearError = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblFind
@@ -99,12 +101,28 @@
             this.btnClearFind.UseVisualStyleBackColor = true;
             this.btnClearFind.Click += new System.EventHandler(this.btnClearFind_Click);
             // 
+            // btnClearAll
+            // 
+            resources.ApplyResources(this.btnClearAll, "btnClearAll");
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            // 
+            // btnClearError
+            // 
+            resources.ApplyResources(this.btnClearError, "btnClearError");
+            this.btnClearError.Name = "btnClearError";
+            this.btnClearError.UseVisualStyleBackColor = true;
+            this.btnClearError.Click += new System.EventHandler(this.btnClearError_Click);
+            // 
             // FormMain
             // 
             this.AcceptButton = this.btnOK;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
+            this.Controls.Add(this.btnClearError);
+            this.Controls.Add(this.btnClearAll);
             this.Controls.Add(this.btnClearFind);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -129,6 +147,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ImageList ilExe;
         private System.Windows.Forms.Button btnClearFind;
+        private System.Windows.Forms.Button btnClearAll;
+        private System.Windows.Forms.Button btnClearError;
     }
 }
 

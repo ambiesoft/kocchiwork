@@ -57,29 +57,19 @@ void GetRecents(RECENTSTYPE& recents)
 	{
 		ProcessMutex mut;
 		Profile::CHashIni ini = Profile::ReadAll(inifile);
-		int count = 0;
-		Profile::GetInt(
+
+		vector<string> allUtf8;
+		Profile::GetStringArray(
 			"recents",
-			"count",
-			0,
-			count,
+			"recentitem",
+			allUtf8,
 			ini);
 
-		for (int i = 0; i < count; ++i)
+		for (string sout : allUtf8)
 		{
-			string sec = "recent_" + to_string(i);
-			string sout;
-			if (Profile::GetString(
-				"recents",
-				sec,
-				"",
-				sout,
-				ini))
+			if (!sout.empty())
 			{
-				if (!sout.empty())
-				{
-					recents.push_back(toStdWstringFromUtf8(sout));
-				}
+				recents.push_back(toStdWstringFromUtf8(sout));
 			}
 		}
 	}
@@ -95,34 +85,19 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 	recents.remove(pFile);
 	recents.push_front(pFile);
 
-	int count = min(recents.size(), MAX_RECENT_SIZE);
-	RECENTSTYPE::iterator it;
-	int i=0;
+	size_t count = min(recents.size(), MAX_RECENT_SIZE);
+	vector<string> allUtf8;
+	for (wstring ws : recents)
+	{
+		allUtf8.push_back(toStdUtf8String(ws));
+		if (allUtf8.size() >= count)
+			break;
+	}
+
 	{
 		ProcessMutex mut;
 		Profile::CHashIni ini = Profile::ReadAll(inifile);
-		for(it=recents.begin() ; it != recents.end() ; ++it, ++i)
-		{
-			string sec = "recent_" + to_string(i);
-
-			if (!Profile::WriteString(
-				"recents",
-				sec,
-				toStdUtf8String(it->c_str()),
-				ini))
-			{
-				return FALSE;
-			}
-		}
-		if(!Profile::WriteInt(
-			"recents",
-			"count",
-			i,
-			ini))
-		{
-			return FALSE;
-		}
-
+		Profile::WriteStringArray("recents", "recentitem", allUtf8, ini);
 		if (!Profile::WriteAll(ini, inifile))
 			return FALSE;
 	}
