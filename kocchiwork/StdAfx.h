@@ -94,7 +94,6 @@
 #include "../../lsMisc/WritePrivateProfileInt.h"
 #include "../../lsMisc/CenterWindow.h"
 #include "../../lsMisc/ResolveLink.h"
-#include "../../lsMisc/stlScopedClear.h"
 #include "../../lsMisc/CommandLineParser.h"
 #include "../../lsMisc/stdosd/blockedbool.h"
 #include "../../lsMisc/stdwin32/stdwin32.h"
@@ -105,7 +104,7 @@
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"1.1.5"
+#define APP_VERSION L"2.0.1"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {

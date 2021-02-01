@@ -112,10 +112,10 @@ BOOL InitApp()
 
 wstring RenameKocchiExt(LPCWSTR pFile)
 {
-	LPWSTR p = _tcsdup(pFile);
-	STLSOFT_SCODEDFREE_CRT(p);
+	// LPWSTR p =  _tcsdup(pFile);
+	unique_ptr<wchar_t, std::function<void(void*)>> p(_tcsdup(pFile) , free);
 
-	LPWSTR pExt = _tcsrchr(p, L'.');
+	LPWSTR pExt = _tcsrchr(p.get(), L'.');
 	if(!pExt)
 		return pFile;
 
@@ -123,7 +123,7 @@ wstring RenameKocchiExt(LPCWSTR pFile)
 		return pFile;
 
 	*pExt = 0;
-	return p;
+	return p.get();
 }
 
 
@@ -340,8 +340,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		LPTSTR pDup = _tcsdup(g_remotefile.c_str());
 		_tcslwr(pDup);
 		tstring mutexname = pDup;
-		free(pDup);pDup=NULL;
-		mutexname=stdStringReplace(mutexname, _T("\\"), _T("_"));
+		free(pDup); pDup = NULL;
+		mutexname = stdStringReplace(mutexname, _T("\\"), _T("_"));
 		if (!CreateMutex(NULL, TRUE, mutexname.c_str()))
 		{
 			DWORD dwLE = GetLastError();

@@ -60,6 +60,7 @@
             this.listRecents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chFile,
             this.chStatus});
+            this.listRecents.HideSelection = false;
             this.listRecents.Name = "listRecents";
             this.listRecents.UseCompatibleStateImageBehavior = false;
             this.listRecents.View = System.Windows.Forms.View.Details;

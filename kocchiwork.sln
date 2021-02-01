@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kocchiwork", "kocchiwork.vcxproj", "{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kocchiwork", "kocchiwork\kocchiwork.vcxproj", "{DB6EF2F2-5C34-477B-ADEB-BAC0C96AAD3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kocchichoose", "kocchichoose\kocchichoose.csproj", "{F7AC3EA4-CD35-4E44-A885-98820E9C848C}"
 EndProject

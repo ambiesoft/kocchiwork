@@ -184,10 +184,10 @@
     <value>status</value>
   </data>
   <data name="listRecents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 32</value>
+    <value>14, 32</value>
   </data>
   <data name="listRecents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 310</value>
+    <value>713, 310</value>
   </data>
   <data name="listRecents.TabIndex" type="System.Int32, mscorlib">
     <value>400</value>
@@ -244,7 +244,7 @@
     <value>600</value>
   </data>
   <data name="btnCancel.Text" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>Cancel</value>
   </data>
   <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
     <value>btnCancel</value>
@@ -295,7 +295,7 @@
     <value>Bottom, Left</value>
   </data>
   <data name="btnClearAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 354</value>
+    <value>14, 354</value>
   </data>
   <data name="btnClearAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 23</value>
@@ -325,7 +325,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnClearError.Location" type="System.Drawing.Point, System.Drawing">
-    <value>188, 354</value>
+    <value>134, 354</value>
   </data>
   <data name="btnClearError.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 23</value>

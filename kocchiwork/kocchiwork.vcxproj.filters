@@ -33,219 +33,209 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\common.cpp">
+    <ClCompile Include="..\..\lsMisc\stdosd\blockedbool.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="app.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\err.cpp">
+    <ClCompile Include="boostpch.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heavyboost.cpp">
+    <ClCompile Include="..\..\lsMisc\CenterWindow.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\CommandLineParser.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="common.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kocchiwork.cpp">
+    <ClCompile Include="..\..\lsMisc\CreateSimpleWindow.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="err.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
+    <ClCompile Include="..\..\lsMisc\GetDirFromPath.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\GetLastErrorString.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\GetModuleDirectory.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="heavyboost.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ReturnFileAndQuit.cpp">
+    <ClCompile Include="..\..\lsMisc\HighDPI.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\I18N.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\IsFileExists.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\IsFileOpen.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="kocchiwork.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\StdAfx.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\thread.cpp">
+    <ClCompile Include="..\..\lsMisc\OpenCommon.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\ResolveLink.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="ReturnFileAndQuit.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tmphelp.cpp">
+    <ClCompile Include="..\..\lsMisc\SHMoveFile.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\showballoon.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\WndProc.cpp">
-      <Filter>2 Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\CenterWindow.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\CreateSimpleWindow.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\GetDirFromPath.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\GetModuleDirectory.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\I18N.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\IsFileExists.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\IsFileOpen.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\showballoon.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\stdwin32\stdwin32.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\UrlEncode.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\UTF16toUTF8.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\stdosd\stdosd_win.cpp">
+    <ClCompile Include="..\..\lsMisc\stdosd\stdosd.cpp">
       <Filter>2 Source Files\lsMisc\stdosd</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\stdosd\stdosd.cpp">
+    <ClCompile Include="..\..\lsMisc\stdosd\stdosd_win.cpp">
       <Filter>2 Source Files\lsMisc\stdosd</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\OpenCommon.cpp">
+    <ClCompile Include="..\..\lsMisc\stdwin32\stdwin32.cpp">
       <Filter>2 Source Files\lsMisc</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\CommandLineParser.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\GetLastErrorString.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\HighDPI.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\ResolveLink.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lsMisc\SHMoveFile.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
-    <ClCompile Include="src\boostpch.cpp">
+    <ClCompile Include="thread.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app.cpp">
+    <ClCompile Include="tmphelp.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\stdosd\blockedbool.cpp">
+    <ClCompile Include="..\..\lsMisc\TrayIcon.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\lsMisc\TrayIcon.cpp">
+    <ClCompile Include="..\..\lsMisc\UrlEncode.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\UTF16toUTF8.cpp">
+      <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="WndProc.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\common.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\err.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\heavyboost.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\kocchiwork.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\StdAfx.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\thread.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tmphelp.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\CenterWindow.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\CreateSimpleWindow.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\GetModuleDirectory.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\I18N.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\IsDirectory.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\IsFileExists.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\IsFileOpen.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\StdStringReplace.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\stdwin32\stdwin32.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\UrlEncode.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\UTF16toUTF8.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\stdosd\stdosd.h">
-      <Filter>1 Header Files\lsMisc\stdosd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\OpenCommon.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\CommandLineParser.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\CreateWString.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\GetLastErrorString.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\HighDPI.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\ResolveLink.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\SHMoveFile.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\showballoon.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="src\boostpch.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\app.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\CommandLineString.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\stdosd\blockedbool.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lsMisc\TrayIcon.h">
-      <Filter>1 Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\profile\cpp\Profile\include\ambiesoft.profile.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="src\icon.ico">
-      <Filter>3 Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\kocchiwork.rc">
-      <Filter>3 Resource Files</Filter>
-    </ResourceCompile>
+    <ClInclude Include="..\..\lsMisc\stdosd\blockedbool.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="app.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="boostpch.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\CenterWindow.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\CommandLineParser.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\CommandLineString.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\CreateSimpleWindow.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\CreateWString.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="err.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\GetDirFromPath.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\GetLastErrorString.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\GetModuleDirectory.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="heavyboost.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\HighDPI.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\I18N.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\IsDirectory.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\IsFileExists.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\IsFileOpen.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="kocchiwork.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\OpenCommon.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\ResolveLink.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\SHMoveFile.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\showballoon.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\stdosd\stdosd.h">
+      <Filter>1 Header Files\lsMisc\stdosd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\stdwin32\stdwin32.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="thread.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tmphelp.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\TrayIcon.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\UrlEncode.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\UTF16toUTF8.h">
+      <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dist\History.txt">
@@ -257,5 +247,15 @@
     <Text Include="lang\jpn.txt">
       <Filter>4 Lang</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>3 Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="kocchiwork.rc">
+      <Filter>3 Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
