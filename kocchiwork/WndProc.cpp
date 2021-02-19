@@ -44,9 +44,9 @@ using namespace Ambiesoft;
 
 wstring myUrlEncode(wstring strIN)
 {
-	unique_ptr<char> pUtf8(UTF16toUTF8_new(strIN.c_str()));
-	unique_ptr<char> pUtf8Encoded(UrlEncode_new(pUtf8.get()));
-	unique_ptr<wchar_t> pLast(UTF8toUTF16_new(pUtf8Encoded.get()));
+	unique_ptr<char> pUtf8(UTF16toUTF8Ex(strIN.c_str()));
+	unique_ptr<char> pUtf8Encoded(UrlEncodeEx(pUtf8.get()));
+	unique_ptr<wchar_t> pLast(UTF8toUTF16Ex(pUtf8Encoded.get()));
 	return pLast.get();
 }
 

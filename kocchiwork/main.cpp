@@ -403,7 +403,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if(CompareFileTime(&ftCurrent, &g_wfdRemote.ftLastWriteTime) > 0)
 			errExit(NS("Existing file is newer than the remote file. exiting."));
 
-		if(0 != SHDeleteFile(g_workfile.c_str()))
+		if(0 != SHDeleteFileEx(g_workfile.c_str()))
 			errExit(NS("Could not move file to Recycle Bin"));
 	}
 
@@ -423,7 +423,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
 			errExit(NS("Copy failed"));
 
-		if(0 != SHDeleteFile(savefile.c_str(), FOF_ALLOWUNDO|FOF_SILENT|FOF_FILESONLY))
+		if(0 != SHDeleteFileEx(savefile.c_str(), FOF_ALLOWUNDO|FOF_SILENT|FOF_FILESONLY))
 			errExit(NS("could not trash file"));
 	}
 
@@ -461,7 +461,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			APP_NAME,
 			MB_ICONWARNING|MB_YESNO))
 		{
-			if(0 != SHDeleteFile(g_workfile.c_str()))
+			if(0 != SHDeleteFileEx(g_workfile.c_str()))
 				errExit(NS("could not trash file"));
 
 			return 0;
@@ -594,7 +594,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 					while (!done)
 					{
 						done = TRUE;
-						if (0 != SHDeleteFile(g_workfile.c_str(), FOF_ALLOWUNDO | FOF_SILENT | FOF_FILESONLY))
+						if (0 != SHDeleteFileEx(g_workfile.c_str(), FOF_ALLOWUNDO | FOF_SILENT | FOF_FILESONLY))
 						{
 							done = FALSE;
 							if (IDCANCEL == MessageBox(NULL,

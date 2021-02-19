@@ -56,7 +56,7 @@ void GetRecents(RECENTSTYPE& recents)
 
 	{
 		ProcessMutex mut;
-		Profile::CHashIni ini = Profile::ReadAll(inifile);
+		Profile::CHashIni ini(Profile::ReadAll(inifile));
 
 		vector<string> allUtf8;
 		Profile::GetStringArray(
@@ -96,7 +96,7 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 
 	{
 		ProcessMutex mut;
-		Profile::CHashIni ini = Profile::ReadAll(inifile);
+		Profile::CHashIni ini(Profile::ReadAll(inifile));
 		Profile::WriteStringArray("recents", "recentitem", allUtf8, ini);
 		if (!Profile::WriteAll(ini, inifile))
 			return FALSE;

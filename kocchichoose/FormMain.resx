@@ -126,7 +126,7 @@
     <value>12, 11</value>
   </data>
   <data name="lblFind.Size" type="System.Drawing.Size, System.Drawing">
-    <value>29, 12</value>
+    <value>36, 15</value>
   </data>
   <data name="lblFind.TabIndex" type="System.Int32, mscorlib">
     <value>100</value>
@@ -154,7 +154,7 @@
     <value>68, 8</value>
   </data>
   <data name="txtFind.Size" type="System.Drawing.Size, System.Drawing">
-    <value>578, 19</value>
+    <value>578, 23</value>
   </data>
   <data name="txtFind.TabIndex" type="System.Int32, mscorlib">
     <value>200</value>
@@ -174,20 +174,11 @@
   <data name="listRecents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="chFile.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="chFile.Width" type="System.Int32, mscorlib">
-    <value>546</value>
-  </data>
-  <data name="chStatus.Text" xml:space="preserve">
-    <value>status</value>
-  </data>
   <data name="listRecents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 32</value>
+    <value>14, 35</value>
   </data>
   <data name="listRecents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>713, 310</value>
+    <value>713, 313</value>
   </data>
   <data name="listRecents.TabIndex" type="System.Int32, mscorlib">
     <value>400</value>
@@ -203,6 +194,15 @@
   </data>
   <data name="&gt;&gt;listRecents.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="chFile.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="chFile.Width" type="System.Int32, mscorlib">
+    <value>546</value>
+  </data>
+  <data name="chStatus.Text" xml:space="preserve">
+    <value>status</value>
   </data>
   <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -268,7 +268,7 @@
     <value>Top, Right</value>
   </data>
   <data name="btnClearFind.Location" type="System.Drawing.Point, System.Drawing">
-    <value>652, 6</value>
+    <value>652, 8</value>
   </data>
   <data name="btnClearFind.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -352,10 +352,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>739, 389</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

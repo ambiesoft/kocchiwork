@@ -104,7 +104,7 @@
 #include "tmphelp.h"
 
 #define APP_NAME _T("kocchiwork")
-#define APP_VERSION L"2.0.1"
+#define APP_VERSION L"2.1.1"
 
 #define NS(s) Ambiesoft::I18N(_T(s))
 enum {
