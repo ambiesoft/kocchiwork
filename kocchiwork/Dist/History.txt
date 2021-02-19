@@ -1,3 +1,6 @@
+2021/02/19 v2.1.2
+Fix HighDPI Form for kocchichoose
+
 2021/02/19 v2.1.1
 HighDPI Form
 

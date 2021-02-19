@@ -13,6 +13,8 @@ namespace kocchichoose
         [STAThread]
         static void Main()
         {
+            Ambiesoft.CppUtils.AmbSetProcessDPIAware();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             (new FormMain()).ShowDialog();
