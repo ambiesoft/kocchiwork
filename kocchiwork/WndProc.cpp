@@ -323,7 +323,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				message += _T("\r\n");
 				message += _T("Remote\t");
 				message += g_remotefile;
-				MessageBox(NULL, 
+				MessageBox(GetDesktopWindow(),
 					message.c_str(),
 					APP_NAME, 
 					MB_ICONINFORMATION);
@@ -361,7 +361,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				sei.lpDirectory = dir.c_str();
 				if(!ShellExecuteEx(&sei)) 
 				{
-					MessageBox(NULL,
+					MessageBox(GetDesktopWindow(),
 						NS("Failed to ShellExecuteEx"),
 						APP_NAME,
 						MB_ICONERROR);

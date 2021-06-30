@@ -74,11 +74,11 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 	message << NS("copy source: ") << g_workfile << endl;
 	message << NS("copy destination: ") << g_remotefile << endl;
 
-	if(IDYES != MessageBox(
-		NULL, 
+	if (IDYES != MessageBox(
+		GetDesktopWindow(),
 		message.str().c_str(),
-		APP_NAME, 
-		MB_SYSTEMMODAL|MB_ICONINFORMATION|MB_YESNO))
+		APP_NAME,
+		MB_APPLMODAL | MB_ICONINFORMATION | MB_YESNO))
 	{
 		return CHECKFILE_MODIFIED_BUTUSERCANCELED;
 	}
@@ -95,7 +95,7 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 			message << endl;
 			message << NS("Fix the conflict.");
 
-			MessageBox(NULL, message.str().c_str(), APP_NAME, MB_ICONWARNING);
+			MessageBox(GetDesktopWindow(), message.str().c_str(), APP_NAME, MB_ICONWARNING);
 			return CHECKFILE_ERROR;
 		}
 	}
@@ -114,7 +114,7 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 			message << NS("Failed to move the file back to original location.") << endl;
 			message << strLE << endl;
 
-			int ret = MessageBox(nullptr, message.str().c_str(), APP_NAME, MB_ICONERROR | MB_RETRYCANCEL);
+			int ret = MessageBox(GetDesktopWindow(), message.str().c_str(), APP_NAME, MB_ICONERROR | MB_RETRYCANCEL);
 			if (ret == IDCANCEL)
 			{
 				gMovebackCanceled = true;

@@ -390,7 +390,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		message += _T("\r\n\r\n");
 		message += NS("Do you want to trash it and copy remote file?");
 
-		if(IDYES != MessageBox(NULL, message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
+		if(IDYES != MessageBox(GetDesktopWindow(), message.c_str(), APP_NAME, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2))
 			return 0;
 
 		FILETIME ftCurrent;
@@ -456,7 +456,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		tstring message = NS("Execute failed. Do you want to remove the copied file?");
 		message += CRLF;
 		message += g_workfile.c_str();
-		if(IDYES == MessageBox(NULL,
+		if(IDYES == MessageBox(GetDesktopWindow(),
 			message.c_str(),
 			APP_NAME,
 			MB_ICONWARNING|MB_YESNO))
@@ -583,7 +583,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				message += CRLF;
 				message += CRLF;
 				message += g_workfile.c_str();
-				if (IDYES == MessageBox(NULL, message.c_str(), APP_NAME,
+				if (IDYES == MessageBox(GetDesktopWindow(), message.c_str(), APP_NAME,
 					MB_APPLMODAL | MB_ICONQUESTION | MB_YESNO))
 				{
 					// Recheck file is not changed while MessageBox
@@ -597,10 +597,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 						if (0 != SHDeleteFileEx(g_workfile.c_str(), FOF_ALLOWUNDO | FOF_SILENT | FOF_FILESONLY))
 						{
 							done = FALSE;
-							if (IDCANCEL == MessageBox(NULL,
+							if (IDCANCEL == MessageBox(GetDesktopWindow(),
 								NS("Failed to delete file"),
 								APP_NAME,
-								MB_SYSTEMMODAL | MB_DEFBUTTON1 | MB_ICONEXCLAMATION | MB_RETRYCANCEL))
+								MB_APPLMODAL | MB_DEFBUTTON1 | MB_ICONEXCLAMATION | MB_RETRYCANCEL))
 							{
 								errExit(NS("could not trash file. exiting."));
 							}
