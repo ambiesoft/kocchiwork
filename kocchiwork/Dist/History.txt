@@ -1,3 +1,7 @@
+2021/07/12 v2.1.5
+Fix: Crashed at WM_QUERYENDSESSION
+Added: Version in Resource
+
 2021/07/01 v2.1.4
 Use MB_APPLMODAL
 
