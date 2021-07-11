@@ -32,12 +32,16 @@
 
 #include "C:\\Linkout\\CommonDLL\\TimedMessageBox.h"
 
+#include "../../lsMisc/GetVersionString.h"
+#include "../../lsMisc/stdosd/stdosd.h"
+
 #include "thread.h"
 #include "err.h"
 #include "common.h"
 
 
 using namespace Ambiesoft;
+using namespace Ambiesoft::stdosd;
 
 #define TIMERID 1
 #define TIMER_INTERVAL 5000
@@ -316,7 +320,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			case IDC_ABOUT:
 			{
 				tstring message;
-				message += APP_NAME L" " APP_VERSION;
+				message += APP_NAME L" " + GetVersionString(stdGetModuleFileName().c_str(), 3);
 				message += _T("\r\n\r\n");
 				message += _T("Watching\t");
 				message += g_workfile;

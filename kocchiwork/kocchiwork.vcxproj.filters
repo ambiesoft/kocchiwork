@@ -132,6 +132,9 @@
     <ClCompile Include="WndProc.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lsMisc\GetVersionString.cpp">
+      <Filter>2 Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\profile\cpp\Profile\include\ambiesoft.profile.h">
@@ -235,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="..\..\lsMisc\UTF16toUTF8.h">
       <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\GetVersionString.h">
+      <Filter>1 Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\stdosd\stdosd_literal.h">
+      <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

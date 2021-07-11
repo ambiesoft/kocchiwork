@@ -147,6 +147,7 @@
     <ClCompile Include="..\..\lsMisc\GetDirFromPath.cpp" />
     <ClCompile Include="..\..\lsMisc\GetLastErrorString.cpp" />
     <ClCompile Include="..\..\lsMisc\GetModuleDirectory.cpp" />
+    <ClCompile Include="..\..\lsMisc\GetVersionString.cpp" />
     <ClCompile Include="..\..\lsMisc\HighDPI.cpp" />
     <ClCompile Include="..\..\lsMisc\I18N.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
@@ -214,6 +215,7 @@
     <ClInclude Include="..\..\lsMisc\GetDirFromPath.h" />
     <ClInclude Include="..\..\lsMisc\GetLastErrorString.h" />
     <ClInclude Include="..\..\lsMisc\GetModuleDirectory.h" />
+    <ClInclude Include="..\..\lsMisc\GetVersionString.h" />
     <ClInclude Include="..\..\lsMisc\HighDPI.h" />
     <ClInclude Include="..\..\lsMisc\I18N.h" />
     <ClInclude Include="..\..\lsMisc\IsDirectory.h" />
@@ -225,6 +227,7 @@
     <ClInclude Include="..\..\lsMisc\showballoon.h" />
     <ClInclude Include="..\..\lsMisc\stdosd\blockedbool.h" />
     <ClInclude Include="..\..\lsMisc\stdosd\stdosd.h" />
+    <ClInclude Include="..\..\lsMisc\stdosd\stdosd_literal.h" />
     <ClInclude Include="..\..\lsMisc\stdwin32\stdwin32.h" />
     <ClInclude Include="..\..\lsMisc\TrayIcon.h" />
     <ClInclude Include="..\..\lsMisc\UrlEncode.h" />
