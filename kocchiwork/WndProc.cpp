@@ -113,7 +113,7 @@ BOOL doQueryEndSession(HWND hWnd)
 	if(!func)
 		return TRUE;
 
-	if(IDOK != func(hWnd, 300, APP_NAME, NS("message")))
+	if(IDOK != func(hWnd, 300, APP_NAME, NS("Close the application and click OK to quit or click CANCEL.")))
 		return FALSE;
 	return TRUE; 
 }
@@ -311,11 +311,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			user32_ShutdownBlockReasonCreate(hWnd, L"kocchiwork");
 			BOOL ret = doQueryEndSession(hWnd);
 			user32_ShutdownBlockReasonDestroy(hWnd);
+			if (ret)
+			{
+				// user choose to quit when logoff
+				// check the file
+				switch (ReturnFileAndQuit(hWnd))
+				{
+				case CHECKFILE_BUSY:
+				case CHECKFILE_OPENED:
+				case CHECKFILE_ERROR:
+					return false;
+				case CHECKFILE_ALREADYCANCELED:
+				case CHECKFILE_NOTMODIFIED:
+				case CHECKFILE_MODIFIED_BUTUSERCANCELED:
+				case CHECKFILE_MOVEBACKED:
+					doPostQuitMessage(0);
+					break;
+				}
+			}
 			g_bQuerying = FALSE;
-			if(g_bQuittedWhileQuerying)
+			if (g_bQuittedWhileQuerying)
 			{
 				PostQuitMessage(0);
 			}
+
 			return ret;
 		}
 		break;
