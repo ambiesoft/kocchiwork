@@ -237,6 +237,7 @@
     <ClInclude Include="boostpch.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="err.h" />
+    <ClInclude Include="gitrev.h" />
     <ClInclude Include="heavyboost.h" />
     <ClInclude Include="kocchiwork.h" />
     <ClInclude Include="resource.h" />

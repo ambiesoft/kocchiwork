@@ -10,6 +10,11 @@
             "outdir": "build\\kocchiwork"
         }
     ],
+    "gitrev": {
+    	"gits": ["C:/cygwin/bin/git.exe", "C:/local/msys2/usr/bin/git.exe"],
+    	"gitdirs": [".", "../lsMisc"],
+    	"outheader": "kocchiwork/gitrev.h"
+    },    
     "ShouldBeFiles": [
         "Ambiesoft.AmbLib.dll",
         "Ambiesoft.AmbLib.pdb",

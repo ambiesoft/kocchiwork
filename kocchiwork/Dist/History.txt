@@ -1,3 +1,7 @@
+2021/07/13 v2.1.6
+Update TimedMessageBox
+Add GitRev
+
 2021/07/12 v2.1.5
 Fix: Crashed at WM_QUERYENDSESSION
 Added: Version in Resource

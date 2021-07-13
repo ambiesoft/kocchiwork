@@ -38,7 +38,7 @@
 #include "thread.h"
 #include "err.h"
 #include "common.h"
-
+#include "gitrev.h"
 
 using namespace Ambiesoft;
 using namespace Ambiesoft::stdosd;
@@ -96,6 +96,12 @@ BOOL user32_ShutdownBlockReasonDestroy( HWND hwnd )
   return xxx; 
 }
 
+wstring GetTimedMessageBoxVersion()
+{
+	wstring libpath = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName()),
+		L"TimedMessageBox.dll");
+	return GetVersionString(libpath.c_str(), 3);
+}
 BOOL doQueryEndSession(HWND hWnd)
 {
 	HMODULE hModule = LoadLibrary(_T("TimedMessageBox.dll"));
@@ -327,6 +333,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 				message += _T("\r\n");
 				message += _T("Remote\t");
 				message += g_remotefile;
+
+				message += L"\r\n\r\n";
+				message += L"GitRev:\r\n";
+				for (auto&& s : GITREV::GetHashes())
+					message += toStdWstringFromUtf8(s.first + "=" + s.second + "\r\n");
+
+				message += L"\r\n";
+				message += L"TimedMessageBox:\r\n";
+				message += L"ver " + GetTimedMessageBoxVersion();
 				MessageBox(GetDesktopWindow(),
 					message.c_str(),
 					APP_NAME, 
