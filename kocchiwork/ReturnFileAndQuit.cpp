@@ -26,13 +26,12 @@
 
 #include "stdafx.h"
 
-
-
 #include "kocchiwork.h"
 #include "err.h"
 #include "common.h"
 
 using namespace Ambiesoft;
+using namespace Ambiesoft::stdosd;
 using namespace std;
 
 bool gBusy;
@@ -74,10 +73,10 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 	message << NS("copy source: ") << g_workfile << endl;
 	message << NS("copy destination: ") << g_remotefile << endl;
 
-	if (IDYES != MessageBox(
-		GetDesktopWindow(),
+	if (IDYES != ForeMessageBox(
+		hWnd,
 		message.str().c_str(),
-		APP_NAME,
+		stdFormat(L"%s | %s", NS("Changed"), APP_NAME).c_str(),
 		MB_APPLMODAL | MB_ICONINFORMATION | MB_YESNO))
 	{
 		return CHECKFILE_MODIFIED_BUTUSERCANCELED;
@@ -114,7 +113,10 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 			message << NS("Failed to move the file back to original location.") << endl;
 			message << strLE << endl;
 
-			int ret = MessageBox(GetDesktopWindow(), message.str().c_str(), APP_NAME, MB_ICONERROR | MB_RETRYCANCEL);
+			int ret = ForeMessageBox(hWnd, 
+				message.str().c_str(),
+				stdFormat(L"%s | %s", NS("Failed to move back"), APP_NAME).c_str(),
+				MB_ICONERROR | MB_RETRYCANCEL);
 			if (ret == IDCANCEL)
 			{
 				gMovebackCanceled = true;

@@ -25,6 +25,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "stdafx.h"
+#include "../../lsMisc/CenterWindow.h"
+
+using namespace Ambiesoft;
 
 HINSTANCE g_hInst;
 HICON g_hTrayIcon;
@@ -51,4 +54,23 @@ void doPostQuitMessage(int nQM)
 		return;
 	}
 	PostQuitMessage(nQM);
+}
+
+// Show window and settitle before showing messageob
+int ForeMessageBox(
+	HWND hWnd,
+	LPCWSTR lpText,
+	LPCWSTR lpCaption,
+	UINT uType)
+{
+	assert(hWnd == g_hWnd || hWnd == NULL);
+	CenterWindow(hWnd);
+	const bool isHidden = !IsWindowVisible(hWnd);
+	ShowWindow(hWnd, SW_SHOW);
+	SetForegroundWindow(hWnd);
+	SetWindowText(hWnd, lpCaption);
+	int ret = MessageBox(hWnd, lpText, lpCaption, uType);
+	if (isHidden)
+		ShowWindow(hWnd, SW_SHOW);
+	return ret;
 }

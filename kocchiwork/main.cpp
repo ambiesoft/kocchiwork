@@ -42,7 +42,7 @@
 
 using namespace Ambiesoft;
 using namespace Ambiesoft::stdosd;
-using namespace Ambiesoft::stdwin32;
+// using namespace Ambiesoft::stdwin32;
 
 void Untray()
 {
@@ -126,41 +126,6 @@ wstring RenameKocchiExt(LPCWSTR pFile)
 	return p.get();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MessageBox(NULL, L"AAA", L"BBBB", MB_ICONINFORMATION);
-/**
-po::options_description desc("Allowed options");
-desc.add_options()
-("help", "produce help message")
-("compression", po::value<int>(), "set compression level")
-;
-
-po::variables_map vm;
-po::store(po::parse_command_line(__argc, __targv, desc), vm);
-po::notify(vm);
-
-if (vm.count("help")) {
-// cout << desc << "\n";
-stringstream wss;
-desc.print(wss);
-//errExit(getdtdws wss.str());
-return 1;
-}
-**/
-
-
 class SessionCount {
 	CSessionGlobalMemory<UINT> gcs_count_;
 public:
@@ -175,8 +140,6 @@ public:
 		return gcs_count_;
 	}
 };
-
-
 
 static void LaunchMeOneByOne(
 	tstring& progfile,
@@ -223,10 +186,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 #ifdef _DEBUG
 //		g_remotefile = _T("\\\\Thexp\\Share\\ttt.txt");
-//		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFS-BOOK-7.1.pdf");
-//		g_remotefile = _T("\\\\Thexp\\Share\\CurR\\LFSƒ\BOOK-7.1.pdf");
-//		g_remotefile = _T("\\\\Thexp\\Share\\KocchiTest\\ttt.ods");
-//		g_remotefile = _T("\\\\inpsrv\\Share\\pass\\text.txt");
 #endif
 
 	bool f_noSaveRecent = false;
@@ -267,24 +226,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	if (g_remotefile.empty())
 	{
-		//std::vector<std::wstring> openFiles = OpenRecent();
-		//if (openFiles.empty())
-		//	return 0;
-
-		//tstring progfile;
-		//bool noSaveRecent = false;
-		//tstring lang;
-		//vector<tstring> dummy;
-
-		//GetArgumentsFromCommandLine(
-		//	progfile,
-		//	noSaveRecent,
-		//	lang,
-		//	dummy);
-
-		//LaunchMeOneByOne(progfile, noSaveRecent, lang, openFiles);
-
-		//return 0;
 		OpenRecentCS();
 		return 0;
 	}
@@ -325,7 +266,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		g_workfile = workdir + _T("\\") + RenameKocchiExt(pFile);
 	}
 	
-
 	if(!IsFileExists(g_remotefile.c_str()))
 	{
 		tstring message = boostformat(NS("'%1%' is not a file."), g_remotefile.c_str());
@@ -373,9 +313,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
-
-	
-
 	if(!GetFileData(g_remotefile.c_str(), &g_wfdRemote))
 		errExit(NS("could not obtain remote file info"));
 
@@ -418,7 +355,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		tstring savefilebase(savefile);
 		for(int i=0 ; IsFileExists(savefile.c_str()) ; ++i)
 		{
-			savefile = savefilebase + stdItoT(i);
+			savefile = savefilebase + stdToString(i);
 		}
 		if(!CopyFile(g_workfile.c_str(), savefile.c_str(), TRUE))
 			errExit(NS("Copy failed"));
@@ -431,7 +368,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		errExit(NS("could not obtain file info"));
 
 	SessionCount sesstionCount;
-
 
 	SHELLEXECUTEINFO sei = {0};
 	sei.cbSize = sizeof(sei);
@@ -473,14 +409,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	g_hKanshiApp = sei.hProcess;
 
-
-	// DWORD dwIW = WaitForInputIdle(sei.hProcess,10*1000);
-	//DWORD dwPI = WaitForSingleObject(sei.hProcess,5*1000);
-	//if(dwPI==0 )
-	//{
-	//bNoKanshi = TRUE;
-	//}
-
 	g_hWnd = CreateSimpleWindow(GetModuleHandle(NULL), _T("kocchiwork class"), _T(""), WndProc);
 	if(!g_hWnd)
 		errExit(NS("could not create a winoow"));
@@ -488,7 +416,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	ShowWindow(g_hWnd, SW_SHOW);
 #endif
 
-	
 	SendMessage(g_hWnd, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
 	SendMessage(g_hWnd, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
 
@@ -512,12 +439,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	HANDLE hThreadDie = NULL;
 	HANDLE hThread = NULL;
-//	if(bNoKanshi)
-//	{
-//		errExit(NS("App might be quitted. Watching is disabled. After editing the local document, quit this manually."), -1, TRUE);
-//	}
-//	else
-
 	
 	{
 		hThreadDie = CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -585,7 +506,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				message += CRLF;
 				message += CRLF;
 				message += g_workfile.c_str();
-				if (IDYES == MessageBox(GetDesktopWindow(), message.c_str(), APP_NAME,
+				if (IDYES == ForeMessageBox(
+					g_hWnd, 
+					message.c_str(), 
+					stdFormat(L"%s | %s", NS("Not Changed"), APP_NAME).c_str(),
 					MB_APPLMODAL | MB_ICONQUESTION | MB_YESNO))
 				{
 					// Recheck file is not changed while MessageBox
@@ -599,9 +523,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 						if (0 != SHDeleteFileEx(g_workfile.c_str(), FOF_ALLOWUNDO | FOF_SILENT | FOF_FILESONLY))
 						{
 							done = FALSE;
-							if (IDCANCEL == MessageBox(GetDesktopWindow(),
+							if (IDCANCEL == ForeMessageBox(g_hWnd,
 								NS("Failed to delete file"),
-								APP_NAME,
+								stdFormat(L"%s | %s", NS("Failed to delete"), APP_NAME).c_str(),
 								MB_APPLMODAL | MB_DEFBUTTON1 | MB_ICONEXCLAMATION | MB_RETRYCANCEL))
 							{
 								errExit(NS("could not trash file. exiting."));
@@ -612,7 +536,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			}
 			else if (nCmp > 0)  // File Changed
 			{
-				checkFileResult = ReturnFileAndQuit(NULL);
+				checkFileResult = ReturnFileAndQuit(g_hWnd);
 			}
 			break;
 		}

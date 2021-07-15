@@ -45,7 +45,11 @@ extern BOOL g_bQuittedWhileQuerying;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 void doPostQuitMessage(int nQM);
-
+int ForeMessageBox(
+	HWND hWnd,
+	LPCWSTR lpText,
+	LPCWSTR lpCaption,
+	UINT uType);
 extern bool gBusy;
 
 enum CHECKFILERESULT {
