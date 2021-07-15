@@ -12,8 +12,13 @@
     ],
     "gitrev": {
     	"gits": ["C:/cygwin/bin/git.exe", "C:/local/msys2/usr/bin/git.exe"],
-    	"gitdirs": [".", "../lsMisc"],
-    	"outheader": "kocchiwork/gitrev.h"
+    	"gitdirs": [
+	    	".", 
+	    	"../lsMisc",
+	    	"../distSolution"
+	    ],
+    	"outheader": "kocchiwork/gitrev.h",
+    	"char": "wchar"
     },    
     "ShouldBeFiles": [
         "Ambiesoft.AmbLib.dll",

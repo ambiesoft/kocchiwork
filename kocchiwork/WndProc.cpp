@@ -355,8 +355,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 
 				message += L"\r\n\r\n";
 				message += L"GitRev:\r\n";
-				for (auto&& s : GITREV::GetHashes())
-					message += toStdWstringFromUtf8(s.first + "=" + s.second + "\r\n");
+				message += GITREV::GetHashMessage();
 
 				message += L"\r\n";
 				message += L"TimedMessageBox:\r\n";
