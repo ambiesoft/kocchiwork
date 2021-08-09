@@ -412,9 +412,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	g_hWnd = CreateSimpleWindow(GetModuleHandle(NULL), _T("kocchiwork class"), _T(""), WndProc);
 	if(!g_hWnd)
 		errExit(NS("could not create a winoow"));
-#ifdef _DEBUG
-	ShowWindow(g_hWnd, SW_SHOW);
-#endif
+	MoveWindow(g_hWnd, 0, 0, 0, 0, FALSE);
+
+//#ifdef _DEBUG
+//	ShowWindow(g_hWnd, SW_SHOW);
+//#endif
 
 	SendMessage(g_hWnd, WM_SETICON, ICON_SMALL, (LPARAM)g_hTrayIcon);
 	SendMessage(g_hWnd, WM_SETICON, ICON_BIG, (LPARAM)g_hTrayIcon);
