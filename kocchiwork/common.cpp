@@ -59,7 +59,7 @@ void doPostQuitMessage(int nQM)
 }
 
 // Show window and settitle before showing messageob
-int ForeMessageBox(
+int ForeMessageBox_obsolete(
 	HWND hWnd,
 	LPCWSTR lpText,
 	LPCWSTR lpCaption,
@@ -68,17 +68,19 @@ int ForeMessageBox(
 	assert(hWnd == g_hWnd || hWnd == NULL);
 	CenterWindow(hWnd);
 	assert(!IsWindowVisible(hWnd));
-	ShowWindow(hWnd, SW_SHOW);
+	// ShowWindow(hWnd, SW_SHOW);
 	SetForegroundWindow(hWnd);
 	SetWindowText(hWnd, lpCaption);
 
 	std::thread afterrun([](HWND h) {
 		Sleep(1 * 1000);
-		ShowWindow(h, SW_HIDE);
+		// ShowWindow(h, SW_HIDE);
+		// MoveWindow(h, -1, -1, 0, 0, FALSE);
 		}, hWnd);
 	afterrun.detach();
 
-	int ret = MessageBox(hWnd, lpText, lpCaption, uType);
+	int ret = MessageBox(hWnd, lpText, lpCaption, 
+		uType);
 	//if (isHidden)
 	//	ShowWindow(hWnd, SW_SHOW);
 	return ret;

@@ -73,11 +73,11 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 	message << NS("copy source: ") << g_workfile << endl;
 	message << NS("copy destination: ") << g_remotefile << endl;
 
-	if (IDYES != ForeMessageBox(
-		hWnd,
+	if (IDYES != MessageBox(
+		GetDesktopWindow(), // hWnd,
 		message.str().c_str(),
 		stdFormat(L"%s | %s", NS("Changed"), APP_NAME).c_str(),
-		MB_APPLMODAL | MB_ICONINFORMATION | MB_YESNO))
+		MB_SETFOREGROUND | MB_ICONQUESTION | MB_YESNO))
 	{
 		return CHECKFILE_MODIFIED_BUTUSERCANCELED;
 	}
@@ -113,10 +113,11 @@ CHECKFILERESULT ReturnFileAndQuit(HWND hWnd)
 			message << NS("Failed to move the file back to original location.") << endl;
 			message << strLE << endl;
 
-			int ret = ForeMessageBox(hWnd, 
+			int ret = MessageBox(
+				GetDesktopWindow(), // hWnd, 
 				message.str().c_str(),
 				stdFormat(L"%s | %s", NS("Failed to move back"), APP_NAME).c_str(),
-				MB_ICONERROR | MB_RETRYCANCEL);
+				MB_SETFOREGROUND | MB_ICONERROR | MB_RETRYCANCEL);
 			if (ret == IDCANCEL)
 			{
 				gMovebackCanceled = true;

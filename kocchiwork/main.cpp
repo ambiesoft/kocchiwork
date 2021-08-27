@@ -412,7 +412,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	g_hWnd = CreateSimpleWindow(GetModuleHandle(NULL), _T("kocchiwork class"), _T(""), WndProc);
 	if(!g_hWnd)
 		errExit(NS("could not create a winoow"));
-	MoveWindow(g_hWnd, 0, 0, 0, 0, FALSE);
+	MoveWindow(g_hWnd, -1, -1, 0, 0, FALSE);
 
 //#ifdef _DEBUG
 //	ShowWindow(g_hWnd, SW_SHOW);
@@ -508,11 +508,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				message += CRLF;
 				message += CRLF;
 				message += g_workfile.c_str();
-				if (IDYES == ForeMessageBox(
-					g_hWnd, 
+				if (IDYES == MessageBox(
+					GetDesktopWindow(), //		 g_hWnd, 
 					message.c_str(), 
 					stdFormat(L"%s | %s", NS("Not Changed"), APP_NAME).c_str(),
-					MB_APPLMODAL | MB_ICONQUESTION | MB_YESNO))
+					MB_SETFOREGROUND | MB_ICONQUESTION | MB_YESNO))
 				{
 					// Recheck file is not changed while MessageBox
 					if (nCmp != CompareSizeAndLastWrite(g_workfile.c_str(), &g_wfdRemote))
@@ -525,10 +525,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 						if (0 != SHDeleteFileEx(g_workfile.c_str(), FOF_ALLOWUNDO | FOF_SILENT | FOF_FILESONLY))
 						{
 							done = FALSE;
-							if (IDCANCEL == ForeMessageBox(g_hWnd,
+							if (IDCANCEL == MessageBox(
+								GetDesktopWindow(),// g_hWnd,
 								NS("Failed to delete file"),
 								stdFormat(L"%s | %s", NS("Failed to delete"), APP_NAME).c_str(),
-								MB_APPLMODAL | MB_DEFBUTTON1 | MB_ICONEXCLAMATION | MB_RETRYCANCEL))
+								MB_SETFOREGROUND | MB_DEFBUTTON1 | MB_ICONEXCLAMATION | MB_RETRYCANCEL))
 							{
 								errExit(NS("could not trash file. exiting."));
 							}

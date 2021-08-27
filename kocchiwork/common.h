@@ -45,7 +45,7 @@ extern BOOL g_bQuittedWhileQuerying;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 void doPostQuitMessage(int nQM);
-int ForeMessageBox(
+int ForeMessageBox_obsolete(
 	HWND hWnd,
 	LPCWSTR lpText,
 	LPCWSTR lpCaption,
