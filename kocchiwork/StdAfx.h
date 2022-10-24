@@ -96,7 +96,6 @@
 #include "../../lsMisc/ResolveLink.h"
 #include "../../lsMisc/CommandLineParser.h"
 #include "../../lsMisc/stdosd/blockedbool.h"
-#include "../../lsMisc/stdwin32/stdwin32.h"
 #include "../../lsMisc/stdosd/stdosd.h"
 #include "../../lsMisc/SessionGlobalMemory/SessionGlobalMemory.h"
 
