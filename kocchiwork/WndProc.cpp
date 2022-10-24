@@ -126,16 +126,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 		traytip += _T(" ");
 		traytip += g_workfile.c_str();
 
-		
-
 		if(!AddTrayIcon(
 			g_hWnd, 
 			WM_APP_TRAY_NOTIFY, 
 			g_hTrayIcon, 
 			traytip.c_str()))
 		{
-			DWORD dwLE = GetLastError();
-			errExit(NS("Failed to register tray icon."), &dwLE, true);
+			static bool once = false;
+			if (!once)
+			{
+				BlockedBool blocked(&once);
+				DWORD dwLE = GetLastError();
+				errExit(NS("Failed to register tray icon."), &dwLE, true);
+			}
 		}
 		return 0;
 	}
