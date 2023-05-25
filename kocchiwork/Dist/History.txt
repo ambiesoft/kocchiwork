@@ -1,3 +1,6 @@
+2023/05/25 v3.0.2
+Fixed: same error message is not displayed continuously
+
 2022/10/24 v3.0.1
 Shows tray error once when the explorer.exe restarts
 Migrated to VS2022 and .NET4.8

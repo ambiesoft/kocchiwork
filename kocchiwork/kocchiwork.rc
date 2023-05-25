@@ -13,11 +13,47 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ニュートラル resources
+// Japanese (Japan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Japanese (Japan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-#pragma code_page(932)
+#pragma code_page(1252)
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -69,8 +105,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,1,0
- PRODUCTVERSION 3,0,1,0
+ FILEVERSION 3,0,2,0
+ PRODUCTVERSION 3,0,2,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -87,12 +123,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Ambiesoft"
             VALUE "FileDescription", "Open a remote file in local storage after copying it, when the file closed, the local file moved back to original location"
-            VALUE "FileVersion", "3.0.1.0"
+            VALUE "FileVersion", "3.0.2.0"
             VALUE "InternalName", "kocchiwo.exe"
             VALUE "LegalCopyright", "Copyright (C) 2021"
             VALUE "OriginalFilename", "kocchiwo.exe"
             VALUE "ProductName", "kocchiwork"
-            VALUE "ProductVersion", "3.0.1.0"
+            VALUE "ProductVersion", "3.0.2.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -101,43 +137,7 @@ BEGIN
     END
 END
 
-#endif    // ニュートラル resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////
-// 日本語 (日本) resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
-LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
-#pragma code_page(932)
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE 
-BEGIN
-    "resource.h\0"
-END
-
-2 TEXTINCLUDE 
-BEGIN
-    "#include ""afxres.h""\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE 
-BEGIN
-    "\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
-
-#endif    // 日本語 (日本) resources
+#endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
 

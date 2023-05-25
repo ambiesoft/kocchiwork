@@ -38,10 +38,16 @@ void errExit(const std::wstring& str, const DWORD* const pdwLastError, BOOL bNoE
 		message += L"\r\n\r\n";
 		message += GetLastErrorString(*pdwLastError);
 	}
-	MessageBox(NULL,
-		message.c_str(),
-		APP_NAME,
-		MB_ICONERROR);
+
+	static wstring lastMessage;  // consecutive same message will be displayed once
+	if (lastMessage != message) {
+		MessageBox(NULL,
+			message.c_str(),
+			APP_NAME,
+			MB_ICONERROR);
+
+		lastMessage = message;
+	}
 
 	if(!bNoExit)
 		exit(1);
