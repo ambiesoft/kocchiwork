@@ -63,7 +63,7 @@
     <PostBuildEvent>
       <Command>mkdir "$(TargetDir)lang"
 copy "$(SolutionDir)kocchiwork\lang\jpn.txt" "$(TargetDir)lang\"
-copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
+copy "C:\Linkout\CommonDLL\x86\TimedMessageBox.dll" "$(TargetDir)"
 copy "$(SolutionDir)kocchiwork\Dist\History.txt" "$(TargetDir)"
 copy "$(SolutionDir)kocchiwork\Dist\License.txt" "$(TargetDir)"
 copy "$(SolutionDir)README.md" "$(TargetDir)"
@@ -99,7 +99,7 @@ del "$(OutDir)zzzDist.*"
     <PostBuildEvent>
       <Command>mkdir "$(TargetDir)lang"
 copy "$(SolutionDir)kocchiwork\lang\jpn.txt" "$(TargetDir)lang\"
-copy C:\Linkout\CommonDLL\TimedMessageBox.dll "$(TargetDir)"
+copy "C:\Linkout\CommonDLL\x86\TimedMessageBox.dll" "$(TargetDir)"
 copy "$(SolutionDir)kocchiwork\Dist\History.txt" "$(TargetDir)"
 copy "$(SolutionDir)kocchiwork\Dist\License.txt" "$(TargetDir)"
 copy "$(SolutionDir)README.md" "$(TargetDir)"
