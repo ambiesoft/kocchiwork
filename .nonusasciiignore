@@ -1,0 +1,14 @@
+*.dsp
+*.pdf
+*.ico
+*.tlb
+*.rc
+*.vcxproj.filters
+*.ja-JP.resx
+*.Designer.cs
+*.png
+
+README-JP.md
+kocchiwork/Dist/History.txt
+kocchiwork/Dist/License.txt
+kocchiwork/lang/jpn.txt
