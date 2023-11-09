@@ -1,3 +1,6 @@
+2023/11/09 v3.0.3
+Fixed: Mutex protect for all save operation to prevent data loss
+
 2023/05/25 v3.0.2
 Fixed: same error message is not displayed continuously
 

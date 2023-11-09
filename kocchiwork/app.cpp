@@ -43,11 +43,8 @@ using namespace std;
 
 std::wstring GetIniFile()
 {
-	wstring inifile = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName<wchar_t>()),
-		stdGetFileNameWitoutExtension(stdGetModuleFileName<wchar_t>()) + L".ini");
-	
-
-	return inifile;
+	return stdCombinePath(stdGetParentDirectory(stdGetModuleFileName<wchar_t>()),
+		stdGetFileNameWithoutExtension(stdGetModuleFileName<wchar_t>()) + L".ini");
 }
 
 void GetRecents(RECENTSTYPE& recents)
@@ -78,6 +75,7 @@ void GetRecents(RECENTSTYPE& recents)
 BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 {
 	tstring inifile = GetIniFile();
+	ProcessMutex mutIni;
 
 	RECENTSTYPE recents;
 	GetRecents(recents);
@@ -94,13 +92,11 @@ BOOL SaveRecent(LPCTSTR pApp, LPCTSTR pFile)
 			break;
 	}
 
-	{
-		ProcessMutex mut;
-		Profile::CHashIni ini(Profile::ReadAll(inifile));
-		Profile::WriteStringArray("recents", "recentitem", allUtf8, ini);
-		if (!Profile::WriteAll(ini, inifile))
-			return FALSE;
-	}
+	Profile::CHashIni ini(Profile::ReadAll(inifile));
+	Profile::WriteStringArray("recents", "recentitem", allUtf8, ini);
+	if (!Profile::WriteAll(ini, inifile))
+		return FALSE;
+
 	return TRUE;
 }
 
