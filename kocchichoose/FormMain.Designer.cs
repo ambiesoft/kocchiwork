@@ -65,6 +65,7 @@
             this.listRecents.UseCompatibleStateImageBehavior = false;
             this.listRecents.View = System.Windows.Forms.View.Details;
             this.listRecents.ItemActivate += new System.EventHandler(this.listRecents_ItemActivate);
+            this.listRecents.SelectedIndexChanged += new System.EventHandler(this.listRecents_SelectedIndexChanged);
             // 
             // chFile
             // 

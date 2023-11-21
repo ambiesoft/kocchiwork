@@ -26,6 +26,8 @@ namespace kocchichoose
 
         List<string> _allRecents = new List<string>();
 
+        readonly string _openBtnBaseString;
+
         string IniPath
         {
             get
@@ -39,11 +41,11 @@ namespace kocchichoose
         {
             InitializeComponent();
 
-            
+            _openBtnBaseString = btnOK.Text;
+
             HashIni ini = Profile.ReadAll(IniPath);
             AmbLib.LoadFormXYWH(this, SECTION_LOCATION, ini);
             AmbLib.LoadListViewColumnWidth(listRecents, SECTION_OPTION, KEY_COLUMNWIDTH, ini);
-
 
             string[] all;
             Profile.GetStringArray("recents", "recentitem", out all, ini);
@@ -226,6 +228,22 @@ namespace kocchichoose
             {
                 listRecents.Items.Remove(item);
                 _allRecents.Remove(item.Text);
+            }
+        }
+
+        private void listRecents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listRecents.SelectedItems.Count == 0)
+            {
+                btnOK.Text = _openBtnBaseString;
+                btnOK.Enabled = false;
+            }
+            else
+            {
+                btnOK.Text = string.Format(Properties.Resources.STR_BTNTEXT_FORMAT,
+                    _openBtnBaseString,
+                    listRecents.SelectedItems.Count);
+                btnOK.Enabled = true;
             }
         }
     }

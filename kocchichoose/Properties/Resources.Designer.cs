@@ -79,6 +79,15 @@ namespace kocchichoose.Properties {
         }
         
         /// <summary>
+        ///   {0} {1} item(s) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string STR_BTNTEXT_FORMAT {
+            get {
+                return ResourceManager.GetString("STR_BTNTEXT_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Failed to save ini に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string STR_FAILEDTOSAVEINI {

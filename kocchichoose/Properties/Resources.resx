@@ -123,6 +123,9 @@
   <data name="STR_AREYOUSURETOCLEARERROR" xml:space="preserve">
     <value>Are you sure you want to clea all error items?</value>
   </data>
+  <data name="STR_BTNTEXT_FORMAT" xml:space="preserve">
+    <value>{0} {1} item(s)</value>
+  </data>
   <data name="STR_FAILEDTOSAVEINI" xml:space="preserve">
     <value>Failed to save ini</value>
   </data>

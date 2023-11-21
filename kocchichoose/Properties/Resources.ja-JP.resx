@@ -123,6 +123,9 @@
   <data name="STR_AREYOUSURETOCLEARERROR" xml:space="preserve">
     <value>すべてのエラーアイテムを削除しますか？</value>
   </data>
+  <data name="STR_BTNTEXT_FORMAT" xml:space="preserve">
+    <value>{1} アイテム {0}</value>
+  </data>
   <data name="STR_FAILEDTOSAVEINI" xml:space="preserve">
     <value>iniの保存に失敗</value>
   </data>
