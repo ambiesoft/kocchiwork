@@ -69,8 +69,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,4,0
- PRODUCTVERSION 3,0,4,0
+ FILEVERSION 3,1,0,0
+ PRODUCTVERSION 3,1,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -87,12 +87,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Ambiesoft"
             VALUE "FileDescription", "Open a remote file in local storage after copying it, when the file closed, the local file moved back to original location"
-            VALUE "FileVersion", "3.0.4.0"
+            VALUE "FileVersion", "3.1.0.0"
             VALUE "InternalName", "kocchiwo.exe"
             VALUE "LegalCopyright", "Copyright (C) 2021"
             VALUE "OriginalFilename", "kocchiwo.exe"
             VALUE "ProductName", "kocchiwork"
-            VALUE "ProductVersion", "3.0.4.0"
+            VALUE "ProductVersion", "3.1.0.0"
         END
     END
     BLOCK "VarFileInfo"

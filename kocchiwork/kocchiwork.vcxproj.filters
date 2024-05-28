@@ -126,11 +126,11 @@
     <ClCompile Include="WndProc.cpp">
       <Filter>2 Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lsMisc\GetVersionString.cpp">
-      <Filter>2 Source Files\lsMisc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lsMisc\TrayIcon.cpp">
       <Filter>2 Source Files\lsMisc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lsMisc\GetVersionStringFromResource.cpp">
+      <Filter>2 Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,11 +239,11 @@
     <ClInclude Include="gitrev.h">
       <Filter>1 Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lsMisc\GetVersionString.h">
-      <Filter>1 Header Files\lsMisc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lsMisc\TrayIcon.h">
       <Filter>1 Header Files\lsMisc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lsMisc\GetVersionStringFromResource.h">
+      <Filter>1 Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

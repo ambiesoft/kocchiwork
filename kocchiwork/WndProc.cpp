@@ -32,7 +32,7 @@
 
 #include "C:\\Linkout\\CommonDLL\\TimedMessageBox.h"
 
-#include "../../lsMisc/GetVersionString.h"
+#include "../../lsMisc/GetVersionStringFromResource.h"
 #include "../../lsMisc/stdosd/stdosd.h"
 
 #include "thread.h"
@@ -100,7 +100,7 @@ wstring GetTimedMessageBoxVersion()
 {
 	wstring libpath = stdCombinePath(stdGetParentDirectory(stdGetModuleFileName()),
 		L"TimedMessageBox.dll");
-	return GetVersionString(libpath.c_str(), 3);
+	return GetVersionStringFromResource(libpath.c_str(), 3);
 }
 BOOL doQueryEndSession(HWND hWnd)
 {
@@ -192,7 +192,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 					{
 						// Kanshi app is gone and nobody opens file
 						int mret = IDNO;
-						if( (time(NULL)-g_starttime) < 10)
+						if( (time(NULL)-g_starttime) < 300)
 						{
 							SetForegroundWindow(hWnd);
 							mret = MessageBox(NULL,
@@ -348,7 +348,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 			case IDC_ABOUT:
 			{
 				tstring message;
-				message += APP_NAME L" " + GetVersionString(stdGetModuleFileName().c_str(), 3);
+				message += APP_NAME L" " + GetVersionStringFromResource(stdGetModuleFileName().c_str(), 3);
 				message += _T("\r\n\r\n");
 				message += _T("Watching\t");
 				message += g_workfile;

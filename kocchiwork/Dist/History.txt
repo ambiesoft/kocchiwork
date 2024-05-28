@@ -1,3 +1,6 @@
+2024/05/28 v3.1.0
+Wait 300 seconds to determin whether the monitor loop should be ended
+
 2023/11/21 v3.0.4
 Changed the kocchichoose OK button text
 
