@@ -1,3 +1,6 @@
+2025/03/21 v3.1.1
+If there are extra files in the working folder when the application is closed, open that folder.
+
 2024/05/28 v3.1.0
 Wait 300 seconds to determin whether the monitor loop should be ended
 

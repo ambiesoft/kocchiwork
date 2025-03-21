@@ -112,9 +112,9 @@ void GetArgumentsFromCommandLine(
 {
 	CCommandLineParser parser;
 
-	parser.AddOption(L"/P", 1, &progfile);
-	parser.AddOption(L"/N", 0, &noSaveRecent);
-	parser.AddOption(L"/L", 1, &lang);
+	parser.AddOption({ L"/P" }, ArgCount::ArgCount_One, &progfile);
+	parser.AddOption({ L"/N" }, ArgCount::ArgCount_Zero, &noSaveRecent);
+	parser.AddOption({ L"/L" },ArgCount::ArgCount_One, &lang);
 	COption optionMain;
 	parser.AddOption(&optionMain);
 
